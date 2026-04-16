@@ -23,7 +23,7 @@ export function getMenu(rutaActiva = '/') {
   }).join('');
 
   return `
-    <header class="container-xxl pt-3 pt-lg-4">
+    <header class="site-header container-xxl pt-3 pt-lg-4">
       <nav class="navbar navbar-expand-lg navbar-ui">
         <div class="container-fluid px-3 px-lg-4">
           <a class="navbar-brand navbar-brand-ui" href="/">NJS2</a>

@@ -18,6 +18,7 @@
   --radius-xl: 30px;
   --radius-lg: 24px;
   --radius-md: 18px;
+  --header-height: 110px;
 }
 
 html {
@@ -80,6 +81,15 @@ code {
   z-index: 1;
 }
 
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 1030;
+}
+
 .serif-title {
   font-family: 'Inter', sans-serif;
   letter-spacing: -0.03em;
@@ -96,6 +106,10 @@ code {
   backdrop-filter: blur(18px);
   border-radius: 999px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+.pagina {
+  padding-top: calc(var(--header-height) + 1rem) !important;
 }
 
 .navbar-brand-ui {
@@ -447,6 +461,10 @@ code {
 }
 
 @media (max-width: 991.98px) {
+  :root {
+    --header-height: 96px;
+  }
+
   .navbar-ui {
     border-radius: 28px;
   }
@@ -463,6 +481,10 @@ code {
 }
 
 @media (max-width: 575.98px) {
+  :root {
+    --header-height: 92px;
+  }
+
   .hero-ui,
   .section-shell,
   .stats-shell,

@@ -45,6 +45,7 @@ export function renderContenidoURL() {
   ].map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
 
   const paramRows = Object.entries(datos.params)
+    .filter(([k]) => k !== 'searchState')
     .map(([k, v]) => `<tr><td>param ${k}</td><td>${v}</td></tr>`)
     .join('');
 
