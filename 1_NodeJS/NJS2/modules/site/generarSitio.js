@@ -32,9 +32,4 @@ export async function generarSitio() {
   // Punto 4: paquete NPM.
   escribirArchivo(path.join(BASE, 'pages', 'consigna4', 'npm.html'), renderLayout('NPM', renderContenidoNPM(), '/npm'));
 
-  // Limpia una pagina vieja que ya no forma parte de las 5 paginas finales.
-  const rutaClimaVieja = path.join(BASE, 'pages', 'consigna1', 'clima.html');
-  if (fs.existsSync(rutaClimaVieja)) {
-    fs.unlinkSync(rutaClimaVieja);
-  }
 }
