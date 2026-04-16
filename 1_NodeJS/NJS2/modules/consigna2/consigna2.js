@@ -4,7 +4,7 @@
 
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { escribirArchivo, leerArchivo } from './archivos.js';
+import { escribirArchivo } from './archivos.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RUTA_VISTA = path.join(__dirname, '..', '..', 'pages', 'consigna2', 'vista.html');
@@ -52,12 +52,6 @@ export function renderVistaHTML() {
 export function crearVista() {
   // Genera o actualiza vista.html cada vez que se necesite.
   escribirArchivo(RUTA_VISTA, renderVistaHTML());
-}
-
-export function leerVista() {
-  // Asegura que la vista exista antes de leerla.
-  crearVista();
-  return leerArchivo(RUTA_VISTA);
 }
 
 export function renderContenidoArchivos() {
