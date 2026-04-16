@@ -8,7 +8,7 @@ import { escribirArchivo } from '../consigna2/archivos.js';
 import { renderLayout } from '../shared/layout.js';
 import { renderContenidoConsigna1 } from '../consigna1/consigna1.js';
 import { renderContenidoArchivos, crearVista } from '../consigna2/consigna2.js';
-import { renderContenidoURL } from '../consigna3/url.js';
+import { renderContenidoConsigna3 } from '../consigna3/consigna3.js';
 import { renderContenidoNPM } from '../consigna4/npm.js';
 import { renderContenidoInicio } from '../consigna5/inicio.js';
 
@@ -27,7 +27,7 @@ export async function generarSitio() {
   crearVista();
 
   // Punto 3: modulo URL.
-  escribirArchivo(path.join(BASE, 'pages', 'consigna3', 'url.html'), renderLayout('Consigna 3', renderContenidoURL(), '/url'));
+  escribirArchivo(path.join(BASE, 'pages', 'consigna3', 'url.html'), renderLayout('Consigna 3', renderContenidoConsigna3(), '/url'));
 
   // Punto 4: paquete NPM.
   escribirArchivo(path.join(BASE, 'pages', 'consigna4', 'npm.html'), renderLayout('NPM', renderContenidoNPM(), '/npm'));
