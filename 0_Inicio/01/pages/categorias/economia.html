@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Economía | El Observador</title>
+    <link rel="shortcut icon" href="../../public/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../../scripts/main.js" defer></script>
+  </head>
+  <body class="categoria-page">
+    <nav class="navegacion">
+      <ul>
+        <div class="izquierda">
+          <li><a href="../../index.html" class="marca-logo"><img src="../../public/logo.png" alt="Logo" /></a></li>
+          <li><a href="../../index.html" class="marca-texto">El Observador</a></li>
+          <li>|</li>
+        </div>
+        <button class="menu-movil-boton" aria-label="Abrir menú" type="button"><i data-lucide="menu"></i></button>
+        <div class="centro">
+          <li><a href="../../index.html#ultimas">Artículos</a></li>
+          <li><a href="../../index.html#en-vivo-inicio">En Vivo</a></li>
+          <li class="menu-desplegable">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownEconomia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorías
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownEconomia">
+                <a class="dropdown-item" href="politica.html">Política</a>
+                <a class="dropdown-item" href="economia.html">Economía</a>
+                <a class="dropdown-item" href="deportes.html">Deportes</a>
+                <a class="dropdown-item" href="tecnlogia.html">Tecnología</a>
+                <a class="dropdown-item" href="clima.html">Clima</a>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="categoria-hero">
+        <p class="etiqueta">Economía</p>
+        <h1>Mercados, energía y señales para la Argentina</h1>
+        <p>
+          Una sección orientada a entender precios, presión inflacionaria, mercados internacionales y el impacto local de cada movimiento global.
+        </p>
+      </section>
+
+      <section class="categoria-resumen">
+        <article class="resumen-item">
+          <strong>Mercados</strong>
+          <span>Bonos, commodities y riesgo país explicados con contexto.</span>
+        </article>
+        <article class="resumen-item">
+          <strong>Energía</strong>
+          <span>El crudo y los combustibles como variables decisivas para la economía doméstica.</span>
+        </article>
+        <article class="resumen-item">
+          <strong>Mirada local</strong>
+          <span>Cómo pega cada shock externo en inflación, costos y expectativas.</span>
+        </article>
+      </section>
+
+      <section class="categoria-grid">
+        <article class="categoria-principal">
+          <img src="https://www.infobae.com/resizer/v2/Q4M3TVPFDFEBXHKARG52XEPESY.png?auth=f7695e05f6c31c0a71718b0fd14c37a755ac6a0ce5d2bb6b5073496e280428d0&smart=true&width=992&height=590&quality=85" alt="Caputo y la inflación" />
+          <p class="etiqueta">Economía</p>
+          <h2>Caputo reconoció los malos datos de inflación y defendió la política monetaria</h2>
+          <p>
+            El ministro dijo que el Gobierno puede controlar la oferta de pesos, pero no forzar su demanda, y aseguró que la desinflación debería retomarse pronto.
+          </p>
+          <a class="leer-mas" href="../articulos/articulo-8.html">Leer más <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+        </article>
+
+        <div class="categoria-lista">
+          <article class="categoria-tarjeta">
+            <img src="https://www.infobae.com/resizer/v2/76PWAR7K4VEHNNAU4PLIECOG5M.jpg?auth=c0f362c5e73dc08efb671146e664f10f9690cc2357044a97a506c2c0da101bef" alt="Superávit comercial" />
+            <div class="categoria-tarjeta-info">
+              <p class="etiqueta etiqueta-mini">Economía</p>
+              <h3>El saldo comercial de febrero dejó un superávit de USD 788 millones</h3>
+              <p>La baja de importaciones compensó la caída exportadora y permitió sostener un resultado positivo.</p>
+              <a class="leer-mas" href="../articulos/articulo-10.html">Abrir nota <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+            </div>
+          </article>
+
+          <article class="categoria-tarjeta">
+            <img src="https://www.infobae.com/resizer/v2/3ITTVA3OZNHHRE5MEMSORKMXKM.jpg?auth=2dce938b20f6ce9b918170405e002b946e6126fbaea29ff863e40b1463ac3c83&smart=true&width=992&height=558&quality=85" alt="Petróleo y mercados" />
+            <div class="categoria-tarjeta-info">
+              <p class="etiqueta etiqueta-mini">Economía</p>
+              <h3>El precio del petróleo volvió a subir a más de los USD 110 por barril</h3>
+              <p>El crudo volvió a presionar sobre los costos energéticos y la inflación local.</p>
+              <a class="leer-mas" href="../articulos/articulo-2.html">Abrir nota <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <a class="categoria-link-home" href="../../index.html"><i data-lucide="arrow-left"></i> Volver a la portada</a>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

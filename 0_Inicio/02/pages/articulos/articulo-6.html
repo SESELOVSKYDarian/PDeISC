@@ -1,0 +1,175 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La IA no democratiza el conocimiento | El Observador</title>
+    <link rel="shortcut icon" href="../../public/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="../../styles/index.css" />
+    <link rel="stylesheet" href="../../styles/articulos.css" />
+  </head>
+  <body class="article-page">
+    <nav class="navbar navbar-expand-lg navbar-light observador-navbar">
+      <div class="container observador-navbar-contenido py-3">
+        <a class="navbar-brand observador-brand d-inline-flex align-items-center mr-0 ml-5 ml-lg-0" href="../../index.html">
+          <img class="rounded-circle" src="../../public/logo.png" alt="Logo" width="50" height="50" />
+          <span>El Observador</span>
+        </a>
+        <span class="observador-divider mx-3 d-none d-lg-inline" aria-hidden="true">|</span>
+
+        <button
+          class="navbar-toggler observador-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Abrir menÃº"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse observador-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto align-items-lg-center observador-nav-list">
+            <li class="nav-item observador-nav-item">
+              <a class="nav-link observador-link py-1" href="../../index.html#ultimas">ArtÃ­culos</a>
+            </li>
+            <li class="nav-item observador-nav-item">
+              <a class="nav-link observador-link py-1" href="../../index.html#en-vivo-inicio">En Vivo</a>
+            </li>
+            <li class="nav-item dropdown observador-dropdown-item observador-nav-item">
+              <a
+                class="nav-link dropdown-toggle observador-link observador-dropdown-toggle px-3 py-2"
+                href="#"
+                id="pagesDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                CategorÃ­as
+              </a>
+              <div class="dropdown-menu dropdown-menu-right observador-dropdown-menu">
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/politica.html">PolÃ­tica</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/economia.html">EconomÃ­a</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/deportes.html">Deportes</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/tecnlogia.html">TecnologÃ­a</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/clima.html">Clima</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <button
+                type="button"
+                class="btn btn-outline-dark observador-subscribe"
+                data-toggle="modal"
+                data-target="#newsletterModal"
+              >
+                Subscribirse
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="modal fade"
+      id="newsletterModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="newsletterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content observador-modal">
+          <div class="modal-header observador-modal-header pt-4 px-4 pb-3">
+            <div>
+              <p class="observador-modal-eyebrow mb-2">Newsletter</p>
+              <h5 class="modal-title" id="newsletterModalLabel">Subscribite a El Observador</h5>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body px-4 pb-4">
+            <p class="observador-modal-texto text-soft mb-4">
+              CompletÃ¡ tus datos para recibir novedades y notificaciones de nuestra newsletter.
+            </p>
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="newsletterNombre">Nombre</label>
+                  <input type="text" class="form-control" id="newsletterNombre" placeholder="Tu nombre" required minlength="3" maxlength="50" title="El nombre debe tener entre 3 y 50 caracteres." />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="newsletterApellido">Apellido</label>
+                  <input type="text" class="form-control" id="newsletterApellido" placeholder="Tu apellido" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="newsletterEmail">Correo electrÃ³nico</label>
+                <input type="email" class="form-control" id="newsletterEmail" placeholder="nombre@correo.com" required pattern="[^@\s]+@[^@\s]+\.com" title="Ingresa un correo valido con @ y terminado en .com." />
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="newsletterConsentimiento" required />
+                <label class="form-check-label text-soft" for="newsletterConsentimiento">
+                  Acepto recibir correos de notificaciÃ³n y novedades de la newsletter.
+                </label>
+              </div>
+              <button type="submit" class="btn btn-dark btn-block observador-modal-submit">
+                Quiero recibir la newsletter
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main class="page-shell container py-4 py-lg-5">
+      <section class="page-grid row">
+        <article class="col-lg-8 mb-4 mb-lg-0 article-layout">
+          <div class="story-cover media-frame"><img src="https://www.infobae.com/resizer/v2/NWF7X5LRNJECDCX6P3JMFIYTPA.png?auth=43e33cda6c1a11b91278485da1b0e0e9a2bfbbda6dd14277d4d5ac96b38f6842&smart=true&width=992&height=541&quality=85" alt="La IA no democratiza el conocimiento" /></div>
+          <p class="etiqueta">TecnologÃ­a</p>
+          <h1 class="story-title serif-title">La IA no democratiza el conocimiento, lo concentra</h1>
+          <p class="story-meta text-soft">RedacciÃ³n digital  Hace 2 horas</p>
+          <div class="story-body">
+            <p>
+              El supuesto efecto igualador de la inteligencia artificial empieza
+              a mostrar lÃ­mites claros cuando se observan entornos de trabajo
+              complejos y fuertemente especializados.
+            </p>
+            <p>
+              Un reciente experimento acadÃ©mico sugiere que los beneficios
+              tienden a potenciar mÃ¡s a quienes ya cuentan con criterio experto,
+              mÃ©todo y capacidad de validaciÃ³n.
+            </p>
+            <p>
+              La tecnologÃ­a, entonces, no elimina las asimetrÃ­as de conocimiento:
+              puede incluso profundizarlas si el acceso a contexto y experiencia
+              sigue siendo desigual.
+            </p>
+          </div>
+          <a class="back-home pill-link" href="../../index.html" aria-label="Volver a portada"><i class="bi bi-arrow-left"></i> Volver a portada</a>
+        </article>
+        <aside class="col-lg-4">
+          <div class="story-sidebar">
+          <h3 class="mb-3">SeguÃ­ leyendo</h3>
+          <ul>
+            <li><a href="articulo-5.html">La advertencia del CEO de Anthropic sobre empleo e IA</a></li>
+            <li><a href="articulo-7.html">El futuro de la inteligencia artificial: oportunidades y desafÃ­os</a></li>
+            <li><a href="articulo-10.html">El saldo comercial de febrero dejÃ³ un superÃ¡vit de USD 788 millones</a></li>
+          </ul>
+        </div>
+        </aside>
+      </section>
+    </main>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

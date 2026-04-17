@@ -14,7 +14,15 @@ function dividir(a, b) {
     return a / b;
 }
 
-console.log("Suma: ", sumar(4, 5));
-console.log("Resta", restar(3, 6));
-console.log("Multiplicación: ", multiplicar(2, 7));
-console.log("División: ", dividir(20, 4));
+export const resultadosEjercicio3 = [
+    { operacion: "Suma", expresion: "sumar(4, 5)", resultado: sumar(4, 5) },
+    { operacion: "Resta", expresion: "restar(3, 6)", resultado: restar(3, 6) },
+    { operacion: "Multiplicacion", expresion: "multiplicar(2, 7)", resultado: multiplicar(2, 7) },
+    { operacion: "Division", expresion: "dividir(20, 4)", resultado: dividir(20, 4) }
+];
+
+if (process.argv[1]?.endsWith("ejercicio3.js")) {
+    for (const resultado of resultadosEjercicio3) {
+        console.log(`${resultado.operacion}:`, resultado.resultado);
+    }
+}

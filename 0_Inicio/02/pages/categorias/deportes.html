@@ -1,0 +1,178 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deportes | El Observador</title>
+    <link rel="shortcut icon" href="../../public/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="../../styles/index.css" />
+    <link rel="stylesheet" href="../../styles/articulos.css" />
+  </head>
+  <body class="categoria-page">
+    <nav class="navbar navbar-expand-lg navbar-light observador-navbar">
+      <div class="container observador-navbar-contenido py-3">
+        <a class="navbar-brand observador-brand d-inline-flex align-items-center mr-0 ml-5 ml-lg-0" href="../../index.html">
+          <img class="rounded-circle" src="../../public/logo.png" alt="Logo" width="50" height="50" />
+          <span>El Observador</span>
+        </a>
+        <span class="observador-divider mx-3 d-none d-lg-inline" aria-hidden="true">|</span>
+
+        <button
+          class="navbar-toggler observador-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Abrir menÃº"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse observador-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto align-items-lg-center observador-nav-list">
+            <li class="nav-item observador-nav-item">
+              <a class="nav-link observador-link py-1" href="../../index.html#ultimas">ArtÃ­culos</a>
+            </li>
+            <li class="nav-item observador-nav-item">
+              <a class="nav-link observador-link py-1" href="../../index.html#en-vivo-inicio">En Vivo</a>
+            </li>
+            <li class="nav-item dropdown observador-dropdown-item observador-nav-item">
+              <a
+                class="nav-link dropdown-toggle observador-link observador-dropdown-toggle px-3 py-2"
+                href="#"
+                id="pagesDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                CategorÃ­as
+              </a>
+              <div class="dropdown-menu dropdown-menu-right observador-dropdown-menu">
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/politica.html">PolÃ­tica</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/economia.html">EconomÃ­a</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/deportes.html">Deportes</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/tecnlogia.html">TecnologÃ­a</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/clima.html">Clima</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <button
+                type="button"
+                class="btn btn-outline-dark observador-subscribe"
+                data-toggle="modal"
+                data-target="#newsletterModal"
+              >
+                Subscribirse
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="modal fade"
+      id="newsletterModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="newsletterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content observador-modal">
+          <div class="modal-header observador-modal-header pt-4 px-4 pb-3">
+            <div>
+              <p class="observador-modal-eyebrow mb-2">Newsletter</p>
+              <h5 class="modal-title" id="newsletterModalLabel">Subscribite a El Observador</h5>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body px-4 pb-4">
+            <p class="observador-modal-texto text-soft mb-4">
+              CompletÃ¡ tus datos para recibir novedades y notificaciones de nuestra newsletter.
+            </p>
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="newsletterNombre">Nombre</label>
+                  <input type="text" class="form-control" id="newsletterNombre" placeholder="Tu nombre" required minlength="3" maxlength="50" title="El nombre debe tener entre 3 y 50 caracteres." />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="newsletterApellido">Apellido</label>
+                  <input type="text" class="form-control" id="newsletterApellido" placeholder="Tu apellido" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="newsletterEmail">Correo electrÃ³nico</label>
+                <input type="email" class="form-control" id="newsletterEmail" placeholder="nombre@correo.com" required pattern="[^@\s]+@[^@\s]+\.com" title="Ingresa un correo valido con @ y terminado en .com." />
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="newsletterConsentimiento" required />
+                <label class="form-check-label text-soft" for="newsletterConsentimiento">
+                  Acepto recibir correos de notificaciÃ³n y novedades de la newsletter.
+                </label>
+              </div>
+              <button type="submit" class="btn btn-dark btn-block observador-modal-submit">
+                Quiero recibir la newsletter
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="container py-4 py-lg-5 categoria-shell">
+      <section class="categoria-hero text-center text-lg-left mb-4">
+        <p class="etiqueta">Deportes</p>
+        <h1>Grandes marcas, contexto y protagonistas</h1>
+        <p>
+          Historias deportivas para leer mÃ¡s allÃ¡ del resultado: cifras, trayectorias y el impacto cultural de los grandes nombres.
+        </p>
+      </section>
+
+      <section class="categoria-resumen row mb-4">
+        <article class="resumen-item col-md-4 mb-3 mb-md-0">
+          <strong>Rendimiento</strong>
+          <span>EstadÃ­sticas y evoluciÃ³n de carrera explicadas con mirada periodÃ­stica.</span>
+        </article>
+        <article class="resumen-item col-md-4 mb-3 mb-md-0">
+          <strong>Figura</strong>
+          <span>Recorridos que convierten un rÃ©cord en una historia para entender.</span>
+        </article>
+        <article class="resumen-item col-md-4 mb-3 mb-md-0">
+          <strong>Contexto</strong>
+          <span>Notas que conectan el dato deportivo con su dimensiÃ³n histÃ³rica.</span>
+        </article>
+      </section>
+
+      <section class="categoria-grid row">
+        <article class="categoria-principal col-lg-12 d-flex flex-column">
+          <img src="https://tn.com.ar/resizer/v2/lionel-messi-llego-a-los-900-goles-en-su-carrera-foto-ap-LBEF2WJ2J5GIRB43LIIRYTFTX4.jpg?auth=598669b207c06ad54020b54a3802d7ecb847ac149c0747b4aa0d0bc2b7ff5aca&width=1440" alt="Los 900 goles de Messi" />
+          <p class="etiqueta">Deportes</p>
+          <h2 class="serif-title">Los 900 goles de Messi: una carrera contada a travÃ©s de sus cifras</h2>
+          <p>
+            Una nota para recorrer la amplitud del rÃ©cord, su vigencia competitiva y la forma en que el capitÃ¡n fue transformando su juego.
+          </p>
+          <a class="leer-mas leer-mas-uniforme pill-link" href="../articulos/articulo-4.html">Leer mÃ¡s <i class="bi bi-arrow-right"></i></a>
+        </article>
+
+        <div class="categoria-lista d-none"></div>
+      </section>
+
+      <a class="categoria-link-home pill-link mt-4 d-inline-flex align-items-center" href="../../index.html"><i class="bi bi-arrow-left"></i> Volver a la portada</a>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

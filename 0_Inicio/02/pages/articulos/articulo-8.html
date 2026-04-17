@@ -1,0 +1,163 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caputo y la inflaciÃ³n | El Observador</title>
+    <link rel="shortcut icon" href="../../public/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="../../styles/index.css" />
+    <link rel="stylesheet" href="../../styles/articulos.css" />
+  </head>
+  <body class="article-page">
+    <nav class="navbar navbar-expand-lg navbar-light observador-navbar">
+      <div class="container observador-navbar-contenido py-3">
+        <a class="navbar-brand observador-brand d-inline-flex align-items-center mr-0 ml-5 ml-lg-0" href="../../index.html">
+          <img class="rounded-circle" src="../../public/logo.png" alt="Logo" width="50" height="50" />
+          <span>El Observador</span>
+        </a>
+        <span class="observador-divider mx-3 d-none d-lg-inline" aria-hidden="true">|</span>
+
+        <button
+          class="navbar-toggler observador-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Abrir menÃº"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse observador-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto align-items-lg-center observador-nav-list">
+            <li class="nav-item observador-nav-item">
+              <a class="nav-link observador-link py-1" href="../../index.html#ultimas">ArtÃ­culos</a>
+            </li>
+            <li class="nav-item observador-nav-item">
+              <a class="nav-link observador-link py-1" href="../../index.html#en-vivo-inicio">En Vivo</a>
+            </li>
+            <li class="nav-item dropdown observador-dropdown-item observador-nav-item">
+              <a
+                class="nav-link dropdown-toggle observador-link observador-dropdown-toggle px-3 py-2"
+                href="#"
+                id="pagesDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                CategorÃ­as
+              </a>
+              <div class="dropdown-menu dropdown-menu-right observador-dropdown-menu">
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/politica.html">PolÃ­tica</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/economia.html">EconomÃ­a</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/deportes.html">Deportes</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/tecnlogia.html">TecnologÃ­a</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/clima.html">Clima</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <button
+                type="button"
+                class="btn btn-outline-dark observador-subscribe"
+                data-toggle="modal"
+                data-target="#newsletterModal"
+              >
+                Subscribirse
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="modal fade"
+      id="newsletterModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="newsletterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content observador-modal">
+          <div class="modal-header observador-modal-header pt-4 px-4 pb-3">
+            <div>
+              <p class="observador-modal-eyebrow mb-2">Newsletter</p>
+              <h5 class="modal-title" id="newsletterModalLabel">Subscribite a El Observador</h5>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body px-4 pb-4">
+            <p class="observador-modal-texto text-soft mb-4">
+              CompletÃ¡ tus datos para recibir novedades y notificaciones de nuestra newsletter.
+            </p>
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="newsletterNombre">Nombre</label>
+                  <input type="text" class="form-control" id="newsletterNombre" placeholder="Tu nombre" required minlength="3" maxlength="50" title="El nombre debe tener entre 3 y 50 caracteres." />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="newsletterApellido">Apellido</label>
+                  <input type="text" class="form-control" id="newsletterApellido" placeholder="Tu apellido" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="newsletterEmail">Correo electrÃ³nico</label>
+                <input type="email" class="form-control" id="newsletterEmail" placeholder="nombre@correo.com" required pattern="[^@\s]+@[^@\s]+\.com" title="Ingresa un correo valido con @ y terminado en .com." />
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="newsletterConsentimiento" required />
+                <label class="form-check-label text-soft" for="newsletterConsentimiento">
+                  Acepto recibir correos de notificaciÃ³n y novedades de la newsletter.
+                </label>
+              </div>
+              <button type="submit" class="btn btn-dark btn-block observador-modal-submit">
+                Quiero recibir la newsletter
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main class="page-shell container py-4 py-lg-5">
+      <section class="page-grid row">
+        <article class="col-lg-8 mb-4 mb-lg-0 article-layout">
+          <div class="story-cover media-frame"><img src="https://www.infobae.com/resizer/v2/Q4M3TVPFDFEBXHKARG52XEPESY.png?auth=f7695e05f6c31c0a71718b0fd14c37a755ac6a0ce5d2bb6b5073496e280428d0&smart=true&width=992&height=590&quality=85" alt="Luis Caputo en un encuentro econÃ³mico" /></div>
+          <p class="etiqueta">EconomÃ­a</p>
+          <h1 class="story-title serif-title">Caputo reconociÃ³ los malos datos de inflaciÃ³n: â€œNo podemos forzar a los argentinos a tener pesosâ€</h1>
+          <p class="story-meta text-soft">Mesa econÃ³mica  Actualizado hace 18 minutos</p>
+          <div class="story-body">
+            <p>El ministro de EconomÃ­a afirmÃ³ que no pueden controlar la demanda de moneda, pero proyectÃ³ que la desinflaciÃ³n regresarÃ¡ en el corto plazo. AdemÃ¡s, asegurÃ³ que ya tienen identificada la fuente para pagar los prÃ³ximos tres vencimientos de capital de la deuda externa.</p>
+            <p>Durante su intervenciÃ³n en el 21.Â° Simposio de Mercado de Capitales y Finanzas Corporativas, Luis Caputo sostuvo que el Gobierno no saldrÃ¡ al mercado internacional para colocar deuda y adelantÃ³ que en los prÃ³ximos meses anunciarÃ¡ nuevas vÃ­as de financiamiento alternativo. El funcionario puso el foco en la necesidad de reducir costos y consolidar la estabilidad fiscal sin alterar el rumbo monetario.</p>
+            <img src="https://www.infobae.com/resizer/v2/Q4M3TVPFDFEBXHKARG52XEPESY.png?auth=f7695e05f6c31c0a71718b0fd14c37a755ac6a0ce5d2bb6b5073496e280428d0&smart=true&width=992&height=590&quality=85" alt="Caputo habla sobre inflaciÃ³n y deuda" />
+            <p>En el plano de la polÃ­tica monetaria, y luego de que la inflaciÃ³n se ubicara en 2,9% en febrero por segundo mes, remarcÃ³ que la dinÃ¡mica inflacionaria depende de la oferta y la demanda de pesos. â€œUno, como policy maker, puede controlar la oferta, que es lo que hacemos nosotros, pero nosotros no podemos controlar la demanda, no podemos forzarlos a ustedes a tener pesos en el bolsillo si no quierenâ€, afirmÃ³.</p>
+            <p>Caputo vinculÃ³ la aceleraciÃ³n reciente de precios con la recomposiciÃ³n de precios relativos, en especial en bienes regulados y en la carne. Aun asÃ­, considerÃ³ que se trata de impactos puntuales y que, una vez corregidos, el paÃ­s deberÃ­a volver a un sendero de desinflaciÃ³n mÃ¡s marcado.</p>
+            <p>â€œVenÃ­amos muy bien hasta junio del aÃ±o pasado y sufrimos un retroceso en los Ãºltimos siete, ocho mesesâ€, reconociÃ³. Sin embargo, insistiÃ³ en que la inflaciÃ³n es un fenÃ³meno monetario y que, si Argentina mantiene el rumbo, â€œmÃ¡s temprano que tarde la inflaciÃ³n va a converger a los guarismos que todos queremos verâ€.</p>
+          </div>
+          <a class="back-home pill-link" href="../../index.html" aria-label="Volver a portada"><i class="bi bi-arrow-left"></i> Volver a portada</a>
+        </article>
+        <aside class="col-lg-4">
+          <div class="story-sidebar">
+          <h3 class="mb-3">SeguÃ­ leyendo</h3>
+          <ul>
+            <li><a href="articulo-2.html">El petrÃ³leo vuelve a presionar a la economÃ­a</a></li>
+            <li><a href="articulo-10.html">El saldo comercial de febrero dejÃ³ un superÃ¡vit de USD 788 millones</a></li>
+            <li><a href="articulo-9.html">Denunciaron a tres psicÃ³logas por falsos informes de abuso infantil</a></li>
+          </ul>
+        </div>
+        </aside>
+      </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

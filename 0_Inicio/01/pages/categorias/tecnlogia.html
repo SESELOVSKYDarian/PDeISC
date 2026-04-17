@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tecnología | El Observador</title>
+    <link rel="shortcut icon" href="../../public/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../../scripts/main.js" defer></script>
+  </head>
+  <body class="categoria-page">
+    <nav class="navegacion">
+      <ul>
+        <div class="izquierda">
+          <li><a href="../../index.html" class="marca-logo"><img src="../../public/logo.png" alt="Logo" /></a></li>
+          <li><a href="../../index.html" class="marca-texto">El Observador</a></li>
+          <li>|</li>
+        </div>
+        <button class="menu-movil-boton" aria-label="Abrir menú" type="button"><i data-lucide="menu"></i></button>
+        <div class="centro">
+          <li><a href="../../index.html#ultimas">Artículos</a></li>
+          <li><a href="../../index.html#en-vivo-inicio">En Vivo</a></li>
+          <li class="menu-desplegable">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownTecnologia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorías
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownTecnologia">
+                <a class="dropdown-item" href="politica.html">Política</a>
+                <a class="dropdown-item" href="economia.html">Economía</a>
+                <a class="dropdown-item" href="deportes.html">Deportes</a>
+                <a class="dropdown-item" href="tecnlogia.html">Tecnología</a>
+                <a class="dropdown-item" href="clima.html">Clima</a>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="categoria-hero">
+        <p class="etiqueta">Tecnología</p>
+        <h1>IA, empleo y concentración del conocimiento</h1>
+        <p>
+          Una selección de artículos sobre inteligencia artificial, sus promesas y las tensiones que ya está generando en trabajo, regulación y acceso al conocimiento.
+        </p>
+      </section>
+
+      <section class="categoria-resumen">
+        <article class="resumen-item">
+          <strong>Trabajo</strong>
+          <span>Qué profesiones están cambiando y por qué las alarmas ya no son teóricas.</span>
+        </article>
+        <article class="resumen-item">
+          <strong>Conocimiento</strong>
+          <span>El debate sobre si la IA amplía oportunidades o profundiza asimetrías.</span>
+        </article>
+        <article class="resumen-item">
+          <strong>Futuro</strong>
+          <span>Una conversación abierta sobre innovación, reglas y poder tecnológico.</span>
+        </article>
+      </section>
+
+      <section class="categoria-grid">
+        <article class="categoria-principal">
+          <img src="https://overtdigitalmarketing.com.au/wp-content/uploads/2023/11/Digital_Humans.jpg" alt="Futuro de la inteligencia artificial" />
+          <p class="etiqueta">Tecnología</p>
+          <h2>El futuro de la inteligencia artificial: oportunidades y desafíos</h2>
+          <p>
+            Un artículo central para entender cómo la IA deja de ser una promesa sectorial y pasa a reorganizar industrias completas.
+          </p>
+          <a class="leer-mas" href="../articulos/articulo-7.html">Leer más <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+        </article>
+
+        <div class="categoria-lista">
+          <article class="categoria-tarjeta">
+            <img src="https://www.infobae.com/resizer/v2/J6G74E677FBB3KZUVDRI5QOGH4.jpg?auth=f03cb6e8f283255efc2d93e5dd7b6890a1b2957e753e9211d2d5c3f0791617b5&smart=true&width=992&height=558&quality=85" alt="IA y empleo" />
+            <div class="categoria-tarjeta-info">
+              <p class="etiqueta etiqueta-mini">Tecnología</p>
+              <h3>La advertencia de Anthropic sobre abogados, consultores y analistas</h3>
+              <p>Una nota sobre cómo la automatización empieza a competir con perfiles de alto valor analítico.</p>
+              <a class="leer-mas" href="../articulos/articulo-5.html">Abrir nota <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+            </div>
+          </article>
+
+          <article class="categoria-tarjeta">
+            <img src="https://www.infobae.com/resizer/v2/NWF7X5LRNJECDCX6P3JMFIYTPA.png?auth=43e33cda6c1a11b91278485da1b0e0e9a2bfbbda6dd14277d4d5ac96b38f6842&smart=true&width=992&height=541&quality=85" alt="Conocimiento e IA" />
+            <div class="categoria-tarjeta-info">
+              <p class="etiqueta etiqueta-mini">Tecnología</p>
+              <h3>La IA no democratiza el conocimiento, lo concentra</h3>
+              <p>Un enfoque sobre por qué las herramientas no reemplazan criterio, experiencia ni capacidad de validación.</p>
+              <a class="leer-mas" href="../articulos/articulo-6.html">Abrir nota <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <a class="categoria-link-home" href="../../index.html"><i data-lucide="arrow-left"></i> Volver a la portada</a>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

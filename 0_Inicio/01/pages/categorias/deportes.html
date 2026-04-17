@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deportes | El Observador</title>
+    <link rel="shortcut icon" href="../../public/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../../scripts/main.js" defer></script>
+  </head>
+  <body class="categoria-page">
+    <nav class="navegacion">
+      <ul>
+        <div class="izquierda">
+          <li><a href="../../index.html" class="marca-logo"><img src="../../public/logo.png" alt="Logo" /></a></li>
+          <li><a href="../../index.html" class="marca-texto">El Observador</a></li>
+          <li>|</li>
+        </div>
+        <button class="menu-movil-boton" aria-label="Abrir menú" type="button"><i data-lucide="menu"></i></button>
+        <div class="centro">
+          <li><a href="../../index.html#ultimas">Artículos</a></li>
+          <li><a href="../../index.html#en-vivo-inicio">En Vivo</a></li>
+          <li class="menu-desplegable">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownDeportes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorías
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownDeportes">
+                <a class="dropdown-item" href="politica.html">Política</a>
+                <a class="dropdown-item" href="economia.html">Economía</a>
+                <a class="dropdown-item" href="deportes.html">Deportes</a>
+                <a class="dropdown-item" href="tecnlogia.html">Tecnología</a>
+                <a class="dropdown-item" href="clima.html">Clima</a>
+              </div>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="categoria-hero">
+        <p class="etiqueta">Deportes</p>
+        <h1>Grandes marcas, contexto y protagonistas</h1>
+        <p>
+          Historias deportivas para leer más allá del resultado: cifras, trayectorias y el impacto cultural de los grandes nombres.
+        </p>
+      </section>
+
+      <section class="categoria-resumen">
+        <article class="resumen-item">
+          <strong>Rendimiento</strong>
+          <span>Estadísticas y evolución de carrera explicadas con mirada periodística.</span>
+        </article>
+        <article class="resumen-item">
+          <strong>Figura</strong>
+          <span>Recorridos que convierten un récord en una historia para entender.</span>
+        </article>
+        <article class="resumen-item">
+          <strong>Contexto</strong>
+          <span>Notas que conectan el dato deportivo con su dimensión histórica.</span>
+        </article>
+      </section>
+
+      <section class="categoria-grid">
+        <article class="categoria-principal">
+          <img src="https://tn.com.ar/resizer/v2/lionel-messi-llego-a-los-900-goles-en-su-carrera-foto-ap-LBEF2WJ2J5GIRB43LIIRYTFTX4.jpg?auth=598669b207c06ad54020b54a3802d7ecb847ac149c0747b4aa0d0bc2b7ff5aca&width=1440" alt="Los 900 goles de Messi" />
+          <p class="etiqueta">Deportes</p>
+          <h2>Los 900 goles de Messi: una carrera contada a través de sus cifras</h2>
+          <p>
+            Una nota para recorrer la amplitud del récord, su vigencia competitiva y la forma en que el capitán fue transformando su juego.
+          </p>
+          <a class="leer-mas" href="../articulos/articulo-4.html">Leer más <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
+        </article>
+
+        <div class="categoria-lista"></div>
+      </section>
+
+      <a class="categoria-link-home" href="../../index.html"><i data-lucide="arrow-left"></i> Volver a la portada</a>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,252 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anthropic y el empleo | El Observador</title>
+    <link rel="shortcut icon" href="../../public/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="../../styles/index.css" />
+    <link rel="stylesheet" href="../../styles/articulos.css" />
+  </head>
+  <body class="article-page">
+    <nav class="navbar navbar-expand-lg navbar-light observador-navbar">
+      <div class="container observador-navbar-contenido py-3">
+        <a class="navbar-brand observador-brand d-inline-flex align-items-center mr-0 ml-5 ml-lg-0" href="../../index.html">
+          <img class="rounded-circle" src="../../public/logo.png" alt="Logo" width="50" height="50" />
+          <span>El Observador</span>
+        </a>
+        <span class="observador-divider mx-3 d-none d-lg-inline" aria-hidden="true">|</span>
+
+        <button
+          class="navbar-toggler observador-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Abrir menÃº"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse observador-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto align-items-lg-center observador-nav-list">
+            <li class="nav-item observador-nav-item">
+              <a class="nav-link observador-link py-1" href="../../index.html#ultimas">ArtÃ­culos</a>
+            </li>
+            <li class="nav-item observador-nav-item">
+              <a class="nav-link observador-link py-1" href="../../index.html#en-vivo-inicio">En Vivo</a>
+            </li>
+            <li class="nav-item dropdown observador-dropdown-item observador-nav-item">
+              <a
+                class="nav-link dropdown-toggle observador-link observador-dropdown-toggle px-3 py-2"
+                href="#"
+                id="pagesDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                CategorÃ­as
+              </a>
+              <div class="dropdown-menu dropdown-menu-right observador-dropdown-menu">
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/politica.html">PolÃ­tica</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/economia.html">EconomÃ­a</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/deportes.html">Deportes</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/tecnlogia.html">TecnologÃ­a</a>
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/clima.html">Clima</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <button
+                type="button"
+                class="btn btn-outline-dark observador-subscribe"
+                data-toggle="modal"
+                data-target="#newsletterModal"
+              >
+                Subscribirse
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="modal fade"
+      id="newsletterModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="newsletterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content observador-modal">
+          <div class="modal-header observador-modal-header pt-4 px-4 pb-3">
+            <div>
+              <p class="observador-modal-eyebrow mb-2">Newsletter</p>
+              <h5 class="modal-title" id="newsletterModalLabel">Subscribite a El Observador</h5>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body px-4 pb-4">
+            <p class="observador-modal-texto text-soft mb-4">
+              CompletÃ¡ tus datos para recibir novedades y notificaciones de nuestra newsletter.
+            </p>
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="newsletterNombre">Nombre</label>
+                  <input type="text" class="form-control" id="newsletterNombre" placeholder="Tu nombre" required minlength="3" maxlength="50" title="El nombre debe tener entre 3 y 50 caracteres." />
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="newsletterApellido">Apellido</label>
+                  <input type="text" class="form-control" id="newsletterApellido" placeholder="Tu apellido" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="newsletterEmail">Correo electrÃ³nico</label>
+                <input type="email" class="form-control" id="newsletterEmail" placeholder="nombre@correo.com" required pattern="[^@\s]+@[^@\s]+\.com" title="Ingresa un correo valido con @ y terminado en .com." />
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="newsletterConsentimiento" required />
+                <label class="form-check-label text-soft" for="newsletterConsentimiento">
+                  Acepto recibir correos de notificaciÃ³n y novedades de la newsletter.
+                </label>
+              </div>
+              <button type="submit" class="btn btn-dark btn-block observador-modal-submit">
+                Quiero recibir la newsletter
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <main class="page-shell container py-4 py-lg-5">
+      <section class="page-grid row">
+        <article class="col-lg-8 mb-4 mb-lg-0 article-layout">
+          <div class="story-cover media-frame"><img src="https://www.infobae.com/resizer/v2/J6G74E677FBB3KZUVDRI5QOGH4.jpg?auth=f03cb6e8f283255efc2d93e5dd7b6890a1b2957e753e9211d2d5c3f0791617b5&smart=true&width=992&height=558&quality=85" alt="Anthropic y la IA" /></div>
+          <p class="etiqueta">TecnologÃ­a</p>
+          <h1 class="story-title serif-title">
+            Por quÃ© el CEO de Anthropic cree que la IA acabarÃ¡ con el 50% de
+            los abogados, consultores y analistas financieros
+          </h1>
+          <p class="story-meta text-soft">TecnologÃ­a  Hace 1 hora</p>
+          <div class="story-body">
+            <p>
+              Las advertencias de Dario Amodei no apuntan a un futuro lejano,
+              sino a un reordenamiento laboral que ya empezÃ³ en tareas de alto
+              componente analÃ­tico y repetitivo.
+            </p>
+            <p>
+              Amodei no suele hablar con rodeos. El fundador y CEO de
+              Anthropic, la empresa detrÃ¡s del modelo Claude, viene emitiendo
+              desde hace meses una advertencia que en las Ãºltimas horas volviÃ³ a
+              viralizarse: la inteligencia artificial podrÃ­a eliminar una parte
+              muy importante de los empleos de cuello blanco de nivel inicial.
+            </p>
+            <p>
+              En una entrevista con Anderson Cooper para el programa
+              60 Minutes, el empresario fue directo. Dijo que la IA podrÃ­a
+              borrar la mitad de esos trabajos profesionales y administrativos,
+              y llevar el desempleo a un rango de entre 10 % y 20 % en los
+              prÃ³ximos uno a cinco aÃ±os.
+            </p>
+            <p>
+              La discusiÃ³n de fondo es cÃ³mo se redistribuye el valor cuando la
+              automatizaciÃ³n no solo acelera procesos, sino que tambiÃ©n compite
+              con perfiles profesionales histÃ³ricamente bien remunerados.
+            </p>
+            <p>
+              Cooper repreguntÃ³ casi con incredulidad, pero Amodei no matizÃ³ su
+              diagnÃ³stico. Para Ã©l, el punto no es si la automatizaciÃ³n va a
+              llegar, sino quÃ© tan rÃ¡pido va a impactar en actividades que hasta
+              hace poco parecÃ­an relativamente protegidas del reemplazo.
+            </p>
+            <p>
+              AhÃ­ aparecen consultores, abogados y analistas financieros como
+              ejemplos centrales. Se trata de profesiones con muchas tareas de
+              lectura, sÃ­ntesis, comparaciÃ³n de documentos, redacciÃ³n de
+              borradores y producciÃ³n de informes. Es decir, exactamente el tipo
+              de trabajo intelectual donde los modelos actuales ya muestran una
+              capacidad llamativa para ganar tiempo y escala.
+            </p>
+            <p>
+              Amodei sostiene que ya hoy los modelos de IA desempeÃ±an con
+              bastante solidez gran parte de lo que hacen esos profesionales en
+              sus primeros aÃ±os de carrera. SegÃºn explicÃ³, si se observa a los
+              consultores de nivel inicial, a los abogados jÃ³venes, a los
+              analistas financieros y a buena parte de las industrias de
+              servicios de cuello blanco, la inteligencia artificial ya es
+              bastante buena en una porciÃ³n importante de esas tareas.
+            </p>
+            <p>
+              Bajo esa mirada, sin una intervenciÃ³n activa por parte de la
+              polÃ­tica, la regulaciÃ³n y las propias empresas, resulta difÃ­cil
+              imaginar que no haya un impacto laboral significativo en el corto
+              plazo.
+            </p>
+            <img src="https://www.infobae.com/resizer/v2/J6G74E677FBB3KZUVDRI5QOGH4.jpg?auth=f03cb6e8f283255efc2d93e5dd7b6890a1b2957e753e9211d2d5c3f0791617b5&smart=true&width=992&height=558&quality=85" alt="Dario Amodei y el impacto laboral de la inteligencia artificial" />
+            <p>
+              La alarma no pasa solamente por la desapariciÃ³n total de un
+              puesto, sino por algo mÃ¡s silencioso: que muchas posiciones de
+              entrada dejen de ser necesarias. Si una empresa puede resolver con
+              menos personas las tareas iniciales de anÃ¡lisis, bÃºsqueda y armado
+              de documentos, el primer escalÃ³n de varias carreras profesionales
+              se vuelve mucho mÃ¡s angosto.
+            </p>
+            <p>
+              El argumento, de todos modos, no es que la IA vaya a reemplazar
+              de un dÃ­a para otro a un abogado senior con veinte aÃ±os de
+              experiencia o a un consultor consolidado. El blanco es otro: el
+              junior que pasa horas redactando contratos estÃ¡ndar, el analista
+              reciÃ©n egresado que arma modelos financieros bÃ¡sicos o el
+              consultor de primer aÃ±o que prepara presentaciones de diagnÃ³stico.
+            </p>
+            <p>
+              Son tareas repetibles, estructuradas y cada vez mÃ¡s
+              automatizables. Y justamente por eso la discusiÃ³n sobre empleo ya
+              no se juega solo en los grandes reemplazos visibles, sino tambiÃ©n
+              en la erosiÃ³n silenciosa de los puestos de entrada que histÃ³ricamente
+              funcionaban como puerta de acceso al mundo profesional.
+            </p>
+            <p>
+              Empresas, gobiernos y universidades enfrentan el desafÃ­o de
+              rediseÃ±ar formaciÃ³n, regulaciÃ³n y transiciÃ³n para evitar una
+              fractura mÃ¡s abrupta del mercado laboral.
+            </p>
+            <p>
+              Por eso el debate excede la tecnologÃ­a. TambiÃ©n obliga a pensar
+              cÃ³mo se entrena a los nuevos profesionales, quÃ© habilidades van a
+              seguir siendo diferenciales y de quÃ© manera se reparte la
+              productividad extra que genera la IA. Si no hay una transiciÃ³n
+              ordenada, el costo puede recaer sobre quienes reciÃ©n empiezan.
+            </p>
+          </div>
+          <a class="back-home pill-link" href="../../index.html" aria-label="Volver a portada"><i class="bi bi-arrow-left"></i> Volver a portada</a>
+        </article>
+        <aside class="col-lg-4">
+          <div class="story-sidebar">
+          <h3 class="mb-3">SeguÃ­ leyendo</h3>
+          <ul>
+            <li><a href="articulo-6.html">La IA no democratiza el conocimiento, lo concentra</a></li>
+            <li><a href="articulo-7.html">El futuro de la inteligencia artificial: oportunidades y desafÃ­os</a></li>
+            <li><a href="articulo-8.html">Caputo reconociÃ³ los malos datos de inflaciÃ³n</a></li>
+          </ul>
+        </div>
+        </aside>
+      </section>
+    </main>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

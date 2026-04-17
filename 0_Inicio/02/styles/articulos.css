@@ -1,0 +1,248 @@
+body.article-page,
+body.categoria-page {
+  background: #faf9f6;
+}
+
+/* base de las paginas internas */
+.page-shell,
+.categoria-shell {
+  min-height: calc(100vh - 92px);
+}
+
+/* tarjeta principal del articulo */
+.article-layout {
+  position: relative;
+  padding: 1.75rem;
+  border: 1px solid rgba(10, 31, 68, 0.08);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 24px 70px rgba(10, 31, 68, 0.08);
+}
+
+.article-layout::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  border-radius: 2rem 2rem 0 0;
+  background: linear-gradient(90deg, var(--acento) 0%, #c79a5a 100%);
+}
+
+.story-cover {
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(10, 31, 68, 0.14), rgba(10, 31, 68, 0.04));
+}
+
+.story-cover img,
+.categoria-principal img,
+.categoria-tarjeta img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.story-cover img {
+  min-height: 360px;
+  max-height: 520px;
+}
+
+.story-title {
+  margin-top: 1rem;
+  font-size: clamp(2.2rem, 4.8vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.story-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.story-meta::before {
+  content: "";
+  width: 42px;
+  height: 1px;
+  background: rgba(10, 31, 68, 0.24);
+}
+
+.story-body {
+  margin-top: 1.5rem;
+}
+
+.story-body p {
+  margin-bottom: 1.1rem;
+  color: var(--texto-suave);
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.story-body p:first-child::first-letter {
+  float: left;
+  margin: 0.08em 0.12em 0 0;
+  color: var(--acento);
+  font-family: "DM Serif Display", serif;
+  font-size: 4rem;
+  line-height: 0.85;
+}
+
+.story-body img {
+  width: 100%;
+  margin: 0.75rem 0 1.25rem;
+  border-radius: 1.4rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.back-home {
+  margin-top: 0.75rem;
+  padding: 0.8rem 1.3rem;
+  border-radius: 999px;
+  background: var(--acento);
+  color: #fff;
+}
+
+.back-home:hover {
+  color: #fff;
+  background: var(--acento-oscuro);
+  text-decoration: none;
+}
+
+.story-sidebar {
+  padding: 1.5rem;
+  border: 1px solid rgba(10, 31, 68, 0.08);
+  border-radius: 1.75rem;
+  background: linear-gradient(180deg, #fffdfb 0%, #fff6eb 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.story-sidebar h3 {
+  color: var(--acento);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.story-sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.story-sidebar li + li {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(10, 31, 68, 0.08);
+}
+
+.story-sidebar a {
+  display: block;
+  color: var(--texto-principal);
+  font-family: "DM Serif Display", serif;
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.story-sidebar a:hover {
+  color: var(--acento);
+  text-decoration: none;
+}
+
+/* esto se usa en las paginas de categorias */
+.categoria-hero {
+  padding: 2rem;
+  border: 1px solid rgba(10, 31, 68, 0.08);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.categoria-hero h1 {
+  margin: 0.75rem 0;
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.05;
+}
+
+.categoria-hero p:last-child,
+.resumen-item span,
+.categoria-principal p:not(.etiqueta),
+.categoria-tarjeta p:not(.etiqueta) {
+  color: var(--texto-suave);
+  line-height: 1.7;
+}
+
+.resumen-item {
+  padding: 1.25rem;
+  border: 1px solid rgba(10, 31, 68, 0.08);
+  border-radius: 1.5rem;
+  background: #fff;
+}
+
+.resumen-item strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--acento);
+}
+
+.categoria-principal,
+.categoria-tarjeta {
+  min-width: 0;
+}
+
+.categoria-principal {
+  padding: 1.5rem;
+  border: 1px solid rgba(10, 31, 68, 0.08);
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.categoria-principal img,
+.categoria-tarjeta img {
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.categoria-principal img {
+  min-height: 320px;
+  margin-bottom: 1rem;
+}
+
+.categoria-principal h2,
+.categoria-tarjeta h3 {
+  margin-bottom: 0.75rem;
+}
+
+.categoria-lista {
+  min-width: 0;
+}
+
+.categoria-tarjeta {
+  padding: 1rem;
+  border: 1px solid rgba(10, 31, 68, 0.08);
+  border-radius: 1.5rem;
+  background: #fff;
+}
+
+.categoria-tarjeta img {
+  min-height: 220px;
+  margin-bottom: 1rem;
+}
+
+.categoria-tarjeta-info {
+  width: 100%;
+  min-width: 0;
+}
+
+.categoria-link-home {
+  color: var(--acento);
+}
+
+.categoria-link-home:hover {
+  color: var(--acento-oscuro);
+  text-decoration: none;
+}
