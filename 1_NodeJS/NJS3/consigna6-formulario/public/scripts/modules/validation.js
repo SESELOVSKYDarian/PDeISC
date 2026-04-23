@@ -1,16 +1,6 @@
-/**
- * @module validation
- * @description Validación frontend del formulario de registro para la Consigna 6.
- * Aplica reglas de longitud, formato y contenido para cada campo.
- */
-
 import { EMAIL_REGEX, NAME_REGEX } from './constants.js';
 
-/**
- * Valida el payload del formulario.
- * @param {{ nombre: string, apellido: string, email: string, edad: string, genero: string, pais: string, intereses: string[] }} payload
- * @returns {Object.<string, string>} Mapa de campo → mensaje de error. Vacío si no hay errores.
- */
+// reviso todo antes de mandarlo al backend
 export function validatePayload(payload) {
   const errors = {};
   const edad = Number(payload.edad);

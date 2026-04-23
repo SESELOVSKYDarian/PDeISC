@@ -1,22 +1,9 @@
-/**
- * @module form-data
- * @description Extracción y normalización de datos del formulario para la Consigna 6.
- */
-
-/**
- * Normaliza un valor de texto: elimina espacios sobrantes y colapsa espacios múltiples.
- * @param {*} value - Valor a normalizar.
- * @returns {string}
- */
+// limpio espacios de mas antes de validar o mandar
 export function normalizeText(value) {
   return String(value ?? '').trim().replace(/\s+/g, ' ');
 }
 
-/**
- * Extrae y normaliza todos los campos del formulario usando FormData.
- * @param {HTMLFormElement} form - Formulario de registro.
- * @returns {{ nombre: string, apellido: string, email: string, edad: string, genero: string, pais: string, intereses: string[] }}
- */
+// saco todos los datos del form y los dejo prolijos
 export function getPayload(form) {
   const data = new FormData(form);
 

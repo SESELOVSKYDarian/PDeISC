@@ -1,8 +1,4 @@
-/**
- * @module links
- * @description Creacion y modificacion de nodos para la Consigna 4.
- */
-
+// arma el nodo real que se ve en la vista previa
 function createPreviewNode(nodeData) {
   const nodeElement = document.createElement(nodeData.tag);
   nodeElement.className = 'dynamic-node';
@@ -24,6 +20,7 @@ function createPreviewNode(nodeData) {
   return nodeElement;
 }
 
+// arma la tarjeta completa de cada nodo
 function createNodeCard(nodeData) {
   const card = document.createElement('article');
   card.className = 'node-card';
@@ -41,23 +38,13 @@ function createNodeCard(nodeData) {
   return card;
 }
 
-/**
- * Inserta un único nodo en el contenedor. Si ya existe, no lo duplica.
- * @param {HTMLElement} container
- * @param {Object} nodeData
- */
+// si ya esta creado no lo repito
 export function renderSingleNode(container, nodeData) {
   if (container.querySelector(`[data-node-id="${nodeData.id}"]`)) return;
   container.appendChild(createNodeCard(nodeData));
 }
 
-/**
- * Actualiza un nodo puntual y devuelve el detalle de cambios realizados.
- * @param {HTMLElement} container
- * @param {string} nodeId
- * @param {Record<string, any>} updatedNodes
- * @returns {string[]}
- */
+// cambia un nodo puntual y devuelve lo que se modifico
 export function updateNode(container, nodeId, updatedNodes) {
   const card = container.querySelector(`.node-card[data-node-id="${nodeId}"]`);
   const nodeElement = card?.querySelector('.dynamic-node');

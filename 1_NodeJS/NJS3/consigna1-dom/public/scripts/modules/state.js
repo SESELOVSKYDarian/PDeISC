@@ -1,12 +1,4 @@
-/**
- * @module state
- * @description Estado mutable de la Consigna 1 (índice de imagen, color y tamaño).
- */
-
-/**
- * Crea y retorna el estado inicial del proyecto DOM.
- * @returns {{ imageIndex: number, titleColorIndex: number, imageSize: number }}
- */
+// este es el estado base para ir cambiando cosas en pantalla
 export function createDomState() {
   return {
     imageIndex: 0,

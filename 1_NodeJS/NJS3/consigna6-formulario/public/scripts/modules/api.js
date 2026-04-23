@@ -1,13 +1,4 @@
-/**
- * @module api
- * @description Cliente HTTP para la Consigna 6. Envía el registro al backend Express.
- */
-
-/**
- * Envía el payload de registro al endpoint POST /registro.
- * @param {Object} payload - Datos del formulario serializados.
- * @returns {Promise<{ status: number, body: Object }>}
- */
+// desde aca mando el formulario al backend
 export async function submitRegistration(payload) {
   const response = await fetch('/registro', {
     method: 'POST',

@@ -1,12 +1,4 @@
-/**
- * @module dom
- * @description Selección de elementos del DOM para la Consigna 3.
- */
-
-/**
- * Retorna los elementos del proyecto de conteo de hijos.
- * @returns {{ countButton: HTMLButtonElement, container: HTMLElement, result: HTMLElement, extraInfo: HTMLElement }}
- */
+// junto lo necesario para contar los hijos
 export function getChildrenElements() {
   return {
     countButton: document.getElementById('count-btn'),

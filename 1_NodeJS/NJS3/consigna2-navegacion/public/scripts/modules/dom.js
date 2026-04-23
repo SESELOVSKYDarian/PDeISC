@@ -1,12 +1,4 @@
-/**
- * @module dom
- * @description Selección de elementos del DOM para la Consigna 2.
- */
-
-/**
- * Retorna los elementos de navegación y feedback.
- * @returns {{ buttons: NodeList, panels: NodeList, feedback: HTMLElement }}
- */
+// junto los botones, paneles y el texto de estado
 export function getNavigationElements() {
   return {
     buttons: document.querySelectorAll('.nav-btn'),

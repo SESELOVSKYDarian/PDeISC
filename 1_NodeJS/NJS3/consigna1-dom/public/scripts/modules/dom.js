@@ -1,12 +1,4 @@
-/**
- * @module dom
- * @description Selección y acceso a los elementos del DOM para la Consigna 1.
- */
-
-/**
- * Retorna los elementos principales de la interfaz.
- * @returns {{ stage: HTMLElement, feedback: HTMLElement, addTitleButton: HTMLButtonElement, changeTextButton: HTMLButtonElement, changeColorButton: HTMLButtonElement, addImageButton: HTMLButtonElement, changeImageButton: HTMLButtonElement, resizeImageButton: HTMLButtonElement }}
- */
+// junto los elementos que uso varias veces
 export function getDomElements() {
   return {
     stage: document.getElementById('stage'),
@@ -20,18 +12,12 @@ export function getDomElements() {
   };
 }
 
-/**
- * Retorna el H1 dinámico si existe en el DOM.
- * @returns {HTMLHeadingElement|null}
- */
+// me traigo el titulo si ya existe
 export function getDynamicTitle() {
   return document.getElementById('dynamic-title');
 }
 
-/**
- * Retorna la imagen dinámica si existe en el DOM.
- * @returns {HTMLImageElement|null}
- */
+// me traigo la imagen si ya existe
 export function getDynamicImage() {
   return document.getElementById('dynamic-image');
 }

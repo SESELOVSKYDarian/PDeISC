@@ -1,48 +1,24 @@
-/**
- * @module ui
- * @description Funciones de UI para la Consigna 6.
- * Maneja validaciones visuales, renderizado del resultado dinámico y construcción de markup.
- */
-
-/**
- * Elimina todos los estados de error del formulario.
- * @param {HTMLFormElement} form
- */
+// saco todas las marcas de error visual
 export function clearErrors(form) {
   form.querySelectorAll('.is-invalid').forEach((field) => field.classList.remove('is-invalid'));
   form.querySelectorAll('[data-error-for]').forEach((node) => { node.textContent = ''; });
 }
 
-/**
- * Marca un campo como inválido y muestra su mensaje de error.
- * @param {HTMLFormElement} form
- * @param {string} name - Nombre del campo (atributo name).
- * @param {string} message - Mensaje de error a mostrar.
- */
+// marco el campo y dejo el mensaje abajo
 export function markInvalid(form, name, message) {
   form.querySelectorAll(`[name="${name}"]`).forEach((field) => field.classList.add('is-invalid'));
   const errorTarget = form.querySelector(`[data-error-for="${name}"]`);
   if (errorTarget) errorTarget.textContent = message;
 }
 
-/**
- * Limpia el error visual de un campo específico.
- * @param {HTMLFormElement} form
- * @param {string} name - Nombre del campo.
- */
+// limpio el error de un campo puntual
 export function clearFieldError(form, name) {
   form.querySelectorAll(`[name="${name}"]`).forEach((field) => field.classList.remove('is-invalid'));
   const errorTarget = form.querySelector(`[data-error-for="${name}"]`);
   if (errorTarget) errorTarget.textContent = '';
 }
 
-/**
- * Renderiza el resultado dinámico en la sección de resultados.
- * @param {HTMLElement} result - Contenedor del resultado.
- * @param {string} title - Título de la sección.
- * @param {string} body - HTML del cuerpo.
- * @param {string} alertClass - Clase Bootstrap del alert (alert-success, alert-danger, etc).
- */
+// aca muestro el resultado final abajo del form
 export function renderResult(result, title, body, alertClass) {
   result.innerHTML = `
     <div class="card-body">
@@ -52,14 +28,7 @@ export function renderResult(result, title, body, alertClass) {
   `;
 }
 
-/**
- * Construye el HTML del resultado exitoso con los datos registrados.
- * Incluye una tarjeta visual con avatar e información del usuario.
- * @param {Object} data - Datos del usuario registrado.
- * @param {string} message - Mensaje de confirmación del backend.
- * @param {string} emailStatus - Estado del envío de email.
- * @returns {string} HTML del resultado.
- */
+// armo la tarjeta linda cuando sale bien
 export function buildSuccessMarkup(data, message, emailStatus) {
   const initials = `${data.nombre[0]}${data.apellido[0]}`.toUpperCase();
   const chips = data.intereses.map((i) => `<span class="result-chip">${i}</span>`).join(' ');
@@ -105,12 +74,7 @@ export function buildSuccessMarkup(data, message, emailStatus) {
   `;
 }
 
-/**
- * Construye el HTML del resultado fallido con los errores de validación.
- * @param {string} message - Mensaje de error principal.
- * @param {Object.<string, string>} [errors] - Mapa de campo → mensaje de error.
- * @returns {string} HTML del resultado.
- */
+// armo el bloque de error cuando algo falla
 export function buildFailureMarkup(message, errors) {
   const items = Object.values(errors ?? {}).map((error) => `<li>${error}</li>`).join('');
   return `

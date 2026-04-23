@@ -1,10 +1,4 @@
-/**
- * @module templates
- * @description Plantillas HTML para la Consigna 5.
- * Cada propiedad representa un bloque que se inserta con innerHTML.
- */
-
-/** @type {{ title: string, paragraph: string, list: string, card: string }} */
+// estos son los bloques que voy metiendo con innerHTML
 export const templates = {
   title: `
     <section class="render-block">

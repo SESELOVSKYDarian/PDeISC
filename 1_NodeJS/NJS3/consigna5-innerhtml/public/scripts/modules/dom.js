@@ -1,12 +1,4 @@
-/**
- * @module dom
- * @description Selección de elementos del DOM para la Consigna 5.
- */
-
-/**
- * Retorna los elementos del proyecto innerHTML.
- * @returns {{ output: HTMLElement, feedback: HTMLElement, insertButtons: NodeList, clearButton: HTMLButtonElement }}
- */
+// junto lo que uso para insertar y limpiar bloques
 export function getInnerHtmlElements() {
   return {
     output: document.getElementById('output'),

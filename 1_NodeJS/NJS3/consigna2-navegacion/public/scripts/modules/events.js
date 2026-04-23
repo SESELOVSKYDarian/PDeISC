@@ -1,17 +1,6 @@
-/**
- * @module events
- * @description Registro de eventos de navegación para la Consigna 2.
- * Soporta: click, dblclick, mouseenter, contextmenu y keydown (Enter).
- */
-
 import { showPanel } from './panels.js';
 
-/**
- * Vincula los eventos de cada botón de navegación según su atributo data-event.
- * @param {NodeList} buttons - Botones de navegación.
- * @param {NodeList} panels - Paneles del área de contenido.
- * @param {HTMLElement} feedbackElement - Elemento de estado visible.
- */
+// segun el data-event le engancho el evento que toca
 export function bindNavigationEvents(buttons, panels, feedbackElement) {
   buttons.forEach((button) => {
     const target = button.dataset.target;

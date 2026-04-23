@@ -1,26 +1,12 @@
-/**
- * @module mailer
- * @description Módulo de envío de emails SMTP para la Consigna 6.
- * Usa Nodemailer con configuración por variables de entorno.
- * Si SMTP no está configurado, lanza un error en lugar de fallar silenciosamente.
- */
-
 import nodemailer from 'nodemailer';
 
-/**
- * Parsea el puerto SMTP de la variable de entorno.
- * @param {string|undefined} value
- * @returns {number}
- */
+// si el puerto no viene bien uso 587
 function parsePort(value) {
   const port = Number(value);
   return Number.isInteger(port) ? port : 587;
 }
 
-/**
- * Verifica si todas las variables de entorno de SMTP están presentes.
- * @returns {boolean}
- */
+// con esto chequeo si esta listo para mandar mails
 export function smtpIsConfigured() {
   return Boolean(
     process.env.SMTP_HOST &&
@@ -30,10 +16,7 @@ export function smtpIsConfigured() {
   );
 }
 
-/**
- * Crea un transporter de Nodemailer con la configuración del entorno.
- * @returns {import('nodemailer').Transporter}
- */
+// aca armo la conexion de nodemailer
 function createTransport() {
   const port = parsePort(process.env.SMTP_PORT);
 
@@ -48,12 +31,7 @@ function createTransport() {
   });
 }
 
-/**
- * Envía el email de confirmación de registro al destinatario.
- * @param {{ nombre: string, apellido: string, email: string, edad: string, genero: string, pais: string, intereses: string[] }} data
- * @returns {Promise<{ message: string }>}
- * @throws {Error} Si SMTP no está configurado.
- */
+// si hay smtp configurado mando el mail desde aca
 export async function sendRegistrationEmail(data) {
   if (!smtpIsConfigured()) {
     throw new Error('SMTP_NOT_CONFIGURED');

@@ -31,23 +31,23 @@
   font-family: 'Montserrat', system-ui, sans-serif;
 }
 
-/* ─── Cards ─── */
+/* tarjetas */
 .card { background: var(--c-surface) !important; border: 1px solid var(--c-border) !important; border-radius: var(--radius-lg) !important; box-shadow: var(--shadow-card) !important; color: var(--c-text); }
 .card-header { background: var(--c-surface2) !important; border-bottom: 1px solid var(--c-border) !important; color: var(--c-text) !important; font-family: 'Montserrat', sans-serif; font-weight: 600; border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important; }
 .card-body { padding: 1.5rem !important; }
 .border-top { border-color: var(--c-border) !important; }
 
-/* ─── Hero ─── */
+/* portada */
 .hero { background: linear-gradient(135deg, var(--c-surface2) 0%, #050a14 100%) !important; border: 1px solid var(--c-border) !important; position: relative; overflow: hidden; }
 .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%); }
 .hero .display-6 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.4rem); background: linear-gradient(135deg, #e2e8f0 30%, var(--c-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero .lead { color: var(--c-muted); }
 
-/* ─── Badges ─── */
+/* badges */
 .badge { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 0.06em; font-weight: 700; padding: 0.35em 0.75em; border-radius: 999px; }
 .text-bg-primary { background: rgba(56,189,248,0.15) !important; color: var(--c-accent) !important; border: 1px solid rgba(56,189,248,0.3); }
 
-/* ─── Form Controls ─── */
+/* campos del form */
 .form-label { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.04em; color: var(--c-muted); text-transform: uppercase; margin-bottom: 0.4rem; }
 .fw-semibold { font-weight: 600 !important; }
 
@@ -80,7 +80,7 @@
 
 .invalid-feedback { color: var(--c-danger) !important; font-size: 0.8rem; }
 
-/* ─── Checkboxes & Radios ─── */
+/* checks y radios */
 .form-check-input {
   background-color: var(--c-surface2) !important;
   border: 1px solid rgba(56,189,248,0.3) !important;
@@ -94,7 +94,7 @@
 .form-check-input.is-invalid { border-color: var(--c-danger) !important; }
 .form-check-label { color: var(--c-text); font-size: 0.9rem; }
 
-/* ─── Buttons ─── */
+/* botones */
 .btn { font-family: 'Montserrat', sans-serif; font-weight: 600; border-radius: var(--radius-sm); transition: var(--transition); letter-spacing: 0.02em; }
 .btn-primary { background: linear-gradient(135deg, #0ea5e9, #3b82f6) !important; border: none !important; color: #fff !important; box-shadow: 0 4px 14px rgba(14,165,233,0.3); }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(14,165,233,0.4) !important; }
@@ -104,17 +104,17 @@
 .bg-white.text-primary { background: rgba(255,255,255,0.15) !important; color: #fff !important; }
 .text-bg-secondary { background: rgba(100,116,139,0.2) !important; color: var(--c-muted) !important; }
 
-/* ─── Event Log ─── */
+/* log de eventos */
 .list-group-item { background: transparent !important; border-color: var(--c-border) !important; color: var(--c-text) !important; font-size: 0.8rem; word-break: break-word; transition: var(--transition); }
 .list-group-item:first-child { border-top: none !important; }
 .list-group-item.text-muted { color: var(--c-muted) !important; }
 .list-group-flush { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
 
-/* ─── Result Section ─── */
+/* resultado */
 #result .card-body { min-height: 80px; }
 #result .text-muted { color: var(--c-muted) !important; }
 
-/* ─── Result Profile Card (dynamic) ─── */
+/* tarjeta del resultado */
 .result-profile {
   display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start;
   padding: 1rem; border-radius: var(--radius-md);
@@ -142,16 +142,16 @@
   font-family: 'Montserrat', sans-serif; font-weight: 600;
 }
 
-/* ─── Modal ─── */
+/* modal */
 .modal-content { background: var(--c-surface) !important; border: 1px solid var(--c-border) !important; border-radius: var(--radius-lg) !important; color: var(--c-text) !important; }
 .modal-header, .modal-footer { border-color: var(--c-border) !important; }
 .btn-close { filter: invert(1) !important; opacity: 0.6 !important; }
 
-/* ─── Alert ─── */
+/* alertas */
 .alert-success { background: rgba(52,211,153,0.1) !important; border: 1px solid rgba(52,211,153,0.3) !important; color: var(--c-success) !important; border-radius: var(--radius-md) !important; }
 .alert-danger  { background: rgba(248,113,113,0.1) !important; border: 1px solid rgba(248,113,113,0.3) !important; color: var(--c-danger)  !important; border-radius: var(--radius-md) !important; }
 
-/* ─── HR ─── */
+/* separador */
 hr { border-color: var(--c-border) !important; }
 
 ::-webkit-scrollbar { width: 6px; }

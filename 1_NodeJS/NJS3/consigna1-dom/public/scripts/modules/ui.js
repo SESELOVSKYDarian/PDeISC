@@ -1,25 +1,11 @@
-/**
- * @module ui
- * @description Funciones de manipulacion de UI para la Consigna 1.
- * Gestiona la creacion y actualizacion del H1, la imagen dinamica y el mensaje de feedback.
- */
-
 import { getDynamicImage, getDynamicTitle } from './dom.js';
 
-/**
- * Actualiza el texto del elemento de feedback.
- * @param {HTMLElement} feedbackElement - Elemento que muestra el mensaje.
- * @param {string} message - Mensaje a mostrar.
- */
+// con esto cambio el mensaje de abajo
 export function setFeedback(feedbackElement, message) {
   feedbackElement.textContent = message;
 }
 
-/**
- * Agrega el H1 al escenario si no existe.
- * @param {HTMLElement} stage - Contenedor del escenario.
- * @returns {{ element: HTMLHeadingElement, created: boolean }}
- */
+// si no esta el h1 lo creo aca
 export function ensureTitle(stage) {
   const title = getDynamicTitle();
 
@@ -35,13 +21,7 @@ export function ensureTitle(stage) {
   return { element: titleElement, created: true };
 }
 
-/**
- * Agrega la imagen al escenario si no existe.
- * @param {HTMLElement} stage - Contenedor del escenario.
- * @param {string} source - URL de la imagen.
- * @param {number} size - Tamano en pixeles.
- * @returns {{ element: HTMLImageElement, created: boolean }}
- */
+// si no esta la imagen la agrego aca
 export function ensureImage(stage, source, size) {
   const image = getDynamicImage();
 
@@ -60,18 +40,12 @@ export function ensureImage(stage, source, size) {
   return { element: imageElement, created: true };
 }
 
-/**
- * Requiere que el H1 exista; si no, retorna null.
- * @returns {HTMLHeadingElement|null}
- */
+// devuelve el h1 o null
 export function requireTitle() {
   return getDynamicTitle();
 }
 
-/**
- * Requiere que la imagen exista; si no, retorna null.
- * @returns {HTMLImageElement|null}
- */
+// devuelve la imagen o null
 export function requireImage() {
   return getDynamicImage();
 }

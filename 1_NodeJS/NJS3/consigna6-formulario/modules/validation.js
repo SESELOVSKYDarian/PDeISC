@@ -1,41 +1,23 @@
-/**
- * @module validation (backend)
- * @description Validación y sanitización del registro en el servidor Express.
- * Aplica las mismas reglas que el frontend para garantizar integridad de datos.
- */
-
-/** @type {RegExp} Solo letras unicode y espacios. */
+// mismas reglas que uso adelante para no confiar solo en el front
 const NAME_REGEX = /^[\p{L}\s]+$/u;
-/** @type {RegExp} Email válido con @ y dominio terminado en .com */
+// pido formato de mail basico
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.com$/i;
 const ALLOWED_PAISES = new Set(['Argentina', 'Chile', 'Uruguay', 'Mexico']);
 const ALLOWED_GENEROS = new Set(['Femenino', 'Masculino', 'Otro']);
 const ALLOWED_INTERESES = new Set(['DOM', 'Eventos', 'Express']);
 
-/**
- * Normaliza un valor de texto.
- * @param {*} value
- * @returns {string}
- */
+// saco espacios de mas
 function normalizeText(value) {
   return String(value ?? '').trim().replace(/\s+/g, ' ');
 }
 
-/**
- * Normaliza y filtra el array de intereses.
- * @param {*} value
- * @returns {string[]}
- */
+// dejo solo intereses validos
 function normalizeIntereses(value) {
   const items = Array.isArray(value) ? value : value ? [value] : [];
   return items.map((item) => normalizeText(item)).filter((item) => ALLOWED_INTERESES.has(item));
 }
 
-/**
- * Sanitiza el body del request de registro.
- * @param {Object} body - Body del request Express.
- * @returns {{ nombre: string, apellido: string, email: string, edad: string, genero: string, pais: string, intereses: string[] }}
- */
+// ordeno lo que llega del request
 export function sanitizeRegistration(body) {
   return {
     nombre: normalizeText(body.nombre),
@@ -48,11 +30,7 @@ export function sanitizeRegistration(body) {
   };
 }
 
-/**
- * Valida los datos sanitizados del registro.
- * @param {ReturnType<typeof sanitizeRegistration>} data
- * @returns {{ isValid: boolean, errors: Object.<string, string> }}
- */
+// reviso todo antes de darlo por valido
 export function validateRegistration(data) {
   const errors = {};
   const edad = Number(data.edad);
