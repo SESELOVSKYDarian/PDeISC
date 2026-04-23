@@ -1,0 +1,14 @@
+{
+  "name": "consigna3-hijos",
+  "version": "1.0.0",
+  "description": "Base inicial para la consigna 3 de conteo de hijos.",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

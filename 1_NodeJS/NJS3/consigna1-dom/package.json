@@ -1,0 +1,14 @@
+{
+  "name": "consigna1-dom",
+  "version": "1.0.0",
+  "description": "Base inicial para la consigna 1 de DOM con Express.",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

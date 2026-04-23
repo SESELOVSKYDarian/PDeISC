@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consigna 2 | Navegacion por eventos</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/public/styles/styles.css" />
+  </head>
+  <body class="app-shell">
+    <main class="container py-4 py-lg-5">
+      <section class="hero card border-0 shadow-sm mb-4">
+        <div class="card-body p-4 p-lg-5">
+          <span class="badge text-bg-success mb-3">Bootstrap + Navegacion</span>
+          <h1 class="display-6 mb-3">Consigna 2</h1>
+          <p class="lead mb-0">
+            Navegacion entre cinco componentes usando distintos tipos de eventos.
+          </p>
+        </div>
+      </section>
+
+      <nav class="row g-3 mb-4">
+        <div class="col-12 col-md-6 col-xl">
+          <button class="nav-btn btn btn-primary w-100" data-target="panel-1" data-event="click" type="button">
+            <span class="d-block small opacity-75 fw-normal">click</span>
+            Tarjeta
+          </button>
+        </div>
+        <div class="col-12 col-md-6 col-xl">
+          <button class="nav-btn btn btn-success w-100" data-target="panel-2" data-event="dblclick" type="button">
+            <span class="d-block small opacity-75 fw-normal">dblclick</span>
+            Lista
+          </button>
+        </div>
+        <div class="col-12 col-md-6 col-xl">
+          <button class="nav-btn btn btn-info w-100" data-target="panel-3" data-event="mouseenter" type="button">
+            <span class="d-block small opacity-75 fw-normal">mouseenter</span>
+            Galeria
+          </button>
+        </div>
+        <div class="col-12 col-md-6 col-xl">
+          <button class="nav-btn btn btn-warning w-100" data-target="panel-4" data-event="contextmenu" type="button">
+            <span class="d-block small opacity-75 fw-normal">contextmenu</span>
+            Tabla
+          </button>
+        </div>
+        <div class="col-12 col-md-6 col-xl">
+          <button class="nav-btn btn btn-secondary w-100" data-target="panel-5" data-event="keydown" type="button">
+            <span class="d-block small opacity-75 fw-normal">keydown Enter</span>
+            Ficha
+          </button>
+        </div>
+      </nav>
+
+      <section class="row g-4">
+        <div class="col-12 col-lg-8">
+          <div id="panels" class="card border-0 shadow-sm h-100">
+            <div class="card-header fw-semibold bg-white border-bottom">Componente activo</div>
+            <div class="card-body">
+              <article id="panel-1" class="panel active">
+                <h2 class="h4 fw-bold mb-2">Componente 1 - Tarjeta</h2>
+                <p class="text-muted small mb-3">Activado con el evento <code>click</code>.</p>
+                <div class="card bg-light border-0 p-3">
+                  <p class="mb-0">Esta es una tarjeta simple generada como primer componente.</p>
+                </div>
+              </article>
+              <article id="panel-2" class="panel">
+                <h2 class="h4 fw-bold mb-2">Componente 2 - Lista</h2>
+                <p class="text-muted small mb-3">Activado con el evento <code>dblclick</code>.</p>
+                <ul class="list-group">
+                  <li class="list-group-item">Item 1</li>
+                  <li class="list-group-item">Item 2</li>
+                  <li class="list-group-item">Item 3</li>
+                </ul>
+              </article>
+              <article id="panel-3" class="panel">
+                <h2 class="h4 fw-bold mb-2">Componente 3 - Galeria</h2>
+                <p class="text-muted small mb-3">Activado con el evento <code>mouseenter</code>.</p>
+                <div class="gallery">
+                  <figure class="gallery-item">
+                    <img src="/public/media/julian1.webp" alt="Julian 1" class="gallery-image" />
+                    <figcaption>Imagen 1</figcaption>
+                  </figure>
+                  <figure class="gallery-item">
+                    <img src="/public/media/julian2.webp" alt="Julian 2" class="gallery-image" />
+                    <figcaption>Imagen 2</figcaption>
+                  </figure>
+                  <figure class="gallery-item">
+                    <img src="/public/media/julian3.webp" alt="Julian 3" class="gallery-image" />
+                    <figcaption>Imagen 3</figcaption>
+                  </figure>
+                </div>
+              </article>
+              <article id="panel-4" class="panel">
+                <h2 class="h4 fw-bold mb-2">Componente 4 - Tabla</h2>
+                <p class="text-muted small mb-3">Activado con el evento <code>contextmenu</code>.</p>
+                <div class="table-responsive">
+                  <table class="table table-striped align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Curso</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>DOM</td>
+                        <td><span class="badge text-bg-success">Activo</span></td>
+                      </tr>
+                      <tr>
+                        <td>Eventos</td>
+                        <td><span class="badge text-bg-primary">Listo</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </article>
+              <article id="panel-5" class="panel">
+                <h2 class="h4 fw-bold mb-2">Componente 5 - Ficha</h2>
+                <p class="text-muted small mb-3">Activado con la tecla <code>Enter</code>.</p>
+                <div class="profile-box">
+                  <span class="profile-eyebrow">Componente final</span>
+                  <h3 class="h5 mb-2">Resumen de navegacion</h3>
+                  <p class="mb-3">Este panel reemplaza al video y deja una ficha informativa activada con teclado.</p>
+                  <ul class="profile-list mb-0">
+                    <li>Evento: <code>keydown</code> + <kbd>Enter</kbd></li>
+                    <li>Uso: navegacion accesible por teclado</li>
+                    <li>Estado: componente listo</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+        <aside class="col-12 col-lg-4">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header fw-semibold bg-white border-bottom">Estado</div>
+            <div class="card-body d-flex flex-column gap-3">
+              <p id="feedback" class="alert alert-info mb-0">
+                Componente inicial visible: Tarjeta.
+              </p>
+              <p class="alert alert-secondary mb-0 small">
+                <strong>Tip:</strong> el ultimo boton se activa enfocandolo y presionando
+                <kbd>Enter</kbd>.
+              </p>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="module" src="/public/scripts/main.js"></script>
+  </body>
+</html>

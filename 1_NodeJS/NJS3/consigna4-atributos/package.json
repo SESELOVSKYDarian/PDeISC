@@ -1,0 +1,14 @@
+{
+  "name": "consigna4-atributos",
+  "version": "1.0.0",
+  "description": "Base inicial para la consigna 4 de nodos y atributos.",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

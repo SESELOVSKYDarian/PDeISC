@@ -1,0 +1,14 @@
+{
+  "name": "consigna2-navegacion",
+  "version": "1.0.0",
+  "description": "Base inicial para la consigna 2 de navegacion con eventos.",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

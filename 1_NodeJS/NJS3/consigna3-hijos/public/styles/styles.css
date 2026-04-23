@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+  --c-bg:        #0a0f1e;
+  --c-surface:   #111827;
+  --c-surface2:  #1a2235;
+  --c-border:    rgba(99,179,237,0.15);
+  --c-accent:    #38bdf8;
+  --c-text:      #e2e8f0;
+  --c-muted:     #64748b;
+  --c-success:   #34d399;
+  --radius-lg:   1.25rem;
+  --radius-md:   0.875rem;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+  --transition:  all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--c-bg);
+  background-image: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(56,189,248,0.07) 0%, transparent 60%);
+  color: var(--c-text);
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+.card { background: var(--c-surface) !important; border: 1px solid var(--c-border) !important; border-radius: var(--radius-lg) !important; box-shadow: var(--shadow-card) !important; color: var(--c-text); }
+.card-header { background: var(--c-surface2) !important; border-bottom: 1px solid var(--c-border) !important; color: var(--c-text) !important; font-family: 'Montserrat', sans-serif; font-weight: 600; border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important; }
+
+.hero { background: linear-gradient(135deg, var(--c-surface2) 0%, #0f172a 100%) !important; border: 1px solid var(--c-border) !important; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; bottom: -40px; right: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%); }
+.hero .display-6 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.4rem); background: linear-gradient(135deg, #e2e8f0 30%, var(--c-success)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero .lead { color: var(--c-muted); }
+
+.badge { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 0.06em; font-weight: 700; padding: 0.35em 0.75em; border-radius: 999px; }
+.text-bg-info { background: rgba(52,211,153,0.15) !important; color: var(--c-success) !important; border: 1px solid rgba(52,211,153,0.3); }
+.text-bg-secondary { background: rgba(100,116,139,0.2) !important; color: var(--c-muted) !important; }
+
+.btn { font-family: 'Montserrat', sans-serif; font-weight: 600; border-radius: var(--radius-md); transition: var(--transition); }
+.btn-primary { background: linear-gradient(135deg, #0ea5e9, #3b82f6) !important; border: none !important; color: #fff !important; box-shadow: 0 4px 14px rgba(14,165,233,0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(14,165,233,0.4) !important; }
+
+.child-card {
+  padding: 1.25rem;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  background: var(--c-surface2);
+  border: 1px solid var(--c-border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  transition: var(--transition);
+  font-weight: 500;
+}
+.child-card span { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--c-accent); }
+
+.alert-info { background: rgba(56,189,248,0.08) !important; border: 1px solid rgba(56,189,248,0.2) !important; color: var(--c-accent) !important; border-radius: var(--radius-md) !important; }
+.text-muted { color: var(--c-muted) !important; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--c-bg); }
+::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 999px; }

@@ -1,0 +1,16 @@
+{
+  "name": "consigna6-formulario",
+  "version": "1.0.0",
+  "description": "Formulario con validacion frontend y backend usando Express y SMTP.",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "nodemailer": "^6.10.0"
+  }
+}
