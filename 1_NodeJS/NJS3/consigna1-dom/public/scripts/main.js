@@ -1,3 +1,3 @@
-import { initDomProject } from './modules/app.js';
+import { initDomProject } from './modules/server.js';
 
 initDomProject();

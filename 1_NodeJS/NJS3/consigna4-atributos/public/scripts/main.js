@@ -1,3 +1,3 @@
-import { initAttributesProject } from './modules/app.js';
+import { initAttributesProject } from './modules/server.js';
 
 initAttributesProject();

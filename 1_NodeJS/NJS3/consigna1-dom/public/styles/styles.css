@@ -23,7 +23,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-.app-shell {
+.server-shell {
   min-height: 100vh;
   background: var(--c-bg);
   background-image:

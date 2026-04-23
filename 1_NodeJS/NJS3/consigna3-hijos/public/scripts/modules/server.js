@@ -1,15 +1,6 @@
-/**
- * @module app
- * @description Punto de entrada de la Consigna 3.
- * Toma como base el punto anterior y permite contar cuantos hijos
- * tiene un contenedor mediante un evento de pulsado.
- */
-
 import { getChildrenElements } from './dom.js';
 
-/**
- * Inicializa el proyecto de conteo de hijos.
- */
+// esto deja listo el punto donde cuento los hijos del contenedor
 export function initChildrenProject() {
   const elements = getChildrenElements();
 
@@ -18,7 +9,7 @@ export function initChildrenProject() {
     elements.extraInfo.textContent = 'Base tomada del punto 2: 5 componentes dentro de un mismo contenedor.';
   });
 
-  // click -> cuenta hijos directos del contenedor
+  // aca cuento los hijos directos nada mas
   elements.countButton.addEventListener('click', () => {
     const totalChildren = elements.container.children.length;
     elements.result.textContent = `El contenedor tiene ${totalChildren} hijos.`;

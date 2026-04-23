@@ -1,3 +1,3 @@
-import { initInnerHtmlProject } from './modules/app.js';
+import { initInnerHtmlProject } from './modules/server.js';
 
 initInnerHtmlProject();

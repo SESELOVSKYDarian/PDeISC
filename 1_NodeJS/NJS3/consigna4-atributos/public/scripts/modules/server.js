@@ -1,17 +1,9 @@
-/**
- * @module app
- * @description Punto de entrada de la Consigna 4.
- * Crea 5 nodos diferentes y permite modificar atributos de cada uno con su propio boton.
- */
-
 import { originalNodes, updatedNodes } from './constants.js';
 import { getAttributeElements } from './dom.js';
 import { renderSingleNode, updateNode } from './links.js';
 import { addLogItem } from './log.js';
 
-/**
- * Inicializa el proyecto de atributos.
- */
+// aca dejo andando la parte de crear nodos y despues editarlos
 export function initAttributesProject() {
   const elements = getAttributeElements();
 

@@ -1,10 +1,3 @@
-/**
- * @module app
- * @description Punto de entrada de la Consigna 6.
- * Inicializa el formulario de registro con validación frontend y backend,
- * log de eventos DHTML y visualización dinámica del resultado.
- */
-
 import { createModalController } from '../components/modal.js';
 import { submitRegistration } from './api.js';
 import { getFormElements } from './dom.js';
@@ -20,38 +13,36 @@ import {
 } from './ui.js';
 import { validatePayload } from './validation.js';
 
-/**
- * Inicializa el proyecto del formulario de registro.
- */
+// aca dejo armado todo lo del formulario
 export function initFormProject() {
   const elements = getFormElements();
   const modal = createModalController('feedback-modal');
 
-  /** Muestra un modal con título y cuerpo HTML. */
+  // esto lo uso para mostrar mensajes sin repetir codigo
   function showModal(title, body) {
     modal.show({ title, body });
   }
 
-  // DOMContentLoaded → primer log
+  // apenas carga ya dejo una marca en el log
   document.addEventListener('DOMContentLoaded', () => {
     pushLog(elements.eventsLog, 'DOMContentLoaded: el formulario esta listo.');
   });
 
-  // focus → registra qué campo recibió el foco
+  // guardo que campo tocaron
   elements.form.addEventListener('focus', (event) => {
     if (event.target.matches('input, select')) {
       pushLog(elements.eventsLog, `focus: ${event.target.name} recibio el foco.`);
     }
   }, true);
 
-  // blur → registra qué campo perdió el foco
+  // tambien marco cuando salen del campo
   elements.form.addEventListener('blur', (event) => {
     if (event.target.matches('input, select')) {
       pushLog(elements.eventsLog, `blur: ${event.target.name} perdio el foco.`);
     }
   }, true);
 
-  // input → limpia error mientras el usuario escribe
+  // si vuelve a escribir le saco el error de ese campo
   elements.form.addEventListener('input', (event) => {
     if (event.target.matches('input[type="text"], input[type="email"], input[type="number"]')) {
       pushLog(elements.eventsLog, `input: ${event.target.name} se esta modificando.`);
@@ -59,7 +50,7 @@ export function initFormProject() {
     }
   });
 
-  // change → registra cambios en selects, radios y checkboxes
+  // esto me sirve para radios, checks y selects
   elements.form.addEventListener('change', (event) => {
     if (event.target.matches('select, input[type="radio"], input[type="checkbox"]')) {
       pushLog(elements.eventsLog, `change: ${event.target.name} cambio su valor.`);
@@ -67,7 +58,7 @@ export function initFormProject() {
     }
   });
 
-  // submit → valida en frontend, luego envía al backend
+  // primero valido aca y despues recien mando al server
   elements.form.addEventListener('submit', async (event) => {
     event.preventDefault();
     clearErrors(elements.form);
@@ -112,7 +103,7 @@ export function initFormProject() {
     }
   });
 
-  // reset → limpia errores y notifica
+  // si resetea limpio todo y aviso
   elements.form.addEventListener('reset', () => {
     clearErrors(elements.form);
     setTimeout(() => {

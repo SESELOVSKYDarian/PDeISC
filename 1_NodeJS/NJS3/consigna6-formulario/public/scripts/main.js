@@ -1,3 +1,3 @@
-import { initFormProject } from './modules/app.js';
+import { initFormProject } from './modules/server.js';
 
 initFormProject();

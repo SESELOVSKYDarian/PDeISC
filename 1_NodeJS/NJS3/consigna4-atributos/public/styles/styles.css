@@ -15,7 +15,7 @@
   --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.app-shell {
+.server-shell {
   min-height: 100vh;
   background: var(--c-bg);
   background-image: radial-gradient(ellipse 60% 40% at 70% 0%, rgba(251, 191, 36, 0.07) 0%, transparent 60%);

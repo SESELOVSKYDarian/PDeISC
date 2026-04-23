@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Base inicial para la consigna 4 de nodos y atributos.",
   "type": "module",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
   "dependencies": {
     "express": "^5.1.0"

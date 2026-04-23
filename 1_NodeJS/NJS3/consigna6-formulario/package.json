@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Formulario con validacion frontend y backend usando Express y SMTP.",
   "type": "module",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
   "dependencies": {
     "dotenv": "^16.5.0",

@@ -4,9 +4,7 @@ import { getDomElements } from './dom.js';
 import { createDomState } from './state.js';
 import { ensureImage, ensureTitle, requireImage, requireTitle, setFeedback } from './ui.js';
 
-/**
- * Inicializa el proyecto DOM con todos sus event listeners.
- */
+// aca engancho todos los eventos de la consigna
 export function initDomProject() {
   const elements = getDomElements();
   const state = createDomState();
@@ -15,7 +13,7 @@ export function initDomProject() {
     setFeedback(elements.feedback, 'Todavia no realizaste ninguna accion.');
   });
 
-  // click -> agrega H1
+  // este mete el h1
   elements.addTitleButton.addEventListener('click', () => {
     const titleResult = ensureTitle(elements.stage);
     setFeedback(
@@ -26,7 +24,7 @@ export function initDomProject() {
     );
   });
 
-  // dblclick -> cambia texto del H1
+  // con doble click le cambio el texto
   elements.changeTextButton.addEventListener('dblclick', () => {
     const title = requireTitle();
     if (!title) {
@@ -38,7 +36,7 @@ export function initDomProject() {
     setFeedback(elements.feedback, 'El texto del H1 cambio a "Chau DOM".');
   });
 
-  // mouseenter -> cambia color del H1
+  // cuando pasas por arriba cambia el color
   elements.changeColorButton.addEventListener('mouseenter', () => {
     const title = requireTitle();
     if (!title) {
@@ -51,7 +49,7 @@ export function initDomProject() {
     state.titleColorIndex = (state.titleColorIndex + 1) % titleColors.length;
   });
 
-  // click -> agrega imagen
+  // este agrega la imagen
   elements.addImageButton.addEventListener('click', () => {
     const imageResult = ensureImage(elements.stage, imageSources[state.imageIndex], state.imageSize);
     setFeedback(
@@ -62,7 +60,7 @@ export function initDomProject() {
     );
   });
 
-  // contextmenu -> cambia imagen
+  // click derecho para ir cambiando la imagen
   elements.changeImageButton.addEventListener('contextmenu', (event) => {
     event.preventDefault();
     const image = requireImage();
@@ -76,7 +74,7 @@ export function initDomProject() {
     setFeedback(elements.feedback, 'La imagen cambio usando archivos de la carpeta media.');
   });
 
-  // mousedown -> cambia tamano de imagen
+  // si lo mantengo apretado va cambiando el tamaño
   elements.resizeImageButton.addEventListener('mousedown', () => {
     const image = requireImage();
     if (!image) {

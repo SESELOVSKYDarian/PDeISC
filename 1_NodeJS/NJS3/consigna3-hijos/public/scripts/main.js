@@ -1,3 +1,3 @@
-import { initChildrenProject } from './modules/app.js';
+import { initChildrenProject } from './modules/server.js';
 
 initChildrenProject();

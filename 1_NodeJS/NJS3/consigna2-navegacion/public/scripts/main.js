@@ -1,3 +1,3 @@
-import { initNavigationProject } from './modules/app.js';
+import { initNavigationProject } from './modules/server.js';
 
 initNavigationProject();
