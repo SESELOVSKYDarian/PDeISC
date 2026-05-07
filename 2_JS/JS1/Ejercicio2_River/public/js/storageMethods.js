@@ -27,3 +27,4 @@ class InventoryStorage {
 }
 
 // lo mandamos a window para usarlo desde main.js
+window.inventoryStorage = new InventoryStorage();

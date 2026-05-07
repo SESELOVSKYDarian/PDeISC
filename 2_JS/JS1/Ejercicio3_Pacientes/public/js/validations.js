@@ -66,3 +66,4 @@ const validations = {
 };
 
 // lo mandamos a window para que se use en todos lados
+window.appValidations = validations;
