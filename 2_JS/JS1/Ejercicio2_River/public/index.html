@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asociate a River Plate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" href="media/Logo_River_Plate.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="layout">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-shield">
+                    <img src="media/Logo_River_Plate.png" alt="Logo River Plate" class="river-logo-img">
+                </div>
+                <div class="logo-text">
+                    <h1>RiverID</h1>
+                    <p class="subtitle">Registro Oficial de Socios</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="card">
+                <div class="section-header">
+                    <i class="bi bi-person-badge"></i>
+                    <h2>Tus Datos Personales</h2>
+                </div>
+                <form id="socioForm" novalidate>
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="tipo_documento">Tipo de Documento</label>
+                            <select id="tipo_documento" name="tipo_documento" required>
+                                <option value="" disabled selected>Seleccioná...</option>
+                                <option value="DNI Argentino">DNI argentino</option>
+                                <option value="Documento Extranjero">Documento extranjero</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="documento">Número de Documento (DNI)</label>
+                            <input type="text" id="documento" name="documento" required pattern="^\d{7,8}$"
+                                placeholder="Ej. 12345678" maxlength="8">
+                            <span class="error-msg">Debe tener entre 7 y 8 números exactos.</span>
+                        </div>
+
+                        <div class="form-group" id="tramiteGroup">
+                            <label for="tramite">Número de Trámite del DNI</label>
+                            <input type="text" id="tramite" name="tramite" required pattern="^\d{11}$"
+                                placeholder="11 dígitos" maxlength="11">
+                            <span class="error-msg">Debe contener 11 números. Si tiene menos, se completará con
+                                ceros.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nacionalidad">Nacionalidad</label>
+                            <select id="nacionalidad" name="nacionalidad" required>
+                                <option value="" disabled selected>Seleccioná...</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Uruguay">Uruguay</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Paraguay">Paraguay</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="España">España</option>
+                                <option value="Estados Unidos">Estados Unidos</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sexo">Sexo (Como figura en el DNI)</label>
+                            <select id="sexo" name="sexo" required>
+                                <option value="" disabled selected>Seleccioná...</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="No Binario">No binario</option>
+                            </select>
+                        </div>
+
+                        <!-- el mail dividido en pedazos -->
+                        <div class="form-group full-width">
+                            <label>Correo Electrónico para Verificación</label>
+                            <div class="composite-field">
+                                <input type="text" id="emailUser" name="emailUser" placeholder="tu.nombre" minlength="3"
+                                    maxlength="64" pattern="^[a-zA-Z0-9._-]+$" required>
+                                <span class="separator">@</span>
+                                <input type="text" id="emailDomain" name="emailDomain" placeholder="gmail" minlength="2"
+                                    maxlength="63" pattern="^[a-zA-Z0-9-]+$" required>
+                                <select id="emailTld" name="emailTld" required>
+                                    <option value=".com">.com</option>
+                                    <option value=".ar">.ar</option>
+                                    <option value=".net">.net</option>
+                                    <option value=".org">.org</option>
+                                    <option value=".edu">.edu</option>
+                                </select>
+                            </div>
+                            <span class="error-msg">Ingresa un usuario y dominio válidos.</span>
+                        </div>
+
+                        <!-- el telefono con el prefijo del pais -->
+                        <div class="form-group full-width">
+                            <label>Teléfono Móvil</label>
+                            <div class="composite-field phone-field">
+                                <select id="phoneCountry" name="phoneCountry" required>
+                                    <option value="+54">🇦🇷 +54 (Argentina)</option>
+                                    <option value="+1">🇺🇸 +1 (USA)</option>
+                                    <option value="+34">🇪🇸 +34 (España)</option>
+                                    <option value="+55">🇧🇷 +55 (Brasil)</option>
+                                    <option value="+56">🇨🇱 +56 (Chile)</option>
+                                    <option value="+598">🇺🇾 +598 (Uruguay)</option>
+                                </select>
+
+                                <div id="argMobilePrefix" class="static-prefix" style="display: flex;">9</div>
+
+                                <input type="text" id="phoneArea" name="phoneArea" placeholder="Cód Área (Ej. 11)"
+                                    minlength="2" maxlength="4" pattern="^[0-9]+$" required>
+
+                                <input type="text" id="phoneNumber" name="phoneNumber"
+                                    placeholder="Número (Ej. 12345678)" minlength="6" maxlength="8" pattern="^[0-9]+$"
+                                    required>
+                            </div>
+                            <span class="error-msg">Revisá el código de área (2-4 díg.) y el número (6-8 díg.). Solo
+                                números.</span>
+                        </div>
+
+                        <!-- la clave con las reglas -->
+                        <div class="form-group full-width">
+                            <label for="password">Contraseña Segura</label>
+                            <input type="password" id="password" name="password" required
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.!\@#\$%\^&\*\(\)\-\+\?]).{12,}$"
+                                placeholder="Mínimo 12 caracteres">
+                            <div class="password-rules">
+                                <p>Debe contener al menos:</p>
+                                <ul>
+                                    <li id="rule-length" class="invalid">12 caracteres</li>
+                                    <li id="rule-upper" class="invalid">1 mayúscula</li>
+                                    <li id="rule-lower" class="invalid">1 minúscula</li>
+                                    <li id="rule-number" class="invalid">1 número</li>
+                                    <li id="rule-special" class="invalid">1 símbolo (.!@#$%^&*()-+?)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="metodo_almacenaje">Método de Almacenaje JS (Para demostración técnica)</label>
+                            <select id="metodo_almacenaje" name="metodo_almacenaje" required>
+                                <option value="push">Agregar al final (Push)</option>
+                                <option value="unshift">Agregar al inicio (Unshift)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width terms-group">
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="termsCheckbox" name="termsCheckbox" required disabled>
+                            <label for="termsCheckbox">He leído y acepto los <a href="#" id="openTermsModal">términos y
+                                    condiciones de usuario</a></label>
+                        </div>
+                        <span class="error-msg">Debes leer y aceptar los términos (bajando hasta el final) para
+                            continuar.</span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="submitBtn" class="btn btn-primary">
+                            <span class="btn-text">Hacerme Socio</span>
+                            <span class="loader" id="btnLoader" style="display: none;"></span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="card mt-4">
+                <div class="card-header">
+                    <h2>Últimos Socios Registrados</h2>
+                    <span class="badge" id="totalItems">0 socios</span>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>DNI</th>
+                                <th>Sexo</th>
+                                <th>Nacionalidad</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody">
+                            <tr id="emptyRow">
+                                <td colspan="4" class="empty-cell">Nadie se ha asociado en esta sesión todavía.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="termsModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Términos y Condiciones</h3>
+                <button type="button" class="close-modal" id="closeModalBtn"><i class="bi bi-x"></i></button>
+            </div>
+            <div class="modal-body" id="termsBody">
+                <p><strong>1. CLUB ATLÉTICO RIVER PLATE ASOCIACIÓN CIVIL.</strong><br>
+                    1.1 El CLUB ATLÉTICO RIVER PLATE ASOCIACIÓN CIVIL (el “Club”) es una asociación civil sin fines de
+                    lucro que tiene por objeto principal la práctica, difusión y exhibición del fútbol y, en general, de
+                    todos aquellos otros deportes que el Club determine.<br>
+                    1.2. El Club se rige tanto por su Estatuto como por su Reglamento General Interno, los que se
+                    adjuntan como Anexo de estos términos y condiciones.</p>
+
+                <p><strong>2. TÉRMINOS Y CONDICIONES.</strong><br>
+                    2.1 Estos términos y condiciones (los “TyC”) y sus Anexos regulan la relación entre usted (el/los
+                    “Usuario/s”) y el Club y tienen por objeto establecer las condiciones que regirán el uso del sitio
+                    web www.riverid.com.ar (el “Sitio”) de propiedad del Club.<br>
+                    2.2. Para la utilización del Sitio, es condición esencial que el Usuario lea, comprenda y acepte
+                    todas las condiciones establecidas en estos TyC.<br>
+                    2.3. El solo hecho de acceder, visitar, conectarse y/o de cualquier forma utilizar el Sitio,
+                    significa que el Usuario leyó y comprendió la totalidad de estos TyC y que consintió cada una de sus
+                    previsiones. En el caso que el Usuario no acepte las condiciones de estos TyC, deberá abstenerse de
+                    utilizar el Sitio.<br>
+                    2.4. El desconocimiento de los TyC no justifica su incumplimiento y tampoco faculta al Usuario a
+                    tomar medidas particulares o legales que desconozcan lo aquí previsto.</p>
+
+                <p><strong>3. CAPACIDAD.</strong><br>
+                    3.1. El Sitio podrá ser utilizado por personas humanas mayores de 16 años que tengan capacidad legal
+                    para contratar.</p>
+
+                <p><strong>4. EL SITIO.</strong><br>
+                    4.1. El Club pone a disposición de los Usuarios una plataforma que integra toda la información y
+                    gestiones vinculadas al Club. Además, permite la compra de entradas en forma más ágil y segura.<br>
+                    4.2. Al registrarse en el Sitio, los Usuarios podrán crear una cuenta RiverID. Para ello, los
+                    Usuarios deberán aportar determinados datos (nacionalidad, tipo, número y número de trámite de DNI).
+                    El Sitio validará los datos con el Registro Nacional de las Personas y, si los datos informados por
+                    dicho registro son correctos, el Usuario deberá aceptarlos y crear un usuario y contraseña. Una vez
+                    finalizado el proceso, el Usuario recibirá un correo electrónico a través del que se facilitará un
+                    link para finalizar el registro de forma exitosa. En el caso de no contar con un DNI argentino
+                    deberás validar un número de celular extranjero vía SMS.<br>
+                    4.3. En caso de ser un Usuario extranjero y no contar con un DNI argentino, el Sitio requerirá la
+                    validación de un número de celular extranjero vía SMS.<br>
+                    4.4. La cuenta RiverID es personal, única e intransferible. El Usuario podrá acceder a ella
+                    indicando su correo electrónico y la clave personal de seguridad.<br>
+                    4.5. Los Usuarios que detenten el carácter de padre, madre o representante legal de personas humanas
+                    menores de 16 años, podrán incorporarlos como “Menores a Cargo” en el Sitio.<br>
+                    4.6. En el Sitio los Usuarios podrán asociarse al Club, realizar diversas gestiones relacionadas con
+                    su condición de socios, comprar entradas (de conformidad con los Términos y Condiciones para la
+                    Compra de Entradas) y acceder a determinados beneficios.<br>
+                    4.7. Ante cualquier inconveniente que el Usuario pueda experimentar sea al momento del registro o
+                    del uso del Sitio, podrá contactarse con el Club a la siguiente casilla de e-mail:
+                    socios@cariverplate.com.ar.</p>
+
+                <p><strong>5. SOCIOS.</strong><br>
+                    5.1. A efectos de asociarse al Club, los Usuarios deberán completar los pasos que se describen en el
+                    Sitio y abonar la cuota social y los gastos administrativos correspondientes.<br>
+                    5.2. Los Usuarios que deseen asociarse al Club podrán optar entre las categorías de socios previstas
+                    en el Estatuto y en el Reglamento General Interno y que se detallan a continuación para referencia
+                    (en adelante, los “Socios”):<br>
+                    (a) Socios Activos. Socios Activos Simples, Socios Activos Plenos.<br>
+                    (b) Socios Comunitarios. Socios Adherentes, Somos River, Socios Internacionales.<br>
+                    5.3. El valor de la cuota social será fijado por el Club de conformidad con lo previsto en el
+                    Estatuto y en el Reglamento General Interno.<br>
+                    5.4. EL CLUB podrá ceder a terceros los derechos de cobro de las cuotas sociales sin notificación al
+                    Socio, en los términos de los artículos 70 a 72 de la Ley N° 24.441.<br>
+                    5.5. Sin perjuicio de lo dispuesto en el Estatuto y en el Reglamento General Interno, los Socios
+                    podrán acceder a determinados beneficios que el Club ponga a su disposición. No obstante, los Socios
+                    entienden y aceptan que estos beneficios pueden suspenderse o modificarse a exclusivo criterio del
+                    Club sin que ello genere derecho a indemnización alguna a su favor.</p>
+
+                <p><strong>6. RESPONSABILIDAD.</strong><br>
+                    6.1. El Club no se hace responsable por ningún tipo de daño generado como consecuencia de actos y/u
+                    operaciones que hayan podido realizarse al momento de utilizar el Sitio.<br>
+                    6.2. En ningún caso el Club asumirá ningún tipo de costo o responsabilidad asociado al registro en
+                    el Sitio o a costos de servicios de conexión a Internet que puedan ser necesarios para dicho
+                    registro, que estarán en todo momento a cargo y responsabilidad del Usuario.<br>
+                    6.3. El Sitio podrá no estar disponible en ciertos momentos, debido a tareas de actualización y/o
+                    mantenimiento. El Club no responderá por los daños y perjuicios que el Usuario pueda sufrir como
+                    consecuencia de la falta de disponibilidad del Sitio.<br>
+                    6.4. El Sitio puede contener publicidad y/o enlaces a otros sitios web lo cual no indica que sean
+                    propiedad o que sean operados por el Club. En virtud de que el Club no tiene control alguno sobre
+                    tales sitios, no será responsable ni asumirá responsabilidad alguna por los contenidos, materiales,
+                    acciones o servicios prestados por los mismos, ni por daños, perjuicios o pérdidas ocasionadas por
+                    su utilización, sean causadas directa o indirectamente. La presencia de enlaces a otros sitios web
+                    no implica una sociedad, relación, aprobación ni respaldo del Club a dichos sitios y sus
+                    contenidos.<br>
+                    6.5. El Club puede otorgar determinados beneficios a los Usuarios y a los Socios. Sin embargo, el
+                    Club no se hace responsable por la prestación de dichos beneficios cuando se encuentren a cargo de
+                    terceros. Asimismo, el Club se reserva el derecho de interrumpir, suspender o modificar a su
+                    exclusivo criterio el otorgamiento de los beneficios.</p>
+
+                <p><strong>7. POLÍTICA DE PROTECCIÓN DE DATOS.</strong><br>
+                    7.1. El Club utiliza su información personal en forma segura y responsable. Los Usuarios pueden
+                    consultar los términos y condiciones de su Política de Privacidad que se adjunta a estos TyC como
+                    Anexo.<br>
+                    7.2. Asimismo, el Club puede recabar sus datos biométricos a los efectos de posibilitar la
+                    utilización de servicio de FaceID. Los Usuarios pueden consultar los Términos y Condiciones de Uso
+                    de Face ID que se adjuntan a estos TyC como Anexo.<br>
+                    7.3. Sin perjuicio de lo establecido en esta Política de Privacidad, en cumplimiento de lo dispuesto
+                    por las disposiciones de la Ley N° 25.326, el Decreto Reglamentario N° 1558/2001 y las disposiciones
+                    y/o resoluciones vinculantes emitidas por la Agencia de Acceso a la Información Pública se comunica
+                    que: "El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los
+                    mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés
+                    legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326. LA
+                    AGENCIA DE ACCESO A LA INFORMACIÓN PÚBLICA, en su carácter de Órgano de Control de la Ley N° 25.326,
+                    tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados
+                    en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos
+                    personales. El titular podrá en cualquier momento solicitar el retiro o bloqueo de su nombre de los
+                    bancos de datos a los que se refiere el presente artículo. En toda comunicación con fines de
+                    publicidad que se realice por correo, teléfono, correo electrónico, Internet u otro medio a
+                    distancia a conocer, se deberá indicar, en forma expresa y destacada, la posibilidad del titular del
+                    dato de solicitar el retiro o bloqueo, total o parcial, de su nombre de la base de datos. A pedido
+                    del interesado, se deberá informar el nombre del responsable o usuario del banco de datos que
+                    proveyó la información."<br>
+                    7.4. Ante cualquier consulta relacionada con la Política de Privacidad, con el tratamiento de datos
+                    realizado por el Club o si el Usuario necesitara realizar pedidos relativos a sus datos personales,
+                    por favor, envianos un correo electrónico a: datospersonales@cariverplate.com.ar. Asimismo, podés
+                    contactarnos por correo postal enviando tu consulta a Avda. Pdte. Figueroa Alcorta 7597, Ciudad
+                    Autónoma de Buenos Aires, República Argentina.</p>
+
+                <p><strong>8. VIOLACIÓN DE LAS CONDICIONES DE USO.</strong><br>
+                    8.1. Está prohibido utilizar el Sitio con fines ilegales, fraudulentos, así como realizar cualquier
+                    tipo de ingeniería inversa.</p>
+
+                <p><strong>9. TERMINACIÓN.</strong><br>
+                    9.1. El incumplimiento de estos TyC dará derecho al Club a su exclusivo criterio a aplicar las
+                    sanciones que a su solo criterio entienda convenientes y reclamar los daños y perjuicios que
+                    pudieran corresponder, sin que se genere ningún tipo de indemnización a favor del Usuario.</p>
+
+                <p><strong>10. MODIFICACIÓN DE LOS TÉRMINOS Y CONDICIONES.</strong><br>
+                    10.1. El Club se reserva el derecho de modificar estos TyC en cualquier momento, sea por cambios en
+                    la legislación vigente, por modificaciones en su Estatuto, su Reglamento o por modificaciones en las
+                    prestaciones del Sitio. Los TyC actualizados serán publicados en el Sitio y todos los términos
+                    modificados entrarán en vigor a partir de la fecha de su publicación.<br>
+                    10.2. Asimismo, el Club se reserva el derecho de suspender -sea en forma total o parcial y a su
+                    exclusivo criterio- las prestaciones del Sitio.</p>
+
+                <p><strong>11. PROPIEDAD INTELECTUAL.</strong><br>
+                    11.1. El Club es el único y exclusivo titular de todos los derechos de propiedad intelectual sobre
+                    sus marcas, el Sitio, su contenido, frases publicitarias, nombres, logos, diseños, productos,
+                    servicios, imágenes, etc. (la “Propiedad Intelectual del Club”) Todas las imágenes, fotografías,
+                    videos, diseños, pantallas, textos, marcas, logos, emblemas, escudos, software, programas, bases de
+                    datos, redes, archivos, etc. exhibidos en el Sitio Web y/o en el marco de la Comunidad (el
+                    “Contenido”) son propiedad exclusiva del Club, o el Club cuenta con autorización suficiente para
+                    utilizarlos, y se encuentran protegidos por las leyes y los tratados internacionales en materia de
+                    propiedad intelectual e industrial.<br>
+                    11.2. La utilización del Sitio no implica la autorización para el uso de la Propiedad Intelectual
+                    del Club o del Contenido sin su respectiva autorización.</p>
+
+                <p><strong>12. ANEXOS.</strong><br>
+                    12.1. Los Anexos que se acompañan a continuación constituyen pare integral de estos términos y
+                    condiciones:<br>
+                    - Estatuto del Club<br>
+                    - Reglamento General Interno del Club<br>
+                    - Política de Privacidad<br>
+                    - Términos y Condiciones de Uso de FaceID<br>
+                    - Términos y Condiciones para la Compra de Entradas</p>
+
+                <p><strong>13. LEY APLICABLE Y JURISDICCIÓN. DOMICILIO.</strong><br>
+                    13.1. Estos TyC se rigen por la ley de la República Argentina. Toda controversia derivada de su
+                    aplicación, interpretación, ejecución o validez será resuelta por los tribunales nacionales
+                    ordinarios con asiento en la Ciudad Autónoma de Buenos Aires.<br>
+                    13.2. Para todos los efectos relacionados con estos TyC, el Club Atlético River Plate Asociación
+                    Civil con CUIT 30-52674844-8 establece como domicilio Avda. Pdte. Figueroa Alcorta 7597, Ciudad
+                    Autónoma de Buenos Aires, Argentina.<br>
+                    Para obtener más información, por favor contactarse con socios@cariverplate.com.ar.</p>
+
+                <br><br><br>
+                <p style="text-align:center; color:var(--text-muted);"><em>Fin de los términos y condiciones.</em></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="scrollDownBtn">
+                    <i class="bi bi-arrow-down-circle"></i> Bajar hasta el final para aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storageMethods.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
