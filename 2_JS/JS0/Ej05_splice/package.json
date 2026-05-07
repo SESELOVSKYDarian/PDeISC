@@ -1,0 +1,12 @@
+{
+  "name": "ej5-splice",
+  "version": "1.0.0",
+  "description": "Cambia el contenido de un array eliminando elementos existentes y/o agregando nuevos elementos.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

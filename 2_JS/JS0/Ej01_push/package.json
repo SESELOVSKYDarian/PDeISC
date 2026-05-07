@@ -1,0 +1,12 @@
+{
+  "name": "ej1-push",
+  "version": "1.0.0",
+  "description": "Agrega uno o más elementos al final de un array y devuelve la nueva longitud.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

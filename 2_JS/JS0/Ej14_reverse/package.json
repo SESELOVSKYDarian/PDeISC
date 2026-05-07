@@ -1,0 +1,12 @@
+{
+  "name": "ej14-reverse",
+  "version": "1.0.0",
+  "description": "Invierte el orden de los elementos de un array. El primer elemento pasa a ser el último y el último pasa a ser el primero.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

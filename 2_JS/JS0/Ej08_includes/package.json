@@ -1,0 +1,12 @@
+{
+  "name": "ej8-includes",
+  "version": "1.0.0",
+  "description": "Determina si un array incluye un determinado elemento, devuelve true o false.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

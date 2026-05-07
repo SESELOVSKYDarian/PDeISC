@@ -1,0 +1,12 @@
+{
+  "name": "ej11-filter",
+  "version": "1.0.0",
+  "description": "Crea un nuevo array con todos los elementos que cumplan la condición implementada por la función dada.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

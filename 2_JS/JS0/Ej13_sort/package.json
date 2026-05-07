@@ -1,0 +1,12 @@
+{
+  "name": "ej13-sort",
+  "version": "1.0.0",
+  "description": "Ordena los elementos de un array localmente y devuelve el array ordenado.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

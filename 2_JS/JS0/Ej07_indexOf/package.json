@@ -1,0 +1,12 @@
+{
+  "name": "ej7-indexOf",
+  "version": "1.0.0",
+  "description": "Retorna el primer índice en el que se puede encontrar un elemento dado en el array, o retorna -1 si no está.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

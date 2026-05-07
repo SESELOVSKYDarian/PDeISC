@@ -1,0 +1,12 @@
+{
+  "name": "ej4-shift",
+  "version": "1.0.0",
+  "description": "Elimina el primer elemento de un array y lo devuelve.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

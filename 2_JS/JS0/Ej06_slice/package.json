@@ -1,0 +1,12 @@
+{
+  "name": "ej6-slice",
+  "version": "1.0.0",
+  "description": "Devuelve una copia de una parte del array dentro de un nuevo array.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
