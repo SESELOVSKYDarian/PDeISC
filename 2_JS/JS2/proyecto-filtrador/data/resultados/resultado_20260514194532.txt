@@ -1,0 +1,13 @@
+Numeros filtrados que empiezan y terminan con el mismo digito:
+3.43
+99
+333
+555
+
+Numeros factoriales detectados en el archivo:
+120 -> 5!
+
+Cantidad de utiles: 4
+Cantidad de no utiles: 6
+Porcentaje de utiles: 40%
+Cantidad de numeros repetidos detectados: 0

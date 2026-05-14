@@ -1,0 +1,13 @@
+{
+  "name": "proyecto-filtrador",
+  "version": "1.0.0",
+  "description": "Lector y filtrador de archivos TXT con numeros",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

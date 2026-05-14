@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de TXT</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/light.css" id="themeStylesheet">
+</head>
+<body>
+  <!-- Encabezado -->
+  <header class="app-header">
+    <div class="container app-header-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Proyecto 1 · Puerto 3000</span>
+        <h1>Generador de TXT</h1>
+        <p>Carga una serie validada de numeros, revisa el proceso en pantalla y guarda archivos reales listos para editar o descargar.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-theme" id="themeButton" type="button">Modo oscuro</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Resumen -->
+  <section class="container summary-strip">
+    <div class="summary-card">
+      <span>Rango permitido</span>
+      <strong>10 a 20</strong>
+    </div>
+    <div class="summary-card">
+      <span>Formato</span>
+      <strong>.txt real</strong>
+    </div>
+    <div class="summary-card">
+      <span>Validacion</span>
+      <strong>Triple capa</strong>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <main class="container app-main">
+    <section class="panel panel-main mb-4">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="section-heading">
+            <span>Paso 1</span>
+            <h2>Cargar numeros</h2>
+          </div>
+          <form id="formNumero" novalidate>
+            <label for="numero" class="form-label">Numero a agregar</label>
+            <div class="input-group">
+              <input class="form-control" id="numero" name="numero" type="number" required min="-999999" max="999999">
+              <button class="btn btn-primary" type="submit">Agregar</button>
+            </div>
+            <div id="estadoNumero" class="mensaje mt-3" hidden></div>
+          </form>
+          <div class="acciones mt-3">
+            <button class="btn btn-success" id="btnGuardar" type="button" disabled>Finalizar y guardar TXT</button>
+            <button class="btn btn-outline-danger" id="btnLimpiar" type="button" disabled>Limpiar todo</button>
+          </div>
+          <div id="estadoGeneral" class="mensaje estado-finalizacion" hidden></div>
+        </div>
+        <div class="col-lg-7">
+          <div class="section-heading inline-heading">
+            <div>
+              <span>Paso 2</span>
+              <h2>Numeros cargados</h2>
+            </div>
+            <span class="badge text-bg-secondary" id="contador">0/20 numeros cargados</span>
+          </div>
+          <ul class="list-group numeros-lista" id="listaNumeros"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel mb-4">
+      <div class="section-heading">
+        <span>Biblioteca</span>
+        <h2>Archivos TXT generados</h2>
+      </div>
+      <div class="archivos-grid" id="archivos"></div>
+    </section>
+
+    <section class="editor-modal" id="editor" hidden aria-modal="true" role="dialog" aria-labelledby="editorTitulo">
+      <div class="editor-dialog">
+        <div class="editor-header">
+          <div class="section-heading">
+            <span>Editor</span>
+            <h2 id="editorTitulo">Ver y editar TXT</h2>
+          </div>
+          <button class="modal-close" id="btnCerrarEditor" type="button" aria-label="Cerrar editor">
+            <i data-lucide="x" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p id="nombreArchivo" class="text-secondary"></p>
+        <label for="contenidoArchivo" class="form-label">Contenido del archivo</label>
+        <textarea class="form-control" id="contenidoArchivo" rows="8"></textarea>
+        <div class="editor-confirm" id="confirmarCancelacion" hidden>
+          <div class="editor-confirm-copy">
+            <i data-lucide="triangle-alert" aria-hidden="true"></i>
+            <div>
+              <strong>Hay cambios sin guardar</strong>
+              <p>Si salis ahora se perdera lo editado</p>
+            </div>
+          </div>
+          <div class="acciones confirm-actions">
+            <button class="btn btn-danger" id="btnConfirmarCancelar" type="button">Descartar cambios</button>
+            <button class="btn btn-outline-secondary" id="btnNoCancelar" type="button">No, seguir editando</button>
+          </div>
+        </div>
+        <div class="acciones editor-actions mt-3" id="editorActions">
+          <button class="btn btn-primary" id="btnGuardarEdicion" type="button" disabled>Guardar cambios</button>
+          <button class="btn btn-outline-secondary" id="btnCancelarEdicion" type="button">Cancelar</button>
+        </div>
+      </div>
+    </section>
+    <section class="editor-modal" id="modalEliminar" hidden aria-modal="true" role="dialog" aria-labelledby="eliminarTitulo">
+      <div class="editor-dialog">
+        <div class="editor-header">
+          <div class="section-heading">
+            <span>Confirmacion</span>
+            <h2 id="eliminarTitulo">¿Eliminar archivo?</h2>
+          </div>
+          <button class="modal-close" id="btnCerrarModalEliminar" type="button" aria-label="Cerrar modal">
+            <i data-lucide="x" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p class="text-secondary">Esta accion eliminara permanentemente el archivo <strong id="nombreArchivoEliminar" class="text-danger"></strong> del servidor y de la copia local.</p>
+        <div id="estadoEliminar" class="mensaje mt-3" hidden></div>
+        <div class="acciones mt-4">
+          <button class="btn btn-danger" id="btnConfirmarEliminar" type="button">Si, eliminar permanentemente</button>
+          <button class="btn btn-outline-secondary" id="btnCancelarEliminar" type="button">No, mantener archivo</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Acciones flotantes -->
+  <button class="floating-action floating-top" id="backTopButton" type="button" aria-label="Volver arriba" hidden>
+    <i data-lucide="arrow-up" aria-hidden="true"></i>
+  </button>
+  <button class="floating-action floating-theme" id="floatingThemeButton" type="button" aria-label="Cambiar tema" hidden>
+    <i data-lucide="moon" aria-hidden="true"></i>
+  </button>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="/scripts/main.js"></script>
+</body>
+</html>
