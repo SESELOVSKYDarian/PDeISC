@@ -1,47 +1,60 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
-const emailService = {
-    sendWelcomeSocioEmail: async (toEmail, documento) => {
-        try {
-            let testAccount = await nodemailer.createTestAccount();
+export async function sendWelcomeSocioEmail(toEmail, documento) {
+  try {
+    const testAccount = await nodemailer.createTestAccount();
 
-            let transporter = nodemailer.createTransport({
-                host: "smtp.ethereal.email",
-                port: 587,
-                secure: false,
-                auth: {
-                    user: testAccount.user,
-                    pass: testAccount.pass,
-                },
-            });
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass
+      }
+    });
 
-            const mailOptions = {
-                from: '"Socios River Plate" <noreply@sociosriver.com>',
-                to: toEmail,
-                subject: "✅ Bienvenido a River Plate",
-                text: `Felicidades, el documento ${documento} ha sido registrado como socio.\n\nSaludos!`,
-                html: `
-                    <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; border: 2px solid #E3001B;">
-                        <h2 style="color: #E3001B;">¡Bienvenido a River Plate!</h2>
-                        <p>Te notificamos que el documento <strong>${documento}</strong> ha sido asociado correctamente.</p>
-                        <hr>
-                        <p style="font-size: 12px; color: #999;">El Más Grande Lejos</p>
-                    </div>
-                `,
-            };
+    const mailOptions = {
+      from: '"Socios River Plate" <noreply@sociosriver.com>',
+      to: toEmail,
+      subject: 'Bienvenido a River Plate',
+      text: `Felicidades, el documento ${documento} ha sido registrado como socio.`
+    };
 
-            let info = await transporter.sendMail(mailOptions);
-            console.log("------------------------------------------");
-            console.log("📧 Correo de bienvenida enviado.");
-            console.log("📨 URL para previsualizar: %s", nodemailer.getTestMessageUrl(info));
-            console.log("------------------------------------------");
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Correo de bienvenida enviado:', nodemailer.getTestMessageUrl(info));
+    return info;
+  } catch (error) {
+    console.error('Error al enviar el correo:', error);
+    throw error;
+  }
+}
 
-            return info;
-        } catch (error) {
-            console.error("Error al enviar el correo: ", error);
-            throw error;
-        }
-    }
-};
+export async function sendInventoryEmail(toEmail, encargadoNombre, nombreProducto) {
+  try {
+    const testAccount = await nodemailer.createTestAccount();
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass
+      }
+    });
 
-module.exports = emailService;
+    const mailOptions = {
+      from: '\"Inventario River\" <noreply@inventarioriver.com>',
+      to: toEmail,
+      subject: 'Ítem de inventario registrado',
+      text: `Hola ${encargadoNombre}, el producto ${nombreProducto} fue registrado correctamente.`
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Correo de inventario enviado:', nodemailer.getTestMessageUrl(info));
+    return info;
+  } catch (error) {
+    console.error('Error al enviar correo de inventario:', error);
+    throw error;
+  }
+}

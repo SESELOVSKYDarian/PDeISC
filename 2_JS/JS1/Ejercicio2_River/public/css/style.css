@@ -567,3 +567,125 @@ input:focus, select:focus {
     .modal-body { padding: 1.25rem; }
     .btn { padding: 0.9rem 2rem; font-size: 1rem; }
 }
+
+/* Botones flotantes de tema y volver arriba */
+.floating-btn {
+    position: fixed;
+    right: 1rem;
+    z-index: 1500;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.floating-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(0,0,0,0.33);
+}
+
+.floating-theme {
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.62rem 0.95rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.85));
+    color: #ffffff;
+}
+
+.floating-theme i {
+    width: 18px;
+    height: 18px;
+}
+
+.floating-top {
+    bottom: 1rem;
+    display: none;
+    width: 46px;
+    height: 46px;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,41,59,0.85));
+    color: #ffffff;
+}
+
+.floating-top i {
+    width: 20px;
+    height: 20px;
+}
+
+/* Tema claro */
+body.light-theme {
+    --bg-color: #f8fafc;
+    --surface-color: rgba(255,255,255,0.95);
+    --surface-border: rgba(15,23,42,0.12);
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --bg-page: #eef2f7;
+    --bg-card: rgba(255,255,255,0.97);
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    color: #0f172a;
+}
+
+body.light-theme .floating-theme {
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    color: #0f172a;
+    border-color: rgba(15,23,42,0.2);
+}
+
+body.light-theme .floating-top {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #ffffff;
+}
+
+/* Tema oscuro */
+body.dark-theme {
+    color: var(--text-primary, #f8fafc);
+}
+
+@media (max-width: 640px) {
+    .floating-theme {
+        top: auto;
+        bottom: 1rem;
+        right: 4.5rem;
+    }
+}
+
+
+/* Listado de nombres completos */
+.names-panel {
+    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.6);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.names-panel h3 {
+    font-size: 1rem;
+    margin: 0 0 0.6rem 0;
+    color: var(--secondary);
+}
+
+.full-names-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    max-height: 140px;
+    overflow: auto;
+}
+
+.full-names-list li {
+    margin-bottom: 0.3rem;
+    color: var(--text-main);
+}
+
+body.light-theme .logo-text h1 {
+    color: #000000;
+    text-shadow: none;
+}

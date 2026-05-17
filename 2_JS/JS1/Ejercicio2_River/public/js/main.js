@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.getElementById('inventoryTableBody');
     const totalItemsBadge = document.getElementById('totalItems');
     const toastContainer = document.getElementById('toast-container');
+    const fullNamesListRiver = document.getElementById('fullNamesListRiver');
+    const arrayInicialRiver = document.getElementById('arrayInicialRiver');
+    const operacionRiver = document.getElementById('operacionRiver');
+    const resultadoRiver = document.getElementById('resultadoRiver');
+    const snapshotInicial = [...window.inventoryStorage.getAllItems()];
 
     // cosas para el telefono
     const phoneCountry = document.getElementById('phoneCountry');
@@ -160,10 +165,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (items.length === 0) {
             tableBody.innerHTML = '<tr id="emptyRow"><td colspan="4" class="empty-cell">Nadie se ha asociado en esta sesión todavía.</td></tr>';
             totalItemsBadge.textContent = '0 socios';
+            if (fullNamesListRiver) {
+                fullNamesListRiver.innerHTML = '<li class="empty-cell">Sin registros en sesión.</li>';
+            }
+            if (arrayInicialRiver) arrayInicialRiver.textContent = JSON.stringify(snapshotInicial);
+            if (resultadoRiver) resultadoRiver.textContent = JSON.stringify(items);
             return;
         }
 
         totalItemsBadge.textContent = `${items.length} socio${items.length !== 1 ? 's' : ''}`;
+
+        if (fullNamesListRiver) {
+            fullNamesListRiver.innerHTML = '';
+            items.forEach((item) => {
+                const nombreCompleto = `${item.nombre || ''} ${item.apellido || ''}`.trim();
+                const li = document.createElement('li');
+                li.textContent = nombreCompleto || `Documento ${item.documento}`;
+                fullNamesListRiver.appendChild(li);
+            });
+        }
 
         items.forEach(item => {
             const tr = document.createElement('tr');
@@ -175,6 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             tableBody.appendChild(tr);
         });
+
+        if (arrayInicialRiver) arrayInicialRiver.textContent = JSON.stringify(snapshotInicial);
+        if (resultadoRiver) resultadoRiver.textContent = JSON.stringify(items);
     };
 
     renderTable();
@@ -237,6 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // guardamos segun el metodo que eligieron (push o unshift)
             window.inventoryStorage.saveItem(result.socio, data.metodo_almacenaje);
+            if (operacionRiver) {
+                operacionRiver.textContent = data.metodo_almacenaje === 'unshift'
+                    ? 'unshift(socio) - se inserta al inicio del array'
+                    : 'push(socio) - se inserta al final del array';
+            }
             
             renderTable();
             form.reset();
@@ -255,3 +283,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// Inicializa tema, boton de tema y boton para volver arriba.
+function initUiExtras() {
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const topBtn = document.getElementById('scrollTopBtn');
+
+    const pintarBotonTema = (tema) => {
+        if (!themeBtn) return;
+        const icono = tema === 'dark' ? 'sun' : 'moon';
+        const texto = tema === 'dark' ? 'Modo claro' : 'Modo oscuro';
+        themeBtn.innerHTML = `<i data-lucide="${icono}" aria-hidden="true"></i><span>${texto}</span>`;
+        if (window.lucide) window.lucide.createIcons();
+    };
+
+    if (window.themeConfig) {
+        const t = window.themeConfig.getTheme();
+        window.themeConfig.applyTheme(t);
+        pintarBotonTema(t);
+
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                const next = window.themeConfig.toggleTheme();
+                pintarBotonTema(next);
+            });
+        }
+    }
+
+    if (topBtn) {
+        const handleScroll = () => {
+            topBtn.style.display = window.scrollY > 220 ? 'inline-flex' : 'none';
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+
+        topBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    if (window.lucide) window.lucide.createIcons();
+}
+
+initUiExtras();

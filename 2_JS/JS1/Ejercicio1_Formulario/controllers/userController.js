@@ -1,49 +1,38 @@
-const emailService = require('../services/emailService');
+import { sendWelcomeEmail } from '../services/emailService.js';
 
-// funciones para validar que todo este bien antes de guardar
 const isValidName = (str) => {
-    // solo letras y espacios, nada de numeros por aca
-    const regex = /^[a-zA-Z√°√©√≠√≥√∫√Å√â√ç√ì√ö√±√ë\s]+$/;
-    return regex.test(str);
+  const regex = /^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—\s]+$/;
+  return regex.test(str);
 };
 
-const userController = {
-    registerUser: async (req, res) => {
-        try {
-            const { name, surname, email } = req.body;
+export async function registerUser(req, res) {
+  try {
+    const { name, surname, email } = req.body;
 
-            // validamos en el server por las dudas, igual que en el front
-            if (!name || name.length < 3 || name.length > 100 || !isValidName(name)) {
-                return res.status(400).json({ error: 'El nombre es inv√°lido. Debe tener entre 3 y 100 caracteres y no contener n√∫meros.' });
-            }
-
-            if (!surname || surname.length < 2 || surname.length > 100 || !isValidName(surname)) {
-                return res.status(400).json({ error: 'El apellido es inv√°lido. Debe tener entre 2 y 100 caracteres y no contener n√∫meros.' });
-            }
-
-            const validTlds = ['.com', '.ar', '.net', '.org', '.edu'];
-            const hasValidTld = validTlds.some(tld => email.endsWith(tld));
-            if (!email || !email.includes('@') || !hasValidTld) {
-                return res.status(400).json({ error: `El correo debe ser v√°lido, contener "@" y terminar en uno de estos dominios: ${validTlds.join(', ')}.` });
-            }
-
-            // simulamos que guardamos el usuario en una base de datos
-            const newUser = { id: Date.now(), name, surname, email };
-
-            // mandamos el mail de bienvenida
-            await emailService.sendWelcomeEmail(email, name);
-
-            // si llegamos aca esta todo joya
-            return res.status(201).json({
-                message: 'Usuario registrado exitosamente',
-                user: newUser
-            });
-
-        } catch (error) {
-            console.error('Error en el registro:', error);
-            return res.status(500).json({ error: 'Error interno del servidor al procesar el registro.' });
-        }
+    if (!name || name.length < 3 || name.length > 100 || !isValidName(name)) {
+      return res.status(400).json({ error: 'El nombre es inv·lido. Debe tener entre 3 y 100 caracteres y no contener n˙meros.' });
     }
-};
 
-module.exports = userController;
+    if (!surname || surname.length < 2 || surname.length > 100 || !isValidName(surname)) {
+      return res.status(400).json({ error: 'El apellido es inv·lido. Debe tener entre 2 y 100 caracteres y no contener n˙meros.' });
+    }
+
+    const validTlds = ['.com', '.ar', '.net', '.org', '.edu'];
+    const hasValidTld = validTlds.some((tld) => email?.endsWith(tld));
+    if (!email || !email.includes('@') || !hasValidTld) {
+      return res.status(400).json({ error: `El correo debe ser v·lido, contener "@" y terminar en uno de estos dominios: ${validTlds.join(', ')}.` });
+    }
+
+    const newUser = { id: Date.now(), name, surname, email };
+
+    await sendWelcomeEmail(email, name);
+
+    return res.status(201).json({
+      message: 'Usuario registrado exitosamente',
+      user: newUser
+    });
+  } catch (error) {
+    console.error('Error en el registro:', error);
+    return res.status(500).json({ error: 'Error interno del servidor al procesar el registro.' });
+  }
+}

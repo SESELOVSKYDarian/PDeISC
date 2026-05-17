@@ -140,3 +140,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// Inicializa tema, boton de tema y boton para volver arriba.
+function initUiExtras() {
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const topBtn = document.getElementById('scrollTopBtn');
+
+    const pintarBotonTema = (tema) => {
+        if (!themeBtn) return;
+        const icono = tema === 'dark' ? 'sun' : 'moon';
+        const texto = tema === 'dark' ? 'Modo claro' : 'Modo oscuro';
+        themeBtn.innerHTML = `<i data-lucide="${icono}" aria-hidden="true"></i><span>${texto}</span>`;
+        if (window.lucide) window.lucide.createIcons();
+    };
+
+    if (window.themeConfig) {
+        const t = window.themeConfig.getTheme();
+        window.themeConfig.applyTheme(t);
+        pintarBotonTema(t);
+
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                const next = window.themeConfig.toggleTheme();
+                pintarBotonTema(next);
+            });
+        }
+    }
+
+    if (topBtn) {
+        const handleScroll = () => {
+            topBtn.style.display = window.scrollY > 220 ? 'inline-flex' : 'none';
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+
+        topBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    if (window.lucide) window.lucide.createIcons();
+}
+
+initUiExtras();

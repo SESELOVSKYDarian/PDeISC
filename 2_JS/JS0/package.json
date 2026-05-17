@@ -1,0 +1,10 @@
+{
+  "name": "js0-arrays-node-sin-express",
+  "version": "1.0.0",
+  "description": "Trabajo integrador de metodos de arrays con Node.js puro",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

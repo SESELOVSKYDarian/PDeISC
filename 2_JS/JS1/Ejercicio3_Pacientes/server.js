@@ -1,21 +1,24 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const path = require('path');
-const patientController = require('./controllers/patientController');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { registerPatient } from './controllers/patientController.js';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-// configuramos el server con lo de siempre
 app.use(cors());
-app.use(express.json()); // para los json
-app.use(express.urlencoded({ extended: true })); // para los forms
-app.use(express.static(path.join(__dirname, 'public'))); // archivos estaticos
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/api/pacientes', patientController.registerPatient);
+app.post('/api/pacientes', registerPatient);
 
 app.listen(PORT, () => {
   console.log(`Servidor de Registro de Pacientes corriendo en http://localhost:${PORT}`);

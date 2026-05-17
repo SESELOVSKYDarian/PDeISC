@@ -15,6 +15,8 @@
 </head>
 
 <body>
+    <button id="themeToggleBtn" class="floating-btn floating-theme" type="button" aria-label="Cambiar tema"><i data-lucide="moon" aria-hidden="true"></i><span>Modo oscuro</span></button>
+    <button id="scrollTopBtn" class="floating-btn floating-top" type="button" aria-label="Subir al inicio"><i data-lucide="arrow-up" aria-hidden="true"></i></button>
     <div class="background-elements">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -190,6 +192,20 @@
                 <div class="card-header">
                     <h2>Últimos Socios Registrados</h2>
                     <span class="badge" id="totalItems">0 socios</span>
+                </div>
+
+                <div class="names-panel mb-3">
+                    <h3>Listado de nombres completos</h3>
+                    <ul id="fullNamesListRiver" class="full-names-list">
+                        <li class="empty-cell">Sin registros en sesi?n.</li>
+                    </ul>
+                </div>
+
+                <div class="names-panel mb-3">
+                    <h3>Demostración de Array</h3>
+                    <p><strong>Array inicial:</strong> <code id="arrayInicialRiver">[]</code></p>
+                    <p><strong>Operación realizada:</strong> <code id="operacionRiver">Sin operaciones todavía.</code></p>
+                    <p class="mb-0"><strong>Resultado:</strong> <code id="resultadoRiver">[]</code></p>
                 </div>
 
                 <div class="table-container">
@@ -393,6 +409,8 @@
     </div>
 
     <script src="js/storageMethods.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="config/theme.js"></script>
     <script src="js/main.js"></script>
 </body>
 
