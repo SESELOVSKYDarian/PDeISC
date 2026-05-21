@@ -3,16 +3,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('socioForm');
     const submitBtn = document.getElementById('submitBtn');
+    const clearBtn = document.getElementById('clearBtn');
     const btnText = form.querySelector('.btn-text');
     const btnLoader = document.getElementById('btnLoader');
     const tableBody = document.getElementById('inventoryTableBody');
     const totalItemsBadge = document.getElementById('totalItems');
     const toastContainer = document.getElementById('toast-container');
-    const fullNamesListRiver = document.getElementById('fullNamesListRiver');
-    const arrayInicialRiver = document.getElementById('arrayInicialRiver');
-    const operacionRiver = document.getElementById('operacionRiver');
-    const resultadoRiver = document.getElementById('resultadoRiver');
-    const snapshotInicial = [...window.inventoryStorage.getAllItems()];
 
     // cosas para el telefono
     const phoneCountry = document.getElementById('phoneCountry');
@@ -34,13 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     tramiteInput.addEventListener('blur', () => {
-        let val = tramiteInput.value.trim();
+        const val = tramiteInput.value.trim();
         if (val && val.length < 11 && /^\d+$/.test(val)) {
             tramiteInput.value = val.padStart(11, '0');
         }
     });
-    
-    // reglas de la contraseña
+
+    // reglas de la contrasena
     const passwordInput = document.getElementById('password');
     const rules = {
         length: document.getElementById('rule-length'),
@@ -58,11 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollDownBtn = document.getElementById('scrollDownBtn');
     const termsCheckbox = document.getElementById('termsCheckbox');
 
-    // aca abrimos y cerramos el modal
     openTermsModal.addEventListener('click', (e) => {
         e.preventDefault();
         termsModal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // trabamos el scroll del fondo
+        document.body.style.overflow = 'hidden';
     });
 
     const closeTerms = () => {
@@ -71,34 +66,25 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     closeModalBtn.addEventListener('click', closeTerms);
-    
-    // si tocan afuera tambien se cierra
+
     window.addEventListener('click', (e) => {
         if (e.target === termsModal) closeTerms();
     });
 
-    // habilitamos el check cuando llegan al final del texto
     termsBody.addEventListener('scroll', () => {
-        // dejamos un margen de 5px para que no sea tan exacto
         const isAtBottom = termsBody.scrollHeight - termsBody.scrollTop <= termsBody.clientHeight + 5;
         if (isAtBottom) {
             termsCheckbox.disabled = false;
             termsCheckbox.checked = true;
-            scrollDownBtn.innerHTML = '<i class="bi bi-check-all"></i> Términos leídos y aceptados';
+            scrollDownBtn.innerHTML = '<i class="bi bi-check-all"></i> Terminos leidos y aceptados';
             scrollDownBtn.style.background = 'var(--success)';
         }
     });
 
-    // boton para ir abajo de todo rapido
     scrollDownBtn.addEventListener('click', () => {
-        termsBody.scrollTo({
-            top: termsBody.scrollHeight,
-            behavior: 'smooth'
-        });
-        // El listener de scroll se encargará de habilitar el check
+        termsBody.scrollTo({ top: termsBody.scrollHeight, behavior: 'smooth' });
     });
 
-    // notificaciones tipo toast
     const showToast = (msg, type = 'success') => {
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
@@ -108,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 4000);
     };
 
-    // ponemos bordes rojos si escriben mal
     const formGroups = form.querySelectorAll('.form-group');
     formGroups.forEach(group => {
         const inputs = group.querySelectorAll('input, select');
@@ -123,71 +108,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // si eligen argentina mostramos el prefijo 9
     phoneCountry.addEventListener('change', (e) => {
-        if (e.target.value === '+54') {
-            argMobilePrefix.style.display = 'flex';
-        } else {
-            argMobilePrefix.style.display = 'none';
-        }
+        argMobilePrefix.style.display = e.target.value === '+54' ? 'flex' : 'none';
     });
 
-    // validamos la clave mientras escriben
     passwordInput.addEventListener('input', (e) => {
         const val = e.target.value;
-        
-        // minimo 12 letras
-        if (val.length >= 12) rules.length.classList.add('valid');
-        else rules.length.classList.remove('valid');
-
-        // Uppercase
-        if (/[A-Z]/.test(val)) rules.upper.classList.add('valid');
-        else rules.upper.classList.remove('valid');
-
-        // Lowercase
-        if (/[a-z]/.test(val)) rules.lower.classList.add('valid');
-        else rules.lower.classList.remove('valid');
-
-        // algun numerito tiene que tener
-        if (/\d/.test(val)) rules.number.classList.add('valid');
-        else rules.number.classList.remove('valid');
-
-        // algun caracter raro tambien
-        if (/[.!\@#\$%\^&\*\(\)\-\+\?]/.test(val)) rules.special.classList.add('valid');
-        else rules.special.classList.remove('valid');
+        val.length >= 12 ? rules.length.classList.add('valid') : rules.length.classList.remove('valid');
+        /[A-Z]/.test(val) ? rules.upper.classList.add('valid') : rules.upper.classList.remove('valid');
+        /[a-z]/.test(val) ? rules.lower.classList.add('valid') : rules.lower.classList.remove('valid');
+        /\d/.test(val) ? rules.number.classList.add('valid') : rules.number.classList.remove('valid');
+        /[.!\@#\$%\^&\*\(\)\-\+\?]/.test(val) ? rules.special.classList.add('valid') : rules.special.classList.remove('valid');
     });
 
-    // mostramos los datos en la tabla
     const renderTable = () => {
         const items = window.inventoryStorage.getAllItems();
         tableBody.innerHTML = '';
-        
+
         if (items.length === 0) {
-            tableBody.innerHTML = '<tr id="emptyRow"><td colspan="4" class="empty-cell">Nadie se ha asociado en esta sesión todavía.</td></tr>';
+            tableBody.innerHTML = '<tr id="emptyRow"><td colspan="5" class="empty-cell">Nadie se ha asociado en esta sesion todavia.</td></tr>';
             totalItemsBadge.textContent = '0 socios';
-            if (fullNamesListRiver) {
-                fullNamesListRiver.innerHTML = '<li class="empty-cell">Sin registros en sesión.</li>';
-            }
-            if (arrayInicialRiver) arrayInicialRiver.textContent = JSON.stringify(snapshotInicial);
-            if (resultadoRiver) resultadoRiver.textContent = JSON.stringify(items);
             return;
         }
 
         totalItemsBadge.textContent = `${items.length} socio${items.length !== 1 ? 's' : ''}`;
 
-        if (fullNamesListRiver) {
-            fullNamesListRiver.innerHTML = '';
-            items.forEach((item) => {
-                const nombreCompleto = `${item.nombre || ''} ${item.apellido || ''}`.trim();
-                const li = document.createElement('li');
-                li.textContent = nombreCompleto || `Documento ${item.documento}`;
-                fullNamesListRiver.appendChild(li);
-            });
-        }
-
         items.forEach(item => {
+            const nombreCompleto = `${item.nombre || ''} ${item.apellido || ''}`.trim();
             const tr = document.createElement('tr');
             tr.innerHTML = `
+                <td><strong>${nombreCompleto || 'Sin nombre'}</strong></td>
                 <td><strong>${item.documento}</strong></td>
                 <td>${item.sexo}</td>
                 <td>${item.nacionalidad}</td>
@@ -195,24 +145,42 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             tableBody.appendChild(tr);
         });
-
-        if (arrayInicialRiver) arrayInicialRiver.textContent = JSON.stringify(snapshotInicial);
-        if (resultadoRiver) resultadoRiver.textContent = JSON.stringify(items);
     };
 
     renderTable();
 
-    // aca mandamos el form al server
+    const clearForm = () => {
+        form.reset();
+        form.querySelectorAll('input, select').forEach(input => {
+            const group = input.closest('.form-group');
+            if (group) group.classList.remove('invalid');
+        });
+
+        Object.values(rules).forEach(el => el.classList.remove('valid'));
+        argMobilePrefix.style.display = 'flex';
+        tramiteGroup.style.display = 'flex';
+        tramiteInput.setAttribute('required', 'true');
+        termsCheckbox.checked = false;
+        termsCheckbox.disabled = true;
+        scrollDownBtn.innerHTML = '<i class="bi bi-arrow-down-circle"></i> Bajar hasta el final para aceptar';
+        scrollDownBtn.style.background = '';
+
+        showToast('Formulario limpiado.', 'success');
+    };
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearForm);
+    }
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         if (!form.checkValidity()) {
             showToast('Por favor, revisa los campos en rojo.', 'error');
-            // marcamos los que esten mal
             form.querySelectorAll('input, select').forEach(input => {
                 if (!input.checkValidity()) {
                     const group = input.closest('.form-group');
-                    if(group) group.classList.add('invalid');
+                    if (group) group.classList.add('invalid');
                 }
             });
             return;
@@ -225,20 +193,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
-        // armamos el mail entero
         data.email = `${data.emailUser}@${data.emailDomain}${data.emailTld}`;
         delete data.emailUser;
         delete data.emailDomain;
         delete data.emailTld;
 
-        // armamos el telefono entero segun el pais
         let fullPhone = data.phoneCountry;
-        if (data.phoneCountry === '+54') {
-            fullPhone += '9'; // agregamos el 9 para argentina
-        }
+        if (data.phoneCountry === '+54') fullPhone += '9';
         fullPhone += data.phoneArea + data.phoneNumber;
         data.telefono = fullPhone;
-        
+
         delete data.phoneCountry;
         delete data.phoneArea;
         delete data.phoneNumber;
@@ -251,28 +215,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.error || 'Error desconocido.');
-            }
+            if (!response.ok) throw new Error(result.error || 'Error desconocido.');
 
             showToast(result.message, 'success');
-            
-            // guardamos segun el metodo que eligieron (push o unshift)
             window.inventoryStorage.saveItem(result.socio, data.metodo_almacenaje);
-            if (operacionRiver) {
-                operacionRiver.textContent = data.metodo_almacenaje === 'unshift'
-                    ? 'unshift(socio) - se inserta al inicio del array'
-                    : 'push(socio) - se inserta al final del array';
-            }
-            
             renderTable();
             form.reset();
-            
-            // limpiamos los checks de la clave y el form
-            Object.values(rules).forEach(el => el.classList.remove('valid'));
-            argMobilePrefix.style.display = 'flex'; // volvemos a poner argentina por defecto
 
+            Object.values(rules).forEach(el => el.classList.remove('valid'));
+            argMobilePrefix.style.display = 'flex';
         } catch (error) {
             console.error(error);
             showToast(error.message, 'error');

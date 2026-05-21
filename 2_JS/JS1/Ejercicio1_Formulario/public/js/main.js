@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('registrationForm');
     const submitBtn = document.getElementById('submitBtn');
+    const clearBtn = document.getElementById('clearBtn');
     const btnText = form.querySelector('.btn-text');
     const btnLoader = document.getElementById('btnLoader');
     const usersList = document.getElementById('usersList');
@@ -40,6 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    const clearForm = () => {
+        form.reset();
+        inputs.forEach(input => input.closest('.input-group').classList.remove('invalid'));
+        showToast('Formulario limpiado.', 'success');
+    };
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearForm);
+    }
 
     // agregamos al pibe a la lista sin recargar
     const addUserToList = (user) => {

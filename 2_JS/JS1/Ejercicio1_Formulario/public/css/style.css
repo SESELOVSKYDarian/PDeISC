@@ -78,7 +78,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    max-width: 1100px;
+    max-width: 1200px;
     width: 100%;
     background: var(--surface-color);
     backdrop-filter: blur(20px);
@@ -159,12 +159,11 @@ label {
 }
 
 .select-field {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1.2rem;
-    padding-right: 2.8rem; /* Aumentado para evitar solapamiento con el icono */
+    appearance: auto;
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    background-image: none;
+    padding-right: 1rem;
 }
 
 .select-field option {
@@ -260,6 +259,43 @@ label {
 
 @keyframes spin {
     to { transform: rotate(360deg); }
+}
+
+
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.clear-btn {
+    flex: 0 0 auto;
+    border: 1px solid var(--surface-border);
+    background: transparent;
+    color: var(--text-secondary);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.clear-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.form-actions .submit-btn {
+    margin-top: 0;
+    flex: 1;
+}
+
+body.light-theme .clear-btn {
+    background: #ffffff;
+    border-color: rgba(15, 23, 42, 0.18);
+    color: #334155;
 }
 
 /* Users List */
@@ -404,31 +440,58 @@ label {
 }
 
 /* Responsive */
-@media (max-width: 860px) {
+@media (max-width: 1100px) {
+    body {
+        align-items: flex-start;
+        padding: 1.25rem;
+    }
+
     .container {
         grid-template-columns: 1fr;
-        padding: 2rem;
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+        border-radius: 20px;
     }
-    
+
     .blob {
-        display: none; /* Mejor rendimiento en mÃ³viles */
+        display: none;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
     body {
-        padding: 1rem;
+        padding: 0.75rem;
     }
-    
+
     .container {
-        padding: 1.5rem;
+        padding: 1.25rem 1rem;
+        border-radius: 16px;
     }
-    
+
     .registration-form {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .form-section, .users-section {
+        gap: 1.25rem;
+    }
+
+    .users-list-container {
+        min-height: 240px;
+        max-height: none;
+    }
+
+    .toast-container {
+        left: 0.75rem;
+        right: 0.75rem;
+        top: 0.75rem;
+    }
+
+    .toast {
+        width: 100%;
     }
 }
-
 
 /* Composite Email */
 .email-composite {
@@ -452,6 +515,9 @@ label {
     .email-composite { flex-direction: column; align-items: stretch; }
     .email-separator { display: none; }
     .submit-btn { width: 100%; }
+    .form-actions { flex-direction: column-reverse; }
+    .clear-btn { width: 100%; }
+    .floating-btn { right: 0.75rem; }
 }
 
 /* Botones flotantes de tema y volver arriba */
@@ -474,7 +540,10 @@ label {
 }
 
 .floating-theme {
-    top: 1rem;
+    top: auto;
+    bottom: 1rem;
+    left: 1rem;
+    right: auto;
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -509,8 +578,8 @@ label {
 /* Tema claro */
 body.light-theme {
     --bg-color: #f8fafc;
-    --surface-color: rgba(255,255,255,0.95);
-    --surface-border: rgba(15,23,42,0.12);
+    --surface-color: rgba(255,255,255,0.92);
+    --surface-border: rgba(15,23,42,0.14);
     --text-primary: #0f172a;
     --text-secondary: #334155;
     --bg-page: #eef2f7;
@@ -520,6 +589,83 @@ body.light-theme {
     color: #0f172a;
 }
 
+body.light-theme .blob {
+    opacity: 0.25;
+}
+
+body.light-theme .container {
+    box-shadow: 0 24px 45px -28px rgba(15, 23, 42, 0.35);
+}
+
+body.light-theme h1,
+body.light-theme h2 {
+    background: linear-gradient(to right, #0f172a, #334155);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+body.light-theme p,
+body.light-theme label,
+body.light-theme .email-separator,
+body.light-theme .empty-state,
+body.light-theme .user-email {
+    color: #475569;
+}
+
+body.light-theme .input-field {
+    background: #ffffff;
+    border-color: rgba(15, 23, 42, 0.18);
+    color: #0f172a;
+}
+
+body.light-theme .input-field::placeholder {
+    color: rgba(71, 85, 105, 0.7);
+}
+
+body.light-theme .input-field:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+}
+
+body.light-theme .select-field {
+    background-image: none;
+}
+
+body.light-theme .select-field option {
+    background-color: #ffffff;
+    color: #0f172a;
+}
+
+body.light-theme .users-list-container {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(15, 23, 42, 0.12);
+}
+
+body.light-theme .users-list-container::-webkit-scrollbar-thumb {
+    background: rgba(15, 23, 42, 0.2);
+}
+
+body.light-theme .user-card {
+    background: rgba(248, 250, 252, 0.95);
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+body.light-theme .user-card:hover {
+    background: rgba(241, 245, 249, 0.98);
+}
+
+body.light-theme .user-name {
+    color: #0f172a;
+}
+
+body.light-theme .toast {
+    color: #0f172a;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-left-width: 4px;
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+}
+
 body.light-theme .floating-theme {
     background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
     color: #0f172a;
@@ -527,8 +673,9 @@ body.light-theme .floating-theme {
 }
 
 body.light-theme .floating-top {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
     color: #ffffff;
+    border-color: rgba(255,255,255,0.45);
 }
 
 /* Tema oscuro */
@@ -538,8 +685,13 @@ body.dark-theme {
 
 @media (max-width: 640px) {
     .floating-theme {
-        top: auto;
         bottom: 1rem;
-        right: 4.5rem;
+        left: 0.75rem;
+        right: auto;
+    }
+
+    .floating-top {
+        bottom: 1rem;
+        right: 0.75rem;
     }
 }

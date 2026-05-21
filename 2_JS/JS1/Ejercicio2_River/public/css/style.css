@@ -350,6 +350,8 @@ input:focus, select:focus {
     margin-top: 3rem;
     display: flex;
     justify-content: flex-end;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -588,7 +590,10 @@ input:focus, select:focus {
 }
 
 .floating-theme {
-    top: 1rem;
+    top: auto;
+    bottom: 1rem;
+    left: 1rem;
+    right: auto;
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
@@ -652,9 +657,9 @@ body.dark-theme {
 
 @media (max-width: 640px) {
     .floating-theme {
-        top: auto;
         bottom: 1rem;
-        right: 4.5rem;
+        left: 0.75rem;
+        right: auto;
     }
 }
 

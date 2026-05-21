@@ -3,45 +3,29 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { getData as getEj01 } from "./modules/ejercicio01_push/server.js";
-import { getData as getEj02 } from "./modules/ejercicio02_pop/server.js";
-import { getData as getEj03 } from "./modules/ejercicio03_unshift/server.js";
-import { getData as getEj04 } from "./modules/ejercicio04_shift/server.js";
-import { getData as getEj05 } from "./modules/ejercicio05_splice/server.js";
-import { getData as getEj06 } from "./modules/ejercicio06_slice/server.js";
-import { getData as getEj07 } from "./modules/ejercicio07_indexOf/server.js";
-import { getData as getEj08 } from "./modules/ejercicio08_includes/server.js";
-import { getData as getEj09 } from "./modules/ejercicio09_forEach/server.js";
-import { getData as getEj10 } from "./modules/ejercicio10_map/server.js";
-import { getData as getEj11 } from "./modules/ejercicio11_filter/server.js";
-import { getData as getEj12 } from "./modules/ejercicio12_reduce/server.js";
-import { getData as getEj13 } from "./modules/ejercicio13_sort/server.js";
-import { getData as getEj14 } from "./modules/ejercicio14_reverse/server.js";
-import { getData as getEj15 } from "./modules/ejercicio15_secreto/server.js";
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PORT = 3000;
 
-// Lista de ejercicios importados en el servidor principal.
-function buildEjercicios() {
-  const ejercicios = [
-    getEj01(), getEj02(), getEj03(), getEj04(), getEj05(),
-    getEj06(), getEj07(), getEj08(), getEj09(), getEj10(),
-    getEj11(), getEj12(), getEj13(), getEj14(), getEj15()
-  ];
+const ejercicios = [
+  { método: "push", puerto: 3001, carpeta: "ejercicio01_push" },
+  { método: "pop", puerto: 3002, carpeta: "ejercicio02_pop" },
+  { método: "unshift", puerto: 3003, carpeta: "ejercicio03_unshift" },
+  { método: "shift", puerto: 3004, carpeta: "ejercicio04_shift" },
+  { método: "splice", puerto: 3005, carpeta: "ejercicio05_splice" },
+  { método: "slice", puerto: 3006, carpeta: "ejercicio06_slice" },
+  { método: "indexOf", puerto: 3007, carpeta: "ejercicio07_indexOf" },
+  { método: "includes", puerto: 3008, carpeta: "ejercicio08_includes" },
+  { método: "forEach", puerto: 3009, carpeta: "ejercicio09_forEach" },
+  { método: "map", puerto: 3010, carpeta: "ejercicio10_map" },
+  { método: "filter", puerto: 3011, carpeta: "ejercicio11_filter" },
+  { método: "reduce", puerto: 3012, carpeta: "ejercicio12_reduce" },
+  { método: "sort", puerto: 3013, carpeta: "ejercicio13_sort" },
+  { método: "reverse", puerto: 3014, carpeta: "ejercicio14_reverse" },
+  { método: "secreto", puerto: 3015, carpeta: "ejercicio15_secreto" }
+];
 
-  for (const ej of ejercicios) {
-    if (!ej || typeof ej !== "object" || !Array.isArray(ej.casos) || !ej.metodo) {
-      throw new Error("Modulo invalido detectado");
-    }
-  }
-
-  return ejercicios;
-}
-
-// Devuelve content-type segun extension.
-function getContentType(filePath) {
+function contentType(filePath) {
   const ext = path.extname(filePath);
   const map = {
     ".html": "text/html; charset=utf-8",
@@ -52,10 +36,9 @@ function getContentType(filePath) {
   return map[ext] || "text/plain; charset=utf-8";
 }
 
-// Sirve archivos estaticos del proyecto.
-function serveStatic(res, pathname) {
-  const safePath = pathname === "/" ? "/pages/index.html" : pathname;
-  const filePath = path.join(__dirname, safePath);
+function serveStatic(reqPath, res) {
+  const rel = reqPath === "/" ? "/pages/index.html" : reqPath;
+  const filePath = path.join(__dirname, rel);
 
   if (!filePath.startsWith(__dirname)) {
     res.writeHead(403, { "Content-Type": "application/json; charset=utf-8" });
@@ -69,44 +52,29 @@ function serveStatic(res, pathname) {
       res.end(JSON.stringify({ error: "Ruta no encontrada" }));
       return;
     }
-
-    res.writeHead(200, { "Content-Type": getContentType(filePath) });
+    res.writeHead(200, { "Content-Type": contentType(filePath) });
     res.end(data);
   });
 }
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
-  const pathname = url.pathname;
 
-  try {
-    if (pathname === "/api/ejercicios") {
-      const ejercicios = buildEjercicios();
-      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({ total: ejercicios.length, ejercicios }));
-      return;
-    }
-
-    if (pathname === "/api/secreto") {
-      const secreto = getEj15();
-      res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({ entrada: secreto.entrada, salida: secreto.salida }));
-      return;
-    }
-
-    if (["/", "/pages/index.html"].includes(pathname) || pathname.startsWith("/scripts/") || pathname.startsWith("/styles/") || pathname.startsWith("/Context/")) {
-      serveStatic(res, pathname);
-      return;
-    }
-
-    res.writeHead(404, { "Content-Type": "application/json; charset=utf-8" });
-    res.end(JSON.stringify({ error: "Ruta no encontrada" }));
-  } catch (error) {
-    res.writeHead(500, { "Content-Type": "application/json; charset=utf-8" });
-    res.end(JSON.stringify({ error: "Error interno", detalle: error.message }));
+  if (url.pathname === "/api/launcher") {
+    res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify({ total: ejercicios.length, ejercicios }));
+    return;
   }
+
+  if (url.pathname === "/" || url.pathname.startsWith("/pages/") || url.pathname.startsWith("/scripts/") || url.pathname.startsWith("/styles/")) {
+    serveStatic(url.pathname, res);
+    return;
+  }
+
+  res.writeHead(404, { "Content-Type": "application/json; charset=utf-8" });
+  res.end(JSON.stringify({ error: "Ruta no encontrada" }));
 });
 
 server.listen(PORT, () => {
-  console.log(`Servidor activo en http://localhost:${PORT}`);
+  console.log(`Launcher en http://localhost:${PORT}`);
 });

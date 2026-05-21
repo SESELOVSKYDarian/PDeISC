@@ -1,188 +1,425 @@
-﻿<!doctype html>
+<!doctype html>
+
 <html lang="es">
+
   <head>
+
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Causa Cuadernos | El Observador</title>
+
     <link rel="shortcut icon" href="../../public/logo.png" type="image/x-icon" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
     <link rel="stylesheet" href="../../styles/index.css" />
+
     <link rel="stylesheet" href="../../styles/articulos.css" />
+
+  <script src="../../public/theme-init.js"></script>
   </head>
+
   <body class="article-page">
+
     <nav class="navbar navbar-expand-lg navbar-light observador-navbar">
+
       <div class="container observador-navbar-contenido py-3">
+
         <a class="navbar-brand observador-brand d-inline-flex align-items-center mr-0 ml-5 ml-lg-0" href="../../index.html">
+
           <img class="rounded-circle" src="../../public/logo.png" alt="Logo" width="50" height="50" />
+
           <span>El Observador</span>
+
         </a>
+
         <span class="observador-divider mx-3 d-none d-lg-inline" aria-hidden="true">|</span>
 
+
+
         <button
+
           class="navbar-toggler observador-toggler"
+
           type="button"
+
           data-toggle="collapse"
+
           data-target="#navbarSupportedContent"
+
           aria-controls="navbarSupportedContent"
+
           aria-expanded="false"
-          aria-label="Abrir menÃº"
+
+          aria-label="Abrir menú"
+
         >
+
           <span class="navbar-toggler-icon"></span>
+
         </button>
 
+
+
         <div class="collapse navbar-collapse observador-collapse" id="navbarSupportedContent">
+
           <ul class="navbar-nav ml-auto align-items-lg-center observador-nav-list">
+
             <li class="nav-item observador-nav-item">
-              <a class="nav-link observador-link py-1" href="../../index.html#ultimas">ArtÃ­culos</a>
+
+              <a class="nav-link observador-link py-1" href="../../index.html#ultimas">Artículos</a>
+
             </li>
+
             <li class="nav-item observador-nav-item">
+
               <a class="nav-link observador-link py-1" href="../../index.html#en-vivo-inicio">En Vivo</a>
+
             </li>
+
             <li class="nav-item dropdown observador-dropdown-item observador-nav-item">
+
               <a
+
                 class="nav-link dropdown-toggle observador-link observador-dropdown-toggle px-3 py-2"
+
                 href="#"
+
                 id="pagesDropdown"
+
                 role="button"
+
                 data-toggle="dropdown"
+
                 aria-haspopup="true"
+
                 aria-expanded="false"
+
               >
-                CategorÃ­as
+
+                Categorías
+
               </a>
+
               <div class="dropdown-menu dropdown-menu-right observador-dropdown-menu">
-                <a class="dropdown-item observador-dropdown-link" href="../categorias/politica.html">PolÃ­tica</a>
-                <a class="dropdown-item observador-dropdown-link" href="../categorias/economia.html">EconomÃ­a</a>
+
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/politica.html">Política</a>
+
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/economia.html">Economía</a>
+
                 <a class="dropdown-item observador-dropdown-link" href="../categorias/deportes.html">Deportes</a>
-                <a class="dropdown-item observador-dropdown-link" href="../categorias/tecnlogia.html">TecnologÃ­a</a>
+
+                <a class="dropdown-item observador-dropdown-link" href="../categorias/tecnologia.html">Tecnología</a>
+
                 <a class="dropdown-item observador-dropdown-link" href="../categorias/clima.html">Clima</a>
+
               </div>
+
             </li>
+
             <li class="nav-item">
+
               <button
+
                 type="button"
+
                 class="btn btn-outline-dark observador-subscribe"
+
                 data-toggle="modal"
+
                 data-target="#newsletterModal"
+
               >
+
                 Subscribirse
+
+              </button>
+
+            </li>
+            <li class="nav-item d-none d-lg-flex align-items-center">
+              <button
+                id="themeToggle"
+                type="button"
+                class="btn btn-outline-secondary btn-theme-toggle rounded-circle ml-lg-2 px-2 py-2"
+                aria-label="Cambiar tema"
+              >
+                <i class="bi bi-moon-stars"></i>
               </button>
             </li>
+
           </ul>
+
         </div>
+
       </div>
+
     </nav>
 
+
+
     <div
+
       class="modal fade"
+
       id="newsletterModal"
+
       tabindex="-1"
+
       role="dialog"
+
       aria-labelledby="newsletterModalLabel"
+
       aria-hidden="true"
+
     >
+
       <div class="modal-dialog modal-dialog-centered" role="document">
+
         <div class="modal-content observador-modal">
+
           <div class="modal-header observador-modal-header pt-4 px-4 pb-3">
+
             <div>
+
               <p class="observador-modal-eyebrow mb-2">Newsletter</p>
+
               <h5 class="modal-title" id="newsletterModalLabel">Subscribite a El Observador</h5>
+
             </div>
+
             <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+
               <span aria-hidden="true">&times;</span>
+
             </button>
+
           </div>
+
           <div class="modal-body px-4 pb-4">
+
             <p class="observador-modal-texto text-soft mb-4">
-              CompletÃ¡ tus datos para recibir novedades y notificaciones de nuestra newsletter.
+
+              Completá tus datos para recibir novedades y notificaciones de nuestra newsletter.
+
             </p>
+
             <form>
+
               <div class="form-row">
+
                 <div class="form-group col-md-6">
+
                   <label for="newsletterNombre">Nombre</label>
-                  <input type="text" class="form-control" id="newsletterNombre" placeholder="Tu nombre" required minlength="3" maxlength="50" title="El nombre debe tener entre 3 y 50 caracteres." />
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="newsletterNombre"
+                    placeholder="Tu nombre"
+                    required
+                    minlength="3"
+                    maxlength="50"
+                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+"
+                    title="El nombre debe tener entre 3 y 50 letras y espacios."
+                  />
+
                 </div>
+
                 <div class="form-group col-md-6">
+
                   <label for="newsletterApellido">Apellido</label>
-                  <input type="text" class="form-control" id="newsletterApellido" placeholder="Tu apellido" required />
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="newsletterApellido"
+                    placeholder="Tu apellido"
+                    required
+                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+"
+                    title="El apellido solo puede contener letras y espacios."
+                  />
+
                 </div>
+
               </div>
+
               <div class="form-group">
-                <label for="newsletterEmail">Correo electrÃ³nico</label>
+
+                <label for="newsletterEmail">Correo electrónico</label>
+
                 <input type="email" class="form-control" id="newsletterEmail" placeholder="nombre@correo.com" required pattern="[^@\s]+@[^@\s]+\.com" title="Ingresa un correo valido con @ y terminado en .com." />
+
               </div>
+
               <div class="form-group form-check">
+
                 <input type="checkbox" class="form-check-input" id="newsletterConsentimiento" required />
+
                 <label class="form-check-label text-soft" for="newsletterConsentimiento">
-                  Acepto recibir correos de notificaciÃ³n y novedades de la newsletter.
+
+                  Acepto recibir correos de notificación y novedades de la newsletter.
+
                 </label>
+
               </div>
+
               <button type="submit" class="btn btn-dark btn-block observador-modal-submit">
+
                 Quiero recibir la newsletter
+
               </button>
+
             </form>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
     <main class="page-shell container py-4 py-lg-5">
+
       <section class="page-grid row">
+
         <article class="col-lg-8 mb-4 mb-lg-0 article-layout">
+
           <div class="story-cover media-frame">
+
             <img src="https://www.infobae.com/resizer/v2/RIMEIGBLB5FOVHOCWUD5V4YIT4.png?auth=babbf80f7e48195ba95a0239d8649805cd51bc0270ce370ada9b6de382f50760&smart=true&width=992&height=511&quality=85" alt="Causa Cuadernos" />
+
           </div>
+
           <p class="etiqueta">Clima</p>
+
           <h1 class="story-title serif-title">
-            El avance del â€œSÃºper El NiÃ±oâ€: cientÃ­ficos alertan sobre un fenÃ³meno que podrÃ­a transformar el clima global y el rÃ©gimen de lluvias en Argentina y la regiÃ³n
+
+            El avance del “Súper El Niño”: científicos alertan sobre un fenómeno que podría transformar el clima global y el régimen de lluvias en Argentina y la región
+
           </h1>
+
           <p class="story-meta text-soft">Por Darian Seselovsky  Actualizado hace 12 minutos</p>
+
           <div class="story-body">
+
             <p>
-              Entre mediados y fines de 2026 podrÃ­a consolidarse el evento climÃ¡tico, con riesgo de temperaturas rÃ©cord, eventos meteorolÃ³gicos extremos y un giro decisivo en la dinÃ¡mica de precipitaciones del Cono Sur.
+
+              Entre mediados y fines de 2026 podría consolidarse el evento climático, con riesgo de temperaturas récord, eventos meteorológicos extremos y un giro decisivo en la dinámica de precipitaciones del Cono Sur.
+
             </p>
+
             <p>
-              El sistema climÃ¡tico global enfrenta un escenario de mÃ¡xima atenciÃ³n ante la posibilidad de la llegada del fenÃ³meno denominado â€œSÃºper El NiÃ±oâ€ durante la segunda mitad de este aÃ±o y a lo largo de 2027.
-MeteorÃ³logos de distintos centros internacionales, asÃ­ como informes recientes del Centro Europeo de Previsiones MeteorolÃ³gicas a Medio Plazo y de la AdministraciÃ³n Nacional OceÃ¡nica y AtmosfÃ©rica de Estados Unidos (NOAA), coinciden en que la probabilidad de desarrollo de este fenÃ³meno alcanza niveles elevados y que su intensidad podrÃ­a llevar las temperaturas globales a valores nunca antes registrados, con un impacto que ya genera alerta en sectores productivos, cientÃ­ficos y organismos de gestiÃ³n del riesgo climÃ¡tico.
-Las proyecciones presentadas por la NOAA estiman un 62 % de probabilidad de que el fenÃ³meno se desarrolle entre junio y agosto, con potencial para intensificarse hacia el final de la temporada de huracanes, en noviembre.
+
+              El sistema climático global enfrenta un escenario de máxima atención ante la posibilidad de la llegada del fenómeno denominado “Súper El Niño” durante la segunda mitad de este año y a lo largo de 2027.
+
+Meteorólogos de distintos centros internacionales, así como informes recientes del Centro Europeo de Previsiones Meteorológicas a Medio Plazo y de la Administración Nacional Oceánica y Atmosférica de Estados Unidos (NOAA), coinciden en que la probabilidad de desarrollo de este fenómeno alcanza niveles elevados y que su intensidad podría llevar las temperaturas globales a valores nunca antes registrados, con un impacto que ya genera alerta en sectores productivos, científicos y organismos de gestión del riesgo climático.
+
+Las proyecciones presentadas por la NOAA estiman un 62 % de probabilidad de que el fenómeno se desarrolle entre junio y agosto, con potencial para intensificarse hacia el final de la temporada de huracanes, en noviembre.
+
 </p>
+
             <img src="https://www.infobae.com/resizer/v2/RIMEIGBLB5FOVHOCWUD5V4YIT4.png?auth=babbf80f7e48195ba95a0239d8649805cd51bc0270ce370ada9b6de382f50760&smart=true&width=992&height=511&quality=85" alt="Muestra de Clima Mapa de Humedad">
-            <p>Los principales centros climÃ¡ticos internacionales anticipan que en la segunda mitad de 2026 y durante 2027, el mundo podrÃ­a vivir un nuevo episodio de â€œEl NiÃ±oâ€ con intensidad sin precedentes.
 
-â€œLa intensidad es incierta, pero existe la posibilidad de que se produzca un fenÃ³meno de â€˜El NiÃ±oâ€™ de moderado a posiblemente fuerte este otoÃ±o e inviernoâ€, expresÃ³ Paul Pastelok, meteorÃ³logo y principal pronosticador de AccuWeather. La NOAA, por su parte, otorga una probabilidad de uno en tres a que surja un â€œEl NiÃ±oâ€ fuerte entre octubre y diciembre, aunque describe su posible intensidad como â€œmuy inciertaâ€.
+            <p>Los principales centros climáticos internacionales anticipan que en la segunda mitad de 2026 y durante 2027, el mundo podría vivir un nuevo episodio de “El Niño” con intensidad sin precedentes.
 
-En este contexto, productores rurales, autoridades y comunidades cientÃ­ficas mantienen la atenciÃ³n puesta en la evoluciÃ³n de los indicadores oceÃ¡nicos y atmosfÃ©ricos.
 
-El monitoreo constante, el acceso a informaciÃ³n actualizada y la capacidad para ajustar estrategias resultan imprescindibles para enfrentar los desafÃ­os y aprovechar las oportunidades que ofrece el ciclo ENSO.
 
-El fenÃ³meno de â€œEl NiÃ±oâ€, aunque responde a la variabilidad natural del sistema climÃ¡tico, se ve intensificado por el calentamiento global, lo que incrementa la magnitud de sus efectos. La experiencia reciente muestra que la interacciÃ³n entre estos factores puede redefinir los lÃ­mites de lo que consideramos â€œnormalâ€ en tÃ©rminos de clima y meteorologÃ­a.
+“La intensidad es incierta, pero existe la posibilidad de que se produzca un fenómeno de ‘El Niño’ de moderado a posiblemente fuerte este otoño e invierno”, expresó Paul Pastelok, meteorólogo y principal pronosticador de AccuWeather. La NOAA, por su parte, otorga una probabilidad de uno en tres a que surja un “El Niño” fuerte entre octubre y diciembre, aunque describe su posible intensidad como “muy incierta”.
 
-Mientras se monitorea la posible llegada del â€œSÃºper El NiÃ±oâ€, los expertos insisten en la necesidad de fortalecer los sistemas de alerta temprana, promover la cooperaciÃ³n internacional y avanzar en polÃ­ticas de adaptaciÃ³n y resiliencia.
 
-El futuro inmediato presenta un desafÃ­o complejo, donde la ciencia, la gestiÃ³n y la sociedad deben trabajar de manera coordinada para anticipar y mitigar los riesgos de un fenÃ³meno que podrÃ­a transformar el clima global y la vida en SudamÃ©rica en los prÃ³ximos aÃ±os.
+
+En este contexto, productores rurales, autoridades y comunidades científicas mantienen la atención puesta en la evolución de los indicadores oceánicos y atmosféricos.
+
+
+
+El monitoreo constante, el acceso a información actualizada y la capacidad para ajustar estrategias resultan imprescindibles para enfrentar los desafíos y aprovechar las oportunidades que ofrece el ciclo ENSO.
+
+
+
+El fenómeno de “El Niño”, aunque responde a la variabilidad natural del sistema climático, se ve intensificado por el calentamiento global, lo que incrementa la magnitud de sus efectos. La experiencia reciente muestra que la interacción entre estos factores puede redefinir los límites de lo que consideramos “normal” en términos de clima y meteorología.
+
+
+
+Mientras se monitorea la posible llegada del “Súper El Niño”, los expertos insisten en la necesidad de fortalecer los sistemas de alerta temprana, promover la cooperación internacional y avanzar en políticas de adaptación y resiliencia.
+
+
+
+El futuro inmediato presenta un desafío complejo, donde la ciencia, la gestión y la sociedad deben trabajar de manera coordinada para anticipar y mitigar los riesgos de un fenómeno que podría transformar el clima global y la vida en Sudamérica en los próximos años.
+
+
 
 </p>
+
           </div>
+
           <a class="back-home pill-link" href="../../index.html" aria-label="Volver a portada"><i class="bi bi-arrow-left"></i> Volver a portada</a>
+
         </article>
+
         <aside class="col-lg-4">
+
           <div class="story-sidebar">
-          <h3 class="mb-3">SeguÃ­ leyendo</h3>
+
+          <h3 class="mb-3">Seguí leyendo</h3>
+
           <ul>
-            <li><a href="articulo-2.html">El petrÃ³leo vuelve a presionar a la economÃ­a</a></li>
-            <li><a href="articulo-10.html">El saldo comercial de febrero dejÃ³ un superÃ¡vit de USD 788 millones</a></li>
-            <li><a href="articulo-8.html">Caputo reconociÃ³ los malos datos de inflaciÃ³n</a></li>
+
+            <li><a href="articulo-2.html">El petróleo vuelve a presionar a la economía</a></li>
+
+            <li><a href="articulo-10.html">El saldo comercial de febrero dejó un superávit de USD 788 millones</a></li>
+
+            <li><a href="articulo-8.html">Caputo reconoció los malos datos de inflación</a></li>
+
           </ul>
+
         </div>
+
         </aside>
+
       </section>
+
     </main>
+
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <script src="../../public/theme-toggle.js"></script>
+  
+    <!-- FAB: Modo claro/oscuro (fijo abajo-izquierda, solo pantallas pequeñas y medianas) -->
+    <button
+      id="fabThemeToggle"
+      class="fab-theme-toggle"
+      aria-label="Cambiar tema"
+    >
+      <i class="bi bi-moon-stars theme-toggle-icon"></i>
+    </button>
+
+    <!-- FAB: Volver arriba (fijo abajo-derecha, aparece al scrollear) -->
+    <button
+      id="fabScrollTop"
+      class="fab-scroll-top"
+      aria-label="Volver al inicio"
+    >
+      <i class="bi bi-arrow-up"></i>
+    </button>
+
   </body>
+
 </html>
+

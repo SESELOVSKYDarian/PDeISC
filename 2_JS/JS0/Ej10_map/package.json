@@ -1,7 +1,7 @@
 {
   "name": "ej10-map",
   "version": "1.0.0",
-  "description": "Crea un nuevo array con los resultados de la llamada a la función indicada aplicados a cada uno de sus elementos.",
+  "description": "Crea un nuevo array con los resultados de la llamada a la funciÃ³n indicada aplicados a cada uno de sus elementos.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

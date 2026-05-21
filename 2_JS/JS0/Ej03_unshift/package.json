@@ -1,7 +1,7 @@
 {
   "name": "ej3-unshift",
   "version": "1.0.0",
-  "description": "Agrega uno o más elementos al inicio del array y devuelve la nueva longitud.",
+  "description": "Agrega uno o mÃ¡s elementos al inicio del array y devuelve la nueva longitud.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

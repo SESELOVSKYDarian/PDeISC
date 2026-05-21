@@ -1,4 +1,4 @@
-// Script para el método forEach
+// Script para el mÃ©todo forEach
 let miArray = ["Manzana", "Banana", "Naranja"];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const inputElement = document.getElementById("inputValue");
         const valor = inputElement.value.trim();
         
-        if (!valor) return; // Validación básica
+        if (!valor) return; // ValidaciÃ³n bÃ¡sica
         
-        ejecutarMetodo(valor);
+        ejecutarMétodo(valor);
         inputElement.value = ""; // Limpiar input
     });
 });
@@ -30,67 +30,67 @@ function showResult(message) {
     resultBox.classList.remove("d-none");
 }
 
-function ejecutarMetodo(valor) {
-    // Lógica principal dependiendo del método
-    let resultadoOperacion = "";
+function ejecutarMétodo(valor) {
+    // LÃ³gica principal dependiendo del mÃ©todo
+    let resultadoOperación = "";
     
     try {
         if ("forEach" === "push") {
             const nuevaLongitud = miArray.push(valor);
-            resultadoOperacion = `Se agregó "${valor}". Nueva longitud: ${nuevaLongitud}`;
+            resultadoOperación = `Se agregÃ³ "${valor}". Nueva longitud: ${nuevaLongitud}`;
         } else if ("forEach" === "pop") {
             const eliminado = miArray.pop();
-            resultadoOperacion = `Se eliminó: "${eliminado || 'nada, array vacío'}"`;
+            resultadoOperación = `Se eliminÃ³: "${eliminado || 'nada, array vacÃ­o'}"`;
         } else if ("forEach" === "unshift") {
             const nuevaLongitud = miArray.unshift(valor);
-            resultadoOperacion = `Se agregó al inicio "${valor}". Nueva longitud: ${nuevaLongitud}`;
+            resultadoOperación = `Se agregÃ³ al inicio "${valor}". Nueva longitud: ${nuevaLongitud}`;
         } else if ("forEach" === "shift") {
             const eliminado = miArray.shift();
-            resultadoOperacion = `Se eliminó del inicio: "${eliminado || 'nada, array vacío'}"`;
+            resultadoOperación = `Se eliminÃ³ del inicio: "${eliminado || 'nada, array vacÃ­o'}"`;
         } else if ("forEach" === "splice") {
-            // Ejemplo: splice(1, 1, valor) - Reemplaza el de índice 1
+            // Ejemplo: splice(1, 1, valor) - Reemplaza el de Ã­ndice 1
             if (miArray.length > 0) {
                 const eliminados = miArray.splice(0, 1, valor);
-                resultadoOperacion = `Se reemplazó "${eliminados[0]}" por "${valor}" en la posición 0`;
+                resultadoOperación = `Se reemplazÃ³ "${eliminados[0]}" por "${valor}" en la posiciÃ³n 0`;
             } else {
                 miArray.splice(0, 0, valor);
-                resultadoOperacion = `Se insertó "${valor}" porque el array estaba vacío.`;
+                resultadoOperación = `Se insertÃ³ "${valor}" porque el array estaba vacÃ­o.`;
             }
         } else if ("forEach" === "slice") {
             const copia = miArray.slice(0, parseInt(valor) || 2);
-            resultadoOperacion = `Copia generada: ${JSON.stringify(copia)}`;
+            resultadoOperación = `Copia generada: ${JSON.stringify(copia)}`;
         } else if ("forEach" === "indexOf") {
             const indice = miArray.indexOf(valor);
-            resultadoOperacion = indice !== -1 ? `El elemento "${valor}" está en el índice ${indice}` : `El elemento "${valor}" NO se encontró (-1)`;
+            resultadoOperación = indice !== -1 ? `El elemento "${valor}" estÃ¡ en el Ã­ndice ${indice}` : `El elemento "${valor}" NO se encontrÃ³ (-1)`;
         } else if ("forEach" === "includes") {
             const existe = miArray.includes(valor);
-            resultadoOperacion = existe ? `El array SÍ incluye "${valor}"` : `El array NO incluye "${valor}"`;
+            resultadoOperación = existe ? `El array SÃ incluye "${valor}"` : `El array NO incluye "${valor}"`;
         } else if ("forEach" === "forEach") {
             let temp = "";
             miArray.forEach((item, idx) => { temp += `<li>${idx}: ${item} procesado con "${valor}"</li>`; });
-            resultadoOperacion = `<ul>${temp}</ul>`;
+            resultadoOperación = `<ul>${temp}</ul>`;
         } else if ("forEach" === "map") {
             const mapeado = miArray.map(item => item + " - " + valor);
-            resultadoOperacion = `Array mapeado: ${JSON.stringify(mapeado)}`;
+            resultadoOperación = `Array mapeado: ${JSON.stringify(mapeado)}`;
         } else if ("forEach" === "filter") {
             const filtrado = miArray.filter(item => item.includes(valor));
-            resultadoOperacion = `Elementos que contienen "${valor}": ${JSON.stringify(filtrado)}`;
+            resultadoOperación = `Elementos que contienen "${valor}": ${JSON.stringify(filtrado)}`;
         } else if ("forEach" === "reduce") {
             const reducido = miArray.reduce((acc, curr) => acc + " | " + curr, valor);
-            resultadoOperacion = `Reducción: ${reducido}`;
+            resultadoOperación = `ReducciÃ³n: ${reducido}`;
         } else if ("forEach" === "sort") {
             miArray.push(valor);
             miArray.sort();
-            resultadoOperacion = `Se agregó "${valor}" y se ordenó el array alfabéticamente.`;
+            resultadoOperación = `Se agregÃ³ "${valor}" y se ordenÃ³ el array alfabÃ©ticamente.`;
         } else if ("forEach" === "reverse") {
             if(valor !== "no") miArray.push(valor);
             miArray.reverse();
-            resultadoOperacion = `Se agregó "${valor}" y se invirtió el orden del array.`;
+            resultadoOperación = `Se agregÃ³ "${valor}" y se invirtiÃ³ el orden del array.`;
         }
         
         updateArrayDisplay();
-        showResult(resultadoOperacion);
+        showResult(resultadoOperación);
     } catch (error) {
-        showResult("Error en la operación: " + error.message);
+        showResult("Error en la operaciÃ³n: " + error.message);
     }
 }

@@ -1,7 +1,7 @@
 {
   "name": "ej9-forEach",
   "version": "1.0.0",
-  "description": "Ejecuta la función indicada una vez por cada elemento del array.",
+  "description": "Ejecuta la funciÃ³n indicada una vez por cada elemento del array.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
