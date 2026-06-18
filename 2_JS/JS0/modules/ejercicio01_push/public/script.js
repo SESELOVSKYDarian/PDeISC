@@ -13,6 +13,14 @@ function setTheme(theme) { document.documentElement.setAttribute("data-theme", t
 function toggleTheme() { setTheme(getTheme() === "light" ? "dark" : "light"); }
 function pretty(v) { return JSON.stringify(v, null, 2); }
 
+function getMethodName() {
+  return state.data?.metodo ?? state.data?.método ?? "";
+}
+
+function getOperation(v) {
+  return v?.operacion ?? v?.operación ?? "";
+}
+
 function fieldInputHtml(f) {
   if (f.tipo === "number") return `<input class="form-control run-input" data-key="${f.key}" type="number" required />`;
   return `<input class="form-control run-input" data-key="${f.key}" type="text" required />`;
@@ -28,12 +36,12 @@ function renderVariantCard(v) {
   `).join("");
 
   cardBody.innerHTML = `
-    <p><strong>Método:</strong> ${state.data.método}</p>
+    <p><strong>Método:</strong> ${getMethodName()}</p>
     <p><strong>Consigna:</strong> ${v.consigna}</p>
     <p><strong>Variante elegida:</strong> ${v.nombre}</p>
-    <p><strong>Operación aplicada:</strong> <code>${v.operación}</code></p>
+    <p><strong>Operación aplicada:</strong> <code>${getOperation(v)}</code></p>
     <p><strong>Codigo usado:</strong></p>
-    <pre><code>${v.código}</code></pre>
+    <pre><code>${getOperation(v)}</code></pre>
     <section class="panel mb-3">
       <h3 class="h6">Ingresa tus datos</h3>
       ${inputs || '<p class="mb-2">Esta variante no requiere datos manuales.</p>'}
@@ -109,12 +117,13 @@ async function loadData() {
   const res = await fetch("/api/ejercicio");
   if (!res.ok) throw new Error("No se pudo cargar");
   state.data = await res.json();
-  document.getElementById("title").textContent = `Método ${state.data.método}`;
-  document.title = `Método ${state.data.método}`;
+  const methodName = getMethodName();
+  document.getElementById("title").textContent = `Método ${methodName}`;
+  document.title = `Método ${methodName}`;
   state.selectedOriginalIndex = 0;
   renderSelect();
   renderCurrentVariant();
-  if (state.data.método === "secreto") secretTools.classList.remove("d-none"); else secretTools.classList.add("d-none");
+  if (methodName === "secreto") secretTools.classList.remove("d-none"); else secretTools.classList.add("d-none");
 }
 
 variantSel.addEventListener("change", () => { state.selectedOriginalIndex = Number(variantSel.value || 0); renderCurrentVariant(); });

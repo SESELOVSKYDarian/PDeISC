@@ -221,7 +221,7 @@ export function executeVariant(method, variantId, rawInputs) {
 
   return { ok: true, resultado: variant.run(parsed) };
 }
-
+// donde esta lo del secreto autogenerado
 export function runSecretoCustom(texto, modo) {
   if (modo === "generar") {
     const base = [

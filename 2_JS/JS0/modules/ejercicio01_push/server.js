@@ -41,7 +41,7 @@ const server = http.createServer((req, res) => {
     const payload = buildExercisePayload(METHOD);
     if (!payload) {
       res.writeHead(500, { "Content-Type": "application/json; charset=utf-8" });
-      res.end(JSON.stringify({ error: "MÃ©todo invÃ¡lido" }));
+      res.end(JSON.stringify({ error: "Método inválido" }));
       return;
     }
     res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
@@ -65,7 +65,7 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify(result));
       } catch {
         res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
-        res.end(JSON.stringify({ error: "JSON invÃ¡lido" }));
+        res.end(JSON.stringify({ error: "JSON inválido" }));
       }
     });
     return;
@@ -87,7 +87,7 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify(result));
       } catch {
         res.writeHead(400, { "Content-Type": "application/json; charset=utf-8" });
-        res.end(JSON.stringify({ error: "JSON invÃ¡lido" }));
+        res.end(JSON.stringify({ error: "JSON inválido" }));
       }
     });
     return;
