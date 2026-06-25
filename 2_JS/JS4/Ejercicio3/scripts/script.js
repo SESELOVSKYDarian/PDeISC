@@ -1,7 +1,6 @@
 import { viewConfig } from "./modules/config.js";
-import { getViewElements, showStatus } from "./modules/dom.js";
+import { getViewElements, renderUsers, showStatus } from "./modules/dom.js";
 import { getUsersWithAxios, getUsersWithFetch } from "./modules/api.js";
-import { renderUsers } from "./modules/render.js";
 import { saveUsers, getSavedUsers } from "./modules/state.js";
 import { filterUsers } from "./modules/search.js";
 
