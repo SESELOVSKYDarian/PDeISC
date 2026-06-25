@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 3 | Búsqueda de usuarios con Fetch y Axios</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/light.css" id="theme-link" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero container-fluid">
+        <div class="hero__content">
+          <div>
+            <p class="eyebrow">Trabajo Práctico JS4</p>
+            <h1>Ejercicio 3: buscar usuarios sin volver a consultar la API</h1>
+            <p class="hero__text">
+              Cada implementación obtiene los usuarios una sola vez, guarda el
+              array en memoria y filtra con <code>filter()</code> mientras el
+              usuario escribe.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main class="container-fluid main-grid">
+        <section class="panel intro-panel">
+          <div class="panel__header">
+            <span class="badge rounded-pill text-bg-primary">Búsqueda dinámica</span>
+            <h2>Input con evento <code>input</code></h2>
+          </div>
+          <p>
+            Los dos bloques son independientes. Cada uno carga usuarios una sola
+            vez y después filtra localmente por nombre. No hay nuevas consultas
+            en cada letra.
+          </p>
+        </section>
+
+        <div class="cards-grid">
+          <section class="panel search-card">
+            <div class="panel__header">
+              <h2>Implementación A: Fetch</h2>
+              <button class="btn btn-brand" id="fetch-load" type="button">
+                Cargar usuarios con Fetch
+              </button>
+            </div>
+
+            <label class="form-label" for="fetch-search">Buscar por nombre</label>
+            <input
+              class="form-control"
+              id="fetch-search"
+              type="text"
+              placeholder="Escribe un nombre"
+              disabled
+            />
+            <div class="status-box" id="fetch-status" aria-live="polite">
+              Primero carga los usuarios con fetch.
+            </div>
+            <div class="users-grid" id="fetch-results"></div>
+          </section>
+
+          <section class="panel search-card">
+            <div class="panel__header">
+              <h2>Implementación B: Axios</h2>
+              <button class="btn btn-brand-alt" id="axios-load" type="button">
+                Cargar usuarios con Axios
+              </button>
+            </div>
+
+            <label class="form-label" for="axios-search">Buscar por nombre</label>
+            <input
+              class="form-control"
+              id="axios-search"
+              type="text"
+              placeholder="Escribe un nombre"
+              disabled
+            />
+            <div class="status-box" id="axios-status" aria-live="polite">
+              Primero carga los usuarios con axios.
+            </div>
+            <div class="users-grid" id="axios-results"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="floating-actions" aria-label="Acciones flotantes">
+      <button
+        class="floating-button floating-button--theme"
+        id="theme-toggle"
+        type="button"
+        aria-label="Cambiar tema"
+      >
+        <i data-lucide="moon-star"></i>
+        <span id="theme-toggle-text">Modo oscuro</span>
+      </button>
+
+      <button
+        class="floating-button floating-button--top"
+        id="scroll-top-button"
+        type="button"
+        aria-label="Volver arriba"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/context/theme.js"></script>
+    <script type="module" src="/scripts/script.js"></script>
+  </body>
+</html>

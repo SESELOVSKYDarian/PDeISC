@@ -1,0 +1,264 @@
+:root {
+  --bg: #f1e5d9;
+  --bg-accent: radial-gradient(circle at top right, #f8cfa7 0%, #f1e5d9 42%, #e8d8c8 100%);
+  --surface: rgba(245, 233, 220, 0.93);
+  --surface-strong: #fcf2e8;
+  --text: #39271b;
+  --muted: #7b6858;
+  --border: rgba(139, 95, 53, 0.22);
+  --primary: #c96b2e;
+  --primary-strong: #9f4f1f;
+  --secondary: #93653a;
+  --shadow: 0 18px 42px rgba(69, 43, 24, 0.14);
+  --error: #be4a58;
+  --success: #1f8665;
+  --warning: #aa7420;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--bg-accent);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.floating-actions {
+  position: fixed;
+  inset: auto 0 1.25rem 0;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 1.25rem;
+  min-height: 54px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(247, 235, 224, 0.95);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 700;
+  backdrop-filter: blur(14px);
+  pointer-events: auto;
+}
+
+.floating-button i {
+  width: 20px;
+  height: 20px;
+}
+
+.floating-button--theme {
+  left: 1.25rem;
+  padding: 0.9rem 1.15rem;
+}
+
+.floating-button--top {
+  right: 1.25rem;
+  width: 54px;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+.floating-button--top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hero {
+  padding: 2rem 1rem 1rem;
+}
+
+.hero__content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #b65311, #e07a2d 55%, #ffb260);
+  color: #fffaf4;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+.hero h1,
+.panel h2 {
+  margin: 0 0 0.75rem;
+}
+
+.hero__text {
+  max-width: 760px;
+  margin: 0;
+}
+
+.main-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.panel {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.panel__header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.intro-panel {
+  margin-bottom: 1.5rem;
+}
+
+.search-card {
+  min-height: 570px;
+}
+
+.form-control {
+  min-height: 48px;
+  border-radius: 14px;
+  border: 1px solid rgba(119, 92, 62, 0.2);
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(217, 108, 35, 0.18);
+}
+
+.status-box {
+  margin: 1rem 0;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  background: #ecdccc;
+  color: var(--muted);
+}
+
+.status-box--loading {
+  background: #f3e2c8;
+  color: var(--warning);
+}
+
+.status-box--success {
+  background: #deeedf;
+  color: var(--success);
+}
+
+.status-box--error {
+  background: #f3dcde;
+  color: var(--error);
+}
+
+.btn-brand,
+.btn-brand-alt {
+  border: 0;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.75rem 1.1rem;
+  border-radius: 14px;
+}
+
+.btn-brand {
+  background: linear-gradient(135deg, var(--primary), #ffac63);
+}
+
+.btn-brand-alt {
+  background: linear-gradient(135deg, var(--secondary), #74b0f5);
+}
+
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.user-card,
+.empty-card {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1rem;
+}
+
+.user-card h3,
+.empty-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1.05rem;
+}
+
+.user-card p,
+.empty-card p {
+  margin: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 1rem 0.75rem 0.75rem;
+  }
+
+  .main-grid {
+    padding: 0.75rem;
+  }
+
+  .hero__content,
+  .panel {
+    border-radius: 20px;
+  }
+
+  .floating-button--theme {
+    left: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .floating-button--top {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+}

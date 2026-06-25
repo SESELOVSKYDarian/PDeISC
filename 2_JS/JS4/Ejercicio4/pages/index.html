@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 4 | API propia con Node y Express</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/light.css" id="theme-link" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero container-fluid">
+        <div class="hero__content">
+          <div>
+            <p class="eyebrow">Trabajo Práctico JS4</p>
+            <h1>Ejercicio 4: consumir una API propia con Fetch y Axios</h1>
+            <p class="hero__text">
+              El backend crea el endpoint <code>GET /api/alumnos</code> y el
+              frontend lo consume con dos implementaciones distintas para mostrar
+              alumnos reales en pantalla.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main class="container-fluid main-grid">
+        <section class="panel intro-panel">
+          <div class="panel__header">
+            <span class="badge rounded-pill text-bg-primary">API propia</span>
+            <h2>Endpoint GET /api/alumnos</h2>
+          </div>
+          <p>
+            Este ejercicio ya no usa JSONPlaceholder para la lista principal.
+            Los datos salen de un backend hecho con Node.js y Express dentro del
+            mismo proyecto.
+          </p>
+        </section>
+
+        <div class="cards-grid">
+          <section class="panel exercise-card">
+            <div class="panel__header">
+              <h2>Implementación A: Fetch</h2>
+              <button class="btn btn-brand" id="fetch-button" type="button">
+                Ver alumnos con Fetch
+              </button>
+            </div>
+            <div class="status-box" id="fetch-status" aria-live="polite">
+              Todavía no se consultó la API propia con fetch.
+            </div>
+            <div class="students-grid" id="fetch-students"></div>
+          </section>
+
+          <section class="panel exercise-card">
+            <div class="panel__header">
+              <h2>Implementación B: Axios</h2>
+              <button class="btn btn-brand-alt" id="axios-button" type="button">
+                Ver alumnos con Axios
+              </button>
+            </div>
+            <div class="status-box" id="axios-status" aria-live="polite">
+              Todavía no se consultó la API propia con axios.
+            </div>
+            <div class="students-grid" id="axios-students"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="floating-actions" aria-label="Acciones flotantes">
+      <button
+        class="floating-button floating-button--theme"
+        id="theme-toggle"
+        type="button"
+        aria-label="Cambiar tema"
+      >
+        <i data-lucide="moon-star"></i>
+        <span id="theme-toggle-text">Modo oscuro</span>
+      </button>
+
+      <button
+        class="floating-button floating-button--top"
+        id="scroll-top-button"
+        type="button"
+        aria-label="Volver arriba"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/context/theme.js"></script>
+    <script type="module" src="/scripts/script.js"></script>
+  </body>
+</html>

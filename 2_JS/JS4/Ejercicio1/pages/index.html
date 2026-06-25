@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 1 | Usuarios con Fetch y Axios</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/light.css" id="theme-link" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero container-fluid">
+        <div class="hero__content">
+          <div>
+            <p class="eyebrow">Trabajo Práctico JS4</p>
+            <h1>Ejercicio 1: listar usuarios con Fetch y Axios</h1>
+            <p class="hero__text">
+              En esta página se consumen los datos de la API pública y se
+              renderizan nombre y email con dos implementaciones separadas.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main class="container-fluid main-grid">
+        <section class="panel intro-panel">
+          <div class="panel__header">
+            <span class="badge rounded-pill text-bg-primary">Consigna</span>
+            <h2>Obtener usuarios y mostrarlos en pantalla</h2>
+          </div>
+          <p>
+            Cada bloque trabaja por separado. Uno usa <code>fetch()</code> y el
+            otro usa <code>axios.get()</code>. Ninguno deja el resultado solo en
+            la consola: todo se ve en el DOM.
+          </p>
+        </section>
+
+        <div class="cards-grid">
+          <section class="panel exercise-card">
+            <div class="panel__header">
+              <h2>Implementación A: Fetch</h2>
+              <button class="btn btn-brand" id="fetch-button" type="button">
+                Cargar con Fetch
+              </button>
+            </div>
+            <div class="status-box" id="fetch-status" aria-live="polite">
+              Todavía no se cargaron usuarios.
+            </div>
+            <div class="users-grid" id="fetch-users"></div>
+          </section>
+
+          <section class="panel exercise-card">
+            <div class="panel__header">
+              <h2>Implementación B: Axios</h2>
+              <button class="btn btn-brand-alt" id="axios-button" type="button">
+                Cargar con Axios
+              </button>
+            </div>
+            <div class="status-box" id="axios-status" aria-live="polite">
+              Todavía no se cargaron usuarios.
+            </div>
+            <div class="users-grid" id="axios-users"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="floating-actions" aria-label="Acciones flotantes">
+      <button
+        class="floating-button floating-button--theme"
+        id="theme-toggle"
+        type="button"
+        aria-label="Cambiar tema"
+      >
+        <i data-lucide="moon-star"></i>
+        <span id="theme-toggle-text">Modo oscuro</span>
+      </button>
+
+      <button
+        class="floating-button floating-button--top"
+        id="scroll-top-button"
+        type="button"
+        aria-label="Volver arriba"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/context/theme.js"></script>
+    <script type="module" src="/scripts/script.js"></script>
+  </body>
+</html>

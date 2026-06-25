@@ -1,0 +1,13 @@
+{
+  "name": "js4-ejercicio4",
+  "version": "1.0.0",
+  "description": "Ejercicio 4 de JS4 con API propia en Express",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

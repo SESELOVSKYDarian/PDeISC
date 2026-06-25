@@ -1,0 +1,17 @@
+{
+  "name": "js4-ejercicio1",
+  "version": "1.0.0",
+  "description": "Ejercicio 1 de JS4 con fetch y axios",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

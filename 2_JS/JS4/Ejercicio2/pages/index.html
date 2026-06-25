@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 2 | Formulario POST con Fetch y Axios</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/light.css" id="theme-link" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero container-fluid">
+        <div class="hero__content">
+          <div>
+            <p class="eyebrow">Trabajo Práctico JS4</p>
+            <h1>Ejercicio 2: enviar usuarios con Fetch POST y Axios POST</h1>
+            <p class="hero__text">
+              El formulario valida en tiempo real, evita envíos inválidos y
+              muestra el ID que devuelve la API pública sin usar alertas.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main class="container-fluid main-grid">
+        <section class="panel intro-panel">
+          <div class="panel__header">
+            <span class="badge rounded-pill text-bg-primary">Validaciones</span>
+            <h2>Formulario con control en frontend y backend</h2>
+          </div>
+          <p>
+            Antes de enviar a la API pública, cada implementación valida los
+            campos en tiempo real. Además el servidor local también valida los
+            datos con un endpoint propio para no confiar solo en el frontend.
+          </p>
+        </section>
+
+        <div class="cards-grid">
+          <section class="panel form-card">
+            <div class="panel__header">
+              <h2>Implementación A: Fetch POST</h2>
+              <span class="tag">POST directo a JSONPlaceholder</span>
+            </div>
+            <form id="fetch-form" class="needs-validation" novalidate>
+              <div class="field">
+                <label class="form-label" for="fetch-name">Nombre</label>
+                <input
+                  class="form-control"
+                  id="fetch-name"
+                  name="name"
+                  type="text"
+                  required
+                  minlength="3"
+                  maxlength="40"
+                  pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
+                />
+                <small class="field-hint">Solo letras y espacios.</small>
+                <p class="field-error" id="fetch-name-error"></p>
+              </div>
+
+              <div class="field">
+                <label class="form-label" for="fetch-email">Email</label>
+                <input
+                  class="form-control"
+                  id="fetch-email"
+                  name="email"
+                  type="email"
+                  required
+                  minlength="6"
+                  maxlength="80"
+                />
+                <small class="field-hint">Tiene que tener formato real de email.</small>
+                <p class="field-error" id="fetch-email-error"></p>
+              </div>
+
+              <button class="btn btn-brand w-100" type="submit">Enviar con Fetch</button>
+              <button class="btn btn-outline-secondary w-100 mt-2" type="button" id="fetch-clear">
+                Limpiar Formulario
+              </button>
+            </form>
+            <div class="status-box" id="fetch-status" aria-live="polite">
+              Completa el formulario para enviar los datos.
+            </div>
+          </section>
+
+          <section class="panel form-card">
+            <div class="panel__header">
+              <h2>Implementación B: Axios POST</h2>
+              <span class="tag">POST directo a JSONPlaceholder</span>
+            </div>
+            <form id="axios-form" class="needs-validation" novalidate>
+              <div class="field">
+                <label class="form-label" for="axios-name">Nombre</label>
+                <input
+                  class="form-control"
+                  id="axios-name"
+                  name="name"
+                  type="text"
+                  required
+                  minlength="3"
+                  maxlength="40"
+                  pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
+                />
+                <small class="field-hint">Solo letras y espacios.</small>
+                <p class="field-error" id="axios-name-error"></p>
+              </div>
+
+              <div class="field">
+                <label class="form-label" for="axios-email">Email</label>
+                <input
+                  class="form-control"
+                  id="axios-email"
+                  name="email"
+                  type="email"
+                  required
+                  minlength="6"
+                  maxlength="80"
+                />
+                <small class="field-hint">Tiene que tener formato real de email.</small>
+                <p class="field-error" id="axios-email-error"></p>
+              </div>
+
+              <button class="btn btn-brand-alt w-100" type="submit">Enviar con Axios</button>
+              <button class="btn btn-outline-secondary w-100 mt-2" type="button" id="axios-clear">
+                Limpiar Formulario
+              </button>
+            </form>
+            <div class="status-box" id="axios-status" aria-live="polite">
+              Completa el formulario para enviar los datos.
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="floating-actions" aria-label="Acciones flotantes">
+      <button
+        class="floating-button floating-button--theme"
+        id="theme-toggle"
+        type="button"
+        aria-label="Cambiar tema"
+      >
+        <i data-lucide="moon-star"></i>
+        <span id="theme-toggle-text">Modo oscuro</span>
+      </button>
+
+      <button
+        class="floating-button floating-button--top"
+        id="scroll-top-button"
+        type="button"
+        aria-label="Volver arriba"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/context/theme.js"></script>
+    <script type="module" src="/scripts/script.js"></script>
+  </body>
+</html>
