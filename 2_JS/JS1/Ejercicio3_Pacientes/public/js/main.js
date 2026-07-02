@@ -9,7 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const patientTableBody = document.getElementById('patientTableBody');
     const totalItemsBadge = document.getElementById('totalItems');
     const toastContainer = document.getElementById('toast-container');
-    const fullNamesListPacientes = document.getElementById('fullNamesListPacientes');
+    const patientDetailsModal = document.getElementById('patientDetailsModal');
+    const patientDetailsTitle = document.getElementById('patientDetailsTitle');
+    const patientDetailsBody = document.getElementById('patientDetailsBody');
+    const closePatientDetailsModalIconBtn = document.getElementById('closePatientDetailsModalIconBtn');
+    const closePatientDetailsModalFooterBtn = document.getElementById('closePatientDetailsModalFooterBtn');
 
     const birthDateInput = document.getElementById('fechaNacimiento');
     const ageInput = document.getElementById('edad');
@@ -50,45 +54,124 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     };
 
+    const fieldLabels = {
+        nombre: 'Nombre',
+        apellido: 'Apellido',
+        fechaNacimiento: 'Fecha de nacimiento',
+        edad: 'Edad',
+        tipo_documento: 'Tipo de documento',
+        dni: 'Documento',
+        tramite: 'Nro. de trámite',
+        sexo: 'Sexo',
+        estadoCivil: 'Estado civil',
+        nacionalidad: 'Nacionalidad',
+        telefono: 'Teléfono',
+        email: 'Correo electrónico',
+        obraSocial: 'Obra social',
+        tipoSangre: 'Tipo de sangre',
+        tieneHijos: 'Tiene hijos',
+        cantidadHijos: 'Cantidad de hijos',
+        emergenciaNombre: 'Contacto de emergencia',
+        emergenciaVinculo: 'Vínculo de emergencia',
+        emergenciaTelefono: 'Teléfono de emergencia',
+        alergias: 'Alergias'
+    };
+
+    const openPatientDetailsModal = (patient) => {
+        if (!patientDetailsModal || !patientDetailsTitle || !patientDetailsBody) return;
+
+        const nombreCompleto = `${patient.nombre || ''} ${patient.apellido || ''}`.trim() || 'Paciente sin nombre';
+        patientDetailsTitle.textContent = nombreCompleto;
+        patientDetailsBody.innerHTML = '';
+
+        const detailsGrid = document.createElement('div');
+        detailsGrid.className = 'detail-grid';
+
+        Object.entries(patient).forEach(([key, value]) => {
+            const detailItem = document.createElement('div');
+            detailItem.className = 'detail-item';
+
+            const label = document.createElement('span');
+            label.className = 'detail-label';
+            label.textContent = fieldLabels[key] || key.replace(/_/g, ' ');
+
+            const detailValue = document.createElement('span');
+            detailValue.className = 'detail-value';
+            detailValue.textContent = value === undefined || value === null || value === '' ? 'Sin dato' : String(value);
+
+            detailItem.append(label, detailValue);
+            detailsGrid.appendChild(detailItem);
+        });
+
+        patientDetailsBody.appendChild(detailsGrid);
+        patientDetailsModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closePatientDetailsModal = () => {
+        if (!patientDetailsModal) return;
+        patientDetailsModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    };
+
     const renderTable = () => {
         const stored = localStorage.getItem('pacientes_data');
         const patients = stored ? JSON.parse(stored) : [];
         patientTableBody.innerHTML = '';
 
         if (patients.length === 0) {
-            patientTableBody.innerHTML = '<tr id="emptyRow"><td colspan="3" class="empty-cell">Sin registros en sesion.</td></tr>';
+            patientTableBody.innerHTML = '<tr id="emptyRow"><td colspan="2" class="empty-cell">Sin registros en sesion.</td></tr>';
             totalItemsBadge.textContent = '0 pacientes';
-            if (fullNamesListPacientes) {
-                fullNamesListPacientes.innerHTML = '<li class="empty-cell">Sin registros en sesion.</li>';
-            }
             return;
         }
 
         totalItemsBadge.textContent = `${patients.length} paciente${patients.length !== 1 ? 's' : ''}`;
 
-        if (fullNamesListPacientes) {
-            fullNamesListPacientes.innerHTML = '';
-            patients.forEach((p) => {
-                const nombreCompletoListado = `${p.nombre || ''} ${p.apellido || ''}`.trim();
-                const li = document.createElement('li');
-                li.textContent = nombreCompletoListado || 'Paciente sin nombre';
-                fullNamesListPacientes.appendChild(li);
-            });
-        }
-
-        patients.forEach((p) => {
+        patients.forEach((p, index) => {
             const tr = document.createElement('tr');
             const nombreCompleto = `${p.nombre || ''} ${p.apellido || ''}`.trim();
             tr.innerHTML = `
                 <td><strong>${nombreCompleto}</strong></td>
-                <td>${p.edad ?? '-'} anios</td>
-                <td><span class="badge" style="background:#0ea5e9">${p.obraSocial}</span></td>
+                <td class="actions-cell">
+                    <button type="button" class="details-btn" data-patient-index="${index}">
+                        Ver más datos
+                    </button>
+                </td>
             `;
             patientTableBody.appendChild(tr);
         });
     };
 
     renderTable();
+
+    patientTableBody.addEventListener('click', (e) => {
+        const button = e.target.closest('.details-btn');
+        if (!button) return;
+
+        const stored = localStorage.getItem('pacientes_data');
+        const patients = stored ? JSON.parse(stored) : [];
+        const index = Number(button.dataset.patientIndex);
+        const patient = patients[index];
+        if (patient) openPatientDetailsModal(patient);
+    });
+
+    if (closePatientDetailsModalIconBtn) {
+        closePatientDetailsModalIconBtn.addEventListener('click', closePatientDetailsModal);
+    }
+
+    if (closePatientDetailsModalFooterBtn) {
+        closePatientDetailsModalFooterBtn.addEventListener('click', closePatientDetailsModal);
+    }
+
+    if (patientDetailsModal) {
+        patientDetailsModal.addEventListener('click', (e) => {
+            if (e.target === patientDetailsModal) closePatientDetailsModal();
+        });
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closePatientDetailsModal();
+    });
 
     const allInputs = form.querySelectorAll('input, select, textarea');
 

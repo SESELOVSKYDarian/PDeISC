@@ -277,32 +277,42 @@
                         </div>
                         <span class="badge" id="totalItems">0 pacientes</span>
                     </div>
-                    <div class="names-panel mb-3">
-                        <h3>Listado de nombres completos</h3>
-                        <ul id="fullNamesListPacientes" class="full-names-list">
-                            <li class="empty-cell">Sin registros en sesion.</li>
-                        </ul>
-                    </div>
 
                     <div class="table-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
                                     <th><i class="bi bi-person-vcard"></i> Nombre Completo</th>
-                                    <th><i class="bi bi-calendar3"></i> Edad</th>
-                                    <th><i class="bi bi-shield-plus"></i> Cobertura</th>
-                                </tr>
-                            </thead>
-                            <tbody id="patientTableBody">
-                                <tr id="emptyRow">
-                                    <td colspan="3" class="empty-cell">Sin registros en sesión.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="patientTableBody">
+                                    <tr id="emptyRow">
+                                    <td colspan="2" class="empty-cell">Sin registros en sesión.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 </aside>
             </div>
         </main>
+    </div>
+
+    <div id="patientDetailsModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="patientDetailsTitle">Datos del paciente</h3>
+                <button type="button" class="close-modal" id="closePatientDetailsModalIconBtn">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="patientDetailsBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="closePatientDetailsModalFooterBtn">
+                    Cerrar
+                </button>
+            </div>
+        </div>
     </div>
 
     <script src="js/validations.js"></script>

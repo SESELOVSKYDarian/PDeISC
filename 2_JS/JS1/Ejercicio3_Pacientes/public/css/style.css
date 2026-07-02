@@ -385,6 +385,135 @@ input:focus, select:focus, textarea:focus {
     background: rgba(14, 165, 233, 0.03);
 }
 
+.actions-cell {
+    text-align: right;
+}
+
+.details-btn {
+    background: rgba(14, 165, 233, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    border-radius: 999px;
+    padding: 0.65rem 1rem;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.details-btn:hover {
+    background: rgba(14, 165, 233, 0.16);
+    transform: translateY(-1px);
+}
+
+/* modal de detalle */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(10px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 1rem;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 700px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 2rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-header h3 {
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--secondary);
+}
+
+.close-modal {
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: var(--primary);
+    transform: rotate(90deg) scale(1.1);
+}
+
+.modal-footer {
+    padding: 1.5rem 2rem;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.9rem;
+}
+
+.detail-item {
+    background: rgba(15, 23, 42, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    padding: 0.9rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.detail-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.detail-value {
+    font-size: 0.98rem;
+    color: var(--secondary);
+    font-weight: 600;
+    word-break: break-word;
+}
+
 /* las notificaciones toast */
 .toast-container {
     position: fixed;
@@ -555,10 +684,6 @@ input:focus, select:focus, textarea:focus {
         font-size: 0.98rem;
     }
 
-    .names-panel {
-        padding: 0.85rem;
-    }
-
     .table-container {
         margin-top: 0.5rem;
         overflow-x: hidden;
@@ -576,6 +701,10 @@ input:focus, select:focus, textarea:focus {
         white-space: normal;
         overflow-wrap: anywhere;
         word-break: break-word;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
     }
 
     .badge {
@@ -694,29 +823,3 @@ body.dark-theme {
     }
 }
 
-
-/* Listado de nombres completos */
-.names-panel {
-    border: 1px solid rgba(0,0,0,0.08);
-    background: rgba(255,255,255,0.6);
-    border-radius: 12px;
-    padding: 1rem;
-}
-
-.names-panel h3 {
-    font-size: 1rem;
-    margin: 0 0 0.6rem 0;
-    color: var(--secondary);
-}
-
-.full-names-list {
-    margin: 0;
-    padding-left: 1.2rem;
-    max-height: 140px;
-    overflow: auto;
-}
-
-.full-names-list li {
-    margin-bottom: 0.3rem;
-    color: var(--text-main);
-}

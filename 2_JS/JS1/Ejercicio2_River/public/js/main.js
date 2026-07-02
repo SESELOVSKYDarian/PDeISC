@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.getElementById('inventoryTableBody');
     const totalItemsBadge = document.getElementById('totalItems');
     const toastContainer = document.getElementById('toast-container');
+    const memberDetailsModal = document.getElementById('memberDetailsModal');
+    const memberDetailsTitle = document.getElementById('memberDetailsTitle');
+    const memberDetailsBody = document.getElementById('memberDetailsBody');
+    const closeMemberDetailsModalIconBtn = document.getElementById('closeMemberDetailsModalIconBtn');
+    const closeMemberDetailsModalFooterBtn = document.getElementById('closeMemberDetailsModalFooterBtn');
 
     // cosas para el telefono
     const phoneCountry = document.getElementById('phoneCountry');
@@ -94,6 +99,63 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => toast.remove(), 4000);
     };
 
+    const fieldLabels = {
+        nombre: 'Nombre',
+        apellido: 'Apellido',
+        tipo_documento: 'Tipo de documento',
+        documento: 'Documento',
+        tramite: 'Nro. de trámite',
+        nacionalidad: 'Nacionalidad',
+        sexo: 'Sexo',
+        email: 'Correo electrónico',
+        telefono: 'Teléfono',
+        metodo_almacenaje: 'Método de almacenaje',
+        password: 'Contraseña'
+    };
+
+    const formatDetailValue = (key, value) => {
+        if (value === undefined || value === null || value === '') return 'Sin dato';
+        if (key === 'password') return 'Oculta por seguridad';
+        return String(value);
+    };
+
+    const openMemberDetailsModal = (item) => {
+        if (!memberDetailsModal || !memberDetailsTitle || !memberDetailsBody) return;
+
+        const nombreCompleto = `${item.nombre || ''} ${item.apellido || ''}`.trim() || 'Socio sin nombre';
+        memberDetailsTitle.textContent = nombreCompleto;
+        memberDetailsBody.innerHTML = '';
+
+        const detailsGrid = document.createElement('div');
+        detailsGrid.className = 'detail-grid';
+
+        Object.entries(item).forEach(([key, value]) => {
+            const detailItem = document.createElement('div');
+            detailItem.className = 'detail-item';
+
+            const label = document.createElement('span');
+            label.className = 'detail-label';
+            label.textContent = fieldLabels[key] || key.replace(/_/g, ' ');
+
+            const detailValue = document.createElement('span');
+            detailValue.className = 'detail-value';
+            detailValue.textContent = formatDetailValue(key, value);
+
+            detailItem.append(label, detailValue);
+            detailsGrid.appendChild(detailItem);
+        });
+
+        memberDetailsBody.appendChild(detailsGrid);
+        memberDetailsModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeMemberDetailsModal = () => {
+        if (!memberDetailsModal) return;
+        memberDetailsModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    };
+
     const formGroups = form.querySelectorAll('.form-group');
     formGroups.forEach(group => {
         const inputs = group.querySelectorAll('input, select');
@@ -126,28 +188,57 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.innerHTML = '';
 
         if (items.length === 0) {
-            tableBody.innerHTML = '<tr id="emptyRow"><td colspan="5" class="empty-cell">Nadie se ha asociado en esta sesion todavia.</td></tr>';
+            tableBody.innerHTML = '<tr id="emptyRow"><td colspan="2" class="empty-cell">Nadie se ha asociado en esta sesion todavia.</td></tr>';
             totalItemsBadge.textContent = '0 socios';
             return;
         }
 
         totalItemsBadge.textContent = `${items.length} socio${items.length !== 1 ? 's' : ''}`;
 
-        items.forEach(item => {
+        items.forEach((item, index) => {
             const nombreCompleto = `${item.nombre || ''} ${item.apellido || ''}`.trim();
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td><strong>${nombreCompleto || 'Sin nombre'}</strong></td>
-                <td><strong>${item.documento}</strong></td>
-                <td>${item.sexo}</td>
-                <td>${item.nacionalidad}</td>
-                <td>${item.email}</td>
+                <td class="actions-cell">
+                    <button type="button" class="details-btn" data-member-index="${index}">
+                        Ver más datos
+                    </button>
+                </td>
             `;
             tableBody.appendChild(tr);
         });
     };
 
     renderTable();
+
+    tableBody.addEventListener('click', (e) => {
+        const button = e.target.closest('.details-btn');
+        if (!button) return;
+
+        const items = window.inventoryStorage.getAllItems();
+        const index = Number(button.dataset.memberIndex);
+        const item = items[index];
+        if (item) openMemberDetailsModal(item);
+    });
+
+    if (closeMemberDetailsModalIconBtn) {
+        closeMemberDetailsModalIconBtn.addEventListener('click', closeMemberDetailsModal);
+    }
+
+    if (closeMemberDetailsModalFooterBtn) {
+        closeMemberDetailsModalFooterBtn.addEventListener('click', closeMemberDetailsModal);
+    }
+
+    if (memberDetailsModal) {
+        memberDetailsModal.addEventListener('click', (e) => {
+            if (e.target === memberDetailsModal) closeMemberDetailsModal();
+        });
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMemberDetailsModal();
+    });
 
     const clearForm = () => {
         form.reset();

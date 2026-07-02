@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto 2 - Consumidor API</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link id="tema-css" rel="stylesheet" href="/styles/light.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <header class="hero py-5">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-8">
+            <span class="hero-etiqueta mb-3">Proyecto 2 · Consumidor</span>
+            <h1 class="display-4 fw-bold mb-3">Vista que consume la API del Proyecto 1</h1>
+            <p class="hero-descripcion mb-3">
+              Esta interfaz consume la API del Proyecto 1 y muestra los alumnos recibidos en formato JSON.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-principal btn-con-icono" id="btn-recargar" type="button">
+                <i data-lucide="refresh-cw"></i>
+                <span>Recargar datos</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <article class="panel-resumen p-4">
+              <div class="resumen-cabecera">
+                <div class="resumen-icono" aria-hidden="true">
+                  <i data-lucide="cloud-cog"></i>
+                </div>
+                <div>
+                  <p class="resumen-etiqueta mb-1">Origen remoto</p>
+                  <h2 class="h4 mb-0">http://localhost:3000</h2>
+                </div>
+              </div>
+              <div class="resumen-detalles">
+                <div>
+                  <span>Método</span>
+                  <strong>POST</strong>
+                </div>
+                <div>
+                  <span>Endpoint</span>
+                  <strong>/api/alumnos/listar</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container my-5">
+      <section class="card-listado p-4 mb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+          <div>
+            <h2 class="h4 mb-2">Estado de carga</h2>
+            <p id="mensaje-estado" class="mensaje-listado mb-0"></p>
+          </div>
+        </div>
+        <div id="contenedor-alumnos" class="row g-3"></div>
+      </section>
+
+      <section class="card-listado p-4">
+        <h2 class="h4 mb-3">JSON recibido</h2>
+        <pre id="salida-json" class="visor-json mb-0"></pre>
+      </section>
+    </main>
+
+    <button id="btn-tema" class="boton-flotante boton-tema" type="button" aria-label="Cambiar tema">
+      <i data-lucide="moon"></i>
+    </button>
+    <button id="btn-subir" class="boton-flotante boton-subir" type="button" aria-label="Subir arriba">
+      <i data-lucide="arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
+</html>
+

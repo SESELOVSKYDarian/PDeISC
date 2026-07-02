@@ -1,0 +1,286 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+.hero {
+  position: relative;
+  border-bottom: 1px solid var(--borde);
+}
+
+.hero h1 {
+  letter-spacing: -0.055em;
+}
+
+.hero-descripcion {
+  max-width: 700px;
+  color: var(--texto-suave);
+  font-size: 1.1rem;
+}
+
+.hero-etiqueta {
+  display: inline-flex;
+  color: var(--acento);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.panel-resumen,
+.card-listado {
+  border-radius: 24px;
+  border: 1px solid var(--borde);
+  box-shadow: 0 4px 24px var(--sombra);
+}
+
+.resumen-cabecera {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+}
+
+.resumen-icono,
+.titulo-listado-icono {
+  display: grid;
+  place-items: center;
+  background: var(--acento-suave);
+  color: var(--acento);
+}
+
+.resumen-icono {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+
+.resumen-etiqueta {
+  color: var(--texto-suave);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resumen-detalles {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--borde);
+}
+
+.resumen-detalles div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.resumen-detalles span,
+.text-secundario,
+.mensaje-listado {
+  color: var(--texto-suave);
+}
+
+.tarjeta-alumno,
+.estado-vacio,
+.visor-json {
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  background: var(--tarjeta);
+}
+
+.tarjeta-alumno {
+  position: relative;
+  height: 100%;
+  animation: aparecerTarjeta 0.45s ease both;
+  animation-delay: var(--demora, 0ms);
+}
+
+.tarjeta-alumno:hover {
+  border-color: var(--borde-fuerte);
+  box-shadow: 0 6px 20px var(--sombra);
+}
+
+.alumno-id {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  font-weight: 800;
+  background: var(--acento-suave);
+  color: var(--acento);
+}
+
+.alumno-datos {
+  min-width: 0;
+}
+
+.alumno-datos h3 {
+  overflow: hidden;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alumno-datos p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.estado-vacio {
+  display: grid;
+  min-height: 260px;
+  padding: 42px 20px;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  border-style: dashed;
+  background: var(--fondo-alternativo);
+}
+
+.estado-vacio-icono {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  margin-bottom: 18px;
+  place-items: center;
+  border-radius: 20px;
+  background: var(--acento-suave);
+  color: var(--acento);
+}
+
+.visor-json {
+  min-height: 420px;
+  margin: 0;
+  padding: 20px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.92rem;
+}
+
+.btn-principal,
+.btn-secundario {
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 10px 17px;
+}
+
+.btn-principal {
+  background: var(--acento);
+  border: 1px solid var(--acento);
+  color: #ffffff;
+}
+
+.btn-principal:hover {
+  background: var(--acento-hover);
+  border-color: var(--acento-hover);
+  color: #ffffff;
+}
+
+.btn-secundario {
+  background: var(--boton-secundario);
+  border: 1px solid var(--borde);
+  color: var(--texto);
+}
+
+.btn-secundario:hover {
+  background: var(--boton-secundario-hover);
+  color: var(--texto);
+}
+
+.btn-con-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-con-icono svg {
+  width: 19px;
+  height: 19px;
+}
+
+.boton-flotante {
+  position: fixed;
+  z-index: 1000;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--borde);
+  background: var(--tarjeta);
+  color: var(--texto);
+  box-shadow: 0 4px 18px var(--sombra);
+}
+
+.boton-tema {
+  left: 22px;
+  bottom: 22px;
+}
+
+.boton-subir {
+  right: 22px;
+  bottom: 22px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boton-subir.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 576px) {
+  .boton-flotante {
+    width: 48px;
+    height: 48px;
+  }
+
+  .resumen-detalles div {
+    display: grid;
+    gap: 2px;
+  }
+}
+
+@keyframes aparecerTarjeta {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

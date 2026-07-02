@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto 1 - API + MySQL</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link id="tema-css" rel="stylesheet" href="/styles/light.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <header class="hero py-5">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-8">
+            <span class="hero-etiqueta mb-3">Proyecto 1 · API + BBDD</span>
+            <h1 class="display-4 fw-bold mb-3">AlumnosDB</h1>
+            <p class="hero-descripcion mb-3">
+              Esta es una interfaz para cargar alumnos en la base de datos alumnosDB.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-principal btn-con-icono" id="btn-crear" type="button">
+                <i data-lucide="plus"></i>
+                <span>Cargar alumno</span>
+              </button>
+              <button class="btn btn-secundario btn-con-icono" id="btn-recargar" type="button">
+                <i data-lucide="refresh-cw"></i>
+                <span>Recargar listado</span>
+              </button>
+              <a class="btn btn-secundario btn-con-icono" href="/json.html">
+                <i data-lucide="braces"></i>
+                <span>Ver JSON</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <article class="panel-resumen p-4">
+              <div class="resumen-cabecera">
+                <div class="resumen-icono" aria-hidden="true">
+                  <i data-lucide="database"></i>
+                </div>
+                <div>
+                  <p class="resumen-etiqueta mb-1">Base activa</p>
+                  <h2 class="h4 mb-0">alumnosDB</h2>
+                </div>
+                <span class="estado-conexion">
+                  <span class="estado-punto"></span>
+                  MySQL
+                </span>
+              </div>
+              <div class="resumen-detalles">
+                <div>
+                  <span>API</span>
+                  <strong>POST /api/alumnos/listar</strong>
+                </div>
+                <div>
+                  <span>Altas / Edición / Baja</span>
+                  <strong>POST · PUT · DELETE</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container my-5">
+      <section class="card-listado p-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+          <div class="titulo-listado">
+            <div class="titulo-listado-icono" aria-hidden="true">
+              <i data-lucide="users"></i>
+            </div>
+            <div>
+              <h2 class="h4 mb-1">
+                Listado de alumnos
+                <span class="contador-alumnos" id="contador-alumnos">0</span>
+              </h2>
+              <p class="mb-0 text-secundario">
+                Creá, editá y eliminá registros desde esta misma interfaz.
+              </p>
+            </div>
+          </div>
+          <div class="align-self-md-start">
+            <p id="mensaje-listado" class="mensaje-listado mb-0"></p>
+          </div>
+        </div>
+
+        <div id="contenedor-alumnos" class="row g-3"></div>
+      </section>
+    </main>
+
+    <dialog class="modal-alumnos" id="modal-formulario" aria-labelledby="titulo-modal-formulario">
+      <article class="modal-contenido">
+        <header class="modal-cabecera">
+          <h2 class="h4 mb-0" id="titulo-modal-formulario">Cargar alumno</h2>
+          <button class="btn btn-icono btn-cerrar" id="btn-cerrar-formulario" type="button" aria-label="Cerrar" title="Cerrar">
+            <i data-lucide="x"></i>
+          </button>
+        </header>
+
+        <form id="form-alumno" novalidate>
+          <input type="hidden" id="alumno-id" />
+
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              name="nombre"
+              required
+              minlength="2"
+              maxlength="100"
+              pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' ]+"
+              autocomplete="off"
+            />
+            <small class="mensaje-error" id="error-nombre"></small>
+          </div>
+
+          <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="apellido"
+              name="apellido"
+              required
+              minlength="2"
+              maxlength="100"
+              pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' ]+"
+              autocomplete="off"
+            />
+            <small class="mensaje-error" id="error-apellido"></small>
+          </div>
+
+          <div class="mb-4">
+            <label for="edad" class="form-label">Edad</label>
+            <input
+              type="number"
+              class="form-control"
+              id="edad"
+              name="edad"
+              required
+              min="1"
+              max="120"
+              step="1"
+            />
+            <small class="mensaje-error" id="error-edad"></small>
+          </div>
+
+          <div class="d-flex flex-column-reverse flex-sm-row justify-content-end gap-2">
+            <button type="button" class="btn btn-secundario" id="btn-cancelar">Cancelar</button>
+            <button type="submit" class="btn btn-principal btn-con-icono" id="btn-guardar">
+              <i data-lucide="save"></i>
+              <span>Guardar alumno</span>
+            </button>
+          </div>
+
+          <p class="estado-formulario mt-3 mb-0" id="estado-formulario"></p>
+        </form>
+      </article>
+    </dialog>
+
+    <dialog class="modal-alumnos modal-confirmacion" id="modal-eliminar" aria-labelledby="titulo-eliminar">
+      <article class="modal-contenido">
+        <div class="icono-advertencia" aria-hidden="true">
+          <i data-lucide="triangle-alert"></i>
+        </div>
+        <h2 class="h4" id="titulo-eliminar">Eliminar alumno</h2>
+        <p class="text-secundario" id="mensaje-eliminar">¿Estás seguro de eliminar este registro?</p>
+        <div class="d-flex flex-column-reverse flex-sm-row justify-content-end gap-2">
+          <button type="button" class="btn btn-secundario" id="btn-cancelar-eliminar">Cancelar</button>
+          <button type="button" class="btn btn-peligro btn-con-icono" id="btn-confirmar-eliminar">
+            <i data-lucide="trash-2"></i>
+            <span>Eliminar</span>
+          </button>
+        </div>
+      </article>
+    </dialog>
+
+    <aside class="contenedor-toasts" id="contenedor-toasts" aria-live="polite" aria-atomic="false"></aside>
+
+    <button id="btn-tema" class="boton-flotante boton-tema" type="button" aria-label="Cambiar tema">
+      <i data-lucide="moon"></i>
+    </button>
+    <button id="btn-subir" class="boton-flotante boton-subir" type="button" aria-label="Subir arriba">
+      <i data-lucide="arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
+</html>
+

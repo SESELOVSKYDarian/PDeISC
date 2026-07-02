@@ -1,0 +1,47 @@
+:root {
+  color-scheme: light;
+  --fondo: #f5f5f7;
+  --fondo-alternativo: #fafafa;
+  --tarjeta: #ffffff;
+  --texto: #1d1d1f;
+  --texto-suave: #6e6e73;
+  --borde: #e5e5e7;
+  --borde-fuerte: #d2d2d7;
+  --sombra: rgba(0, 0, 0, 0.06);
+  --sombra-fuerte: rgba(0, 0, 0, 0.1);
+  --acento: #0071e3;
+  --acento-hover: #0077ed;
+  --acento-suave: rgba(0, 113, 227, 0.1);
+  --boton-secundario: #f5f5f7;
+  --boton-secundario-hover: #e8e8ed;
+  --input: #ffffff;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+.hero {
+  background: #ffffff;
+}
+
+.card-listado,
+.panel-resumen {
+  background: var(--tarjeta);
+}
+
+.form-control,
+.visor-json {
+  background: var(--input);
+  border-color: var(--borde-fuerte);
+  color: var(--texto);
+}
+
+.form-control:focus {
+  background: var(--input);
+  border-color: var(--acento);
+  color: var(--texto);
+  box-shadow: 0 0 0 4px var(--acento-suave);
+}
+
