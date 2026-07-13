@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Ahorcado — Jugar</title>
+  <meta name="description" content="Juego web de El Ahorcado con palabras reales desde base de datos">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/layout.css">
+  <link rel="stylesheet" href="../styles/navigation.css">
+  <link rel="stylesheet" href="../styles/buttons.css">
+  <link rel="stylesheet" href="../styles/cards.css">
+  <link rel="stylesheet" href="../styles/forms.css">
+  <link rel="stylesheet" href="../styles/game.css">
+  <link rel="stylesheet" href="../styles/hangman.css">
+  <link rel="stylesheet" href="../styles/keyboard.css">
+  <link rel="stylesheet" href="../styles/table.css">
+  <link rel="stylesheet" href="../styles/modal.css">
+  <link rel="stylesheet" href="../styles/toast.css">
+  <link rel="stylesheet" href="../styles/animations.css">
+  <link rel="stylesheet" href="../styles/accessibility.css">
+  <link rel="stylesheet" href="../styles/responsive.css">
+  <link rel="stylesheet" href="../styles/light.css">
+  <link rel="stylesheet" href="../styles/dark.css">
+  <link rel="stylesheet" href="../styles/polish.css">
+</head>
+<body>
+  <a href="#contenido-principal" class="saltar-contenido">Saltar al contenido principal</a>
+
+  <!-- navegación -->
+  <header class="navbar">
+    <div class="contenedor navbar__contenido">
+      <a href="/index.html" class="navbar__marca">
+        <i data-lucide="drama"></i> El Ahorcado
+      </a>
+
+      <button type="button" class="navbar__boton-menu" data-boton-menu aria-label="Abrir menú" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <nav class="navbar__enlaces" data-enlaces-nav aria-label="Navegación principal">
+        <a href="/index.html" class="navbar__enlace activo">Jugar</a>
+        <a href="/pages/ranking.html" class="navbar__enlace">Ranking</a>
+        <a href="/pages/admin.html" class="navbar__enlace">Administrador</a>
+        <button type="button" class="boton boton--icono" data-boton-tema aria-label="Cambiar tema">
+          <span class="icono-mask icono-mask--moon" aria-hidden="true"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido-principal" class="contenedor contenedor-juego">
+    <section class="tarjeta tarjeta--juego tablero-principal" aria-labelledby="titulo-juego">
+      <button type="button" class="boton boton--primario boton--jugar tablero-principal__inicio" data-nueva-partida>
+        <i data-lucide="play"></i> Empezar a jugar
+      </button>
+
+      <div class="tablero-principal__izquierda">
+        <div class="tablero-principal__titulo">
+          <span class="eyebrow">Pensá rápido. Jugá mejor.</span>
+          <h1 id="titulo-juego">Adiviná la palabra</h1>
+        </div>
+        <div class="hangman-stage">
+          <svg class="hangman" data-svg-ahorcado viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dibujo del ahorcado según los errores cometidos">
+            <path class="hangman__parte hangman__parte--estructura" data-parte="base" d="M15 240 H195" />
+            <path class="hangman__parte hangman__parte--estructura" data-parte="poste" d="M48 240 V18" />
+            <path class="hangman__parte hangman__parte--estructura" data-parte="barraSuperior" d="M48 18 H160" />
+            <path class="hangman__parte hangman__parte--estructura" data-parte="soporte" d="M48 58 L88 18" />
+            <path class="hangman__parte hangman__parte--estructura" data-parte="cuerda" d="M160 18 V48" />
+            <g class="hangman__figura">
+              <circle class="hangman__parte hangman__cabeza" data-parte="cabeza" cx="160" cy="70" r="22" />
+              <path class="hangman__parte" data-parte="cuerpo" d="M160 92 V158" />
+              <path class="hangman__parte" data-parte="brazoIzquierdo" d="M160 108 L126 140" />
+              <path class="hangman__parte" data-parte="brazoDerecho" d="M160 108 L194 140" />
+              <path class="hangman__parte" data-parte="piernaIzquierda" d="M160 158 L128 202" />
+              <path class="hangman__parte" data-parte="piernaDerecha" d="M160 158 L192 202" />
+            </g>
+          </svg>
+          <div class="estado-inicial" data-estado-inicial>
+            <span class="estado-inicial__icono"><i data-lucide="play"></i></span>
+            <strong>Todo listo</strong>
+            <span>La horca se irá dibujando con cada error.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tablero-principal__derecha">
+        <div class="panel-info" role="status" aria-live="polite">
+          <div class="panel-info__item"><div class="panel-info__valor" data-panel-intentos>6</div><div class="panel-info__etiqueta">Intentos</div></div>
+          <div class="panel-info__item"><div class="panel-info__valor" data-panel-tiempo>00:00</div><div class="panel-info__etiqueta">Tiempo</div></div>
+          <div class="panel-info__item"><div class="panel-info__valor" data-panel-puntos>0</div><div class="panel-info__etiqueta">Puntos</div></div>
+          <div class="panel-info__item panel-info__item--selector">
+            <div class="panel-info__etiqueta">Dificultad</div>
+            <span data-panel-dificultad class="badge-dificultad badge-dificultad--media">Media</span>
+          </div>
+        </div>
+
+        <div class="palabra-oculta" data-palabra-oculta aria-live="polite" aria-label="Palabra oculta">
+          <span class="palabra-espera">La palabra aparecerá al comenzar</span>
+        </div>
+        <button type="button" class="boton boton--terciario boton--chico boton-pista" data-boton-pista hidden>
+          <i data-lucide="lightbulb"></i> Ver pista
+        </button>
+        <div class="teclado" data-teclado role="group" aria-label="Teclado virtual"></div>
+      </div>
+    </section>
+  </main>
+
+  <button type="button" class="boton--icono boton-volver-arriba" data-volver-arriba aria-label="Volver arriba">
+    <i data-lucide="arrow-up"></i>
+  </button>
+
+  <script src="node_modules/lucide/dist/umd/lucide.min.js"></script>
+  <script>window.lucide && window.lucide.createIcons();</script>
+  <script type="module" src="../scripts/main.js"></script>
+</body>
+</html>

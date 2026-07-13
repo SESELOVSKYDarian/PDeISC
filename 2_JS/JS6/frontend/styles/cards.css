@@ -1,0 +1,64 @@
+/* tarjetas grandes, base del estilo neo brutalism */
+.tarjeta {
+  background: var(--color-superficie);
+  border: var(--grosor-borde) solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-dura);
+  padding: var(--espaciado-md);
+}
+
+.tarjeta--juego {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-superficie);
+}
+
+.tarjeta--juego::before {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -45px;
+  top: -45px;
+  border: var(--grosor-borde) solid var(--color-borde);
+  border-radius: 50%;
+  background: var(--color-terciario);
+  z-index: 0;
+}
+
+.tarjeta--juego > * { position: relative; z-index: 1; }
+
+.tarjeta--acento {
+  background: var(--color-secundario);
+}
+
+.tarjeta__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--espaciado-sm);
+  gap: var(--espaciado-sm);
+}
+
+.tarjeta__titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tarjeta-estadistica {
+  text-align: center;
+  padding: var(--espaciado-md);
+}
+
+.tarjeta-estadistica__numero {
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+.tarjeta-estadistica__etiqueta {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}

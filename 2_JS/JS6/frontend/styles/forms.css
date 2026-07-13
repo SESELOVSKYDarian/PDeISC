@@ -1,0 +1,51 @@
+/* estilos de formularios y validacion visual */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: var(--espaciado-sm);
+}
+
+.campo__etiqueta {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.campo__control {
+  padding: 0.65rem 0.8rem;
+  border: var(--grosor-borde) solid var(--color-borde);
+  border-radius: 8px;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  min-height: 44px;
+}
+
+.campo__control:focus-visible {
+  outline: 3px solid var(--color-terciario);
+  outline-offset: 1px;
+}
+
+.campo__control--error {
+  border-color: var(--color-error);
+}
+
+.campo__mensaje-error {
+  font-size: 0.82rem;
+  color: var(--color-error);
+  font-weight: 600;
+  min-height: 1.1em;
+}
+
+.campo__ayuda {
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+select.campo__control {
+  cursor: pointer;
+}
+
+textarea.campo__control {
+  resize: vertical;
+  min-height: 90px;
+}

@@ -1,0 +1,42 @@
+/* ajustes especificos de accesibilidad, ademas de lo que ya cubre cada componente */
+
+/* foco visible consistente en todo el sitio, sin depender del navegador */
+:focus-visible {
+  outline: 3px solid var(--color-terciario);
+  outline-offset: 2px;
+}
+
+/* clase para texto que solo deben leer los lectores de pantalla */
+.solo-lectores-pantalla {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* tamaño táctil minimo recomendado para elementos interactivos */
+button, a, input:not([type="radio"]):not([type="checkbox"]), select, .tecla {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* nunca dependo solo del color: los estados llevan icono o texto tambien */
+.estado-con-icono {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* alto contraste garantizado en textos sobre fondos de acento */
+.tarjeta--acento, .badge-dificultad, .tecla--correcta, .tecla--incorrecta {
+  color: #08260f;
+}
+
+.badge-dificultad--dificil, .tecla--incorrecta, .toast--error {
+  color: #ffffff;
+}

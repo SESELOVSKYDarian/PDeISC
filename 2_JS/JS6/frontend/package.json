@@ -1,0 +1,15 @@
+{
+  "name": "ahorcado-frontend",
+  "version": "1.0.0",
+  "description": "Frontend del juego El Ahorcado (consumidor de la API propia)",
+  "type": "module",
+  "scripts": {
+    "start": "npx serve . -l 5500"
+  },
+  "devDependencies": {
+    "serve": "^14.2.3"
+  },
+  "dependencies": {
+    "lucide": "^0.468.0"
+  }
+}

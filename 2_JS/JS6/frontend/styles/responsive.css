@@ -1,0 +1,41 @@
+/* ajustes responsive generales, complementan lo que cada archivo ya define */
+
+@media (min-width: 1400px) {
+  .contenedor-ancho {
+    padding-inline: var(--espaciado-lg);
+  }
+}
+
+@media (max-width: 900px) {
+  .panel-info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  main {
+    padding-block: var(--espaciado-md);
+  }
+
+  .tarjeta {
+    padding: var(--espaciado-sm);
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .fila-entre {
+    justify-content: center;
+  }
+
+  .hangman-stage { min-height: 245px; }
+  .estado-inicial { padding: 1rem; }
+}
+
+/* en celular, las tablas quedan con scroll horizontal en vez de romperse */
+@media (max-width: 640px) {
+  .tabla-envoltorio {
+    -webkit-overflow-scrolling: touch;
+  }
+}

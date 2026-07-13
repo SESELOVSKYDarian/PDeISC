@@ -1,0 +1,19 @@
+/* pequeños ajustes que solo aplican en modo oscuro, para que nada se vea "lavado" */
+[data-tema="oscuro"] .tabla thead {
+  background: var(--color-borde);
+  color: var(--color-fondo);
+}
+
+[data-tema="oscuro"] .esqueleto {
+  background: linear-gradient(90deg, #111111 25%, #1a1a1a 50%, #111111 75%);
+  background-size: 200% 100%;
+}
+
+[data-tema="oscuro"] .hangman__cabeza {
+  fill: var(--color-secundario);
+}
+
+[data-tema="oscuro"] ::selection {
+  background: var(--color-primario);
+  color: #08260f;
+}

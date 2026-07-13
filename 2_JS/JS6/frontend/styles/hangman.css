@@ -1,0 +1,79 @@
+/* contenedor del dibujo del ahorcado */
+.hangman {
+  width: 100%;
+  max-width: 280px;
+  margin-inline: auto;
+  display: block;
+}
+
+.hangman__parte {
+  stroke: var(--color-borde);
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.hangman__parte--estructura {
+  stroke-width: 8;
+  opacity: 1;
+}
+
+/* cada parte entra con un trazo animado, se van "dibujando" */
+.hangman__parte.hangman__parte--visible {
+  animation: dibujarParte 0.48s cubic-bezier(.2,.8,.2,1) forwards;
+  filter: drop-shadow(3px 3px 0 rgba(255,255,255,.4));
+}
+
+@keyframes dibujarParte {
+  from {
+    stroke-dashoffset: var(--largo-trazo, 300);
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hangman__cabeza {
+  fill: var(--color-secundario);
+  stroke: var(--color-borde);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.hangman--derrota .hangman__cabeza {
+  animation: sacudirDerrota 0.5s ease;
+}
+
+.hangman--victoria .hangman__figura {
+  animation: saltarVictoria 0.6s ease;
+}
+
+@keyframes sacudirDerrota {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
+}
+
+@keyframes saltarVictoria {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* version reducida para quienes prefieren menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .hangman__parte.hangman__parte--visible {
+    animation: none;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+  .hangman--derrota .hangman__cabeza,
+  .hangman--victoria .hangman__figura {
+    animation: none;
+  }
+}

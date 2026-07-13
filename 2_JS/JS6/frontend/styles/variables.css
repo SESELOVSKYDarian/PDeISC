@@ -1,0 +1,52 @@
+/* variables globales de diseño: colores, espaciados, tipografia, sombras */
+:root {
+  /* modo claro por defecto (tonos suaves, nunca blanco puro) */
+  --color-fondo: #fff8df;
+  --color-fondo-alterno: #fff1b8;
+  --color-superficie: #fffdf5;
+  --color-borde: #111111;
+  --color-texto: #111111;
+  --color-texto-suave: #4a4a4a;
+
+  /* colores vivos de acento (neo brutalism) */
+  --color-primario: #ff6542;
+  --color-secundario: #ffd84d;
+  --color-terciario: #65dadd;
+  --color-exito: #35c46f;
+  --color-error: #ff3b3b;
+  --color-advertencia: #ffb703;
+  --color-info: #3ec1d3;
+
+  --sombra-dura: 6px 6px 0 var(--color-borde);
+  --sombra-dura-hover: 9px 9px 0 var(--color-borde);
+  --sombra-dura-chica: 2px 2px 0 var(--color-borde);
+
+  --radio-borde: 14px;
+  --grosor-borde: 3px;
+
+  --espaciado-xs: 0.4rem;
+  --espaciado-sm: 0.8rem;
+  --espaciado-md: 1.4rem;
+  --espaciado-lg: 2.2rem;
+  --espaciado-xl: 3.5rem;
+
+  --fuente-principal: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --fuente-mono: 'Courier New', monospace;
+
+  --transicion-rapida: 0.15s ease;
+  --transicion-media: 0.3s ease;
+}
+
+/* modo oscuro: negro real, no gris lavado */
+[data-tema="oscuro"] {
+  --color-fondo: #080808;
+  --color-fondo-alterno: #0d0d0d;
+  --color-superficie: #111111;
+  --color-borde: #f2efe8;
+  --color-texto: #f2efe8;
+  --color-texto-suave: #c7c4bb;
+
+  --sombra-dura: 4px 4px 0 var(--color-borde);
+  --sombra-dura-hover: 6px 6px 0 var(--color-borde);
+  --sombra-dura-chica: 2px 2px 0 var(--color-borde);
+}

@@ -1,0 +1,72 @@
+/* botones estilo neo brutalism: bordes gruesos y sombra dura */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.3rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: var(--grosor-borde) solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  box-shadow: var(--sombra-dura);
+  transition: transform var(--transicion-rapida), box-shadow var(--transicion-rapida), background var(--transicion-rapida);
+  min-height: 44px;
+}
+
+.boton:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sombra-dura-hover);
+}
+
+.boton:active {
+  transform: translate(0, 0);
+  box-shadow: var(--sombra-dura-chica);
+}
+
+.boton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--sombra-dura-chica);
+}
+
+.boton--primario {
+  background: var(--color-primario);
+  color: #111111;
+}
+
+.boton--secundario {
+  background: var(--color-secundario);
+}
+
+.boton--terciario {
+  background: var(--color-terciario);
+}
+
+.boton--peligro {
+  background: var(--color-error);
+  color: #ffffff;
+}
+
+.boton--fantasma {
+  background: transparent;
+}
+
+.boton--icono {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+.boton--chico {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  min-height: 36px;
+}
+
+.boton--ancho {
+  width: 100%;
+}

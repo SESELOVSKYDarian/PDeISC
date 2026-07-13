@@ -1,0 +1,46 @@
+/* tipografia general del sitio */
+body {
+  font-family: var(--fuente-principal);
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  line-height: 1.5;
+  transition: background-color var(--transicion-media), color var(--transicion-media);
+  background-image: radial-gradient(var(--color-borde) 0.8px, transparent 0.8px);
+  background-size: 22px 22px;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: .35rem;
+  font-family: var(--fuente-mono);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); }
+
+p {
+  color: var(--color-texto-suave);
+}
+
+.texto-mono {
+  font-family: var(--fuente-mono);
+}
+
+.texto-destacado {
+  background: var(--color-secundario);
+  padding: 0.1em 0.4em;
+  border: 2px solid var(--color-borde);
+  border-radius: 4px;
+}

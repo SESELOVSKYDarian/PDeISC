@@ -1,0 +1,10 @@
+/* pequeños ajustes que solo aplican en modo claro */
+[data-tema="claro"] .cargando-spinner,
+:root:not([data-tema]) .cargando-spinner {
+  border-color: var(--color-fondo-alterno);
+  border-top-color: var(--color-primario);
+}
+
+[data-tema="claro"] .hangman__cabeza {
+  fill: var(--color-secundario);
+}
