@@ -14,6 +14,7 @@ export const ScoreApi = {
     const respuesta = await fetch(`${API_BASE_URL}/score/listar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(filtros)
     });
     return manejarRespuesta(respuesta);
@@ -23,6 +24,7 @@ export const ScoreApi = {
     const respuesta = await fetch(`${API_BASE_URL}/score/crear`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(datos)
     });
     return manejarRespuesta(respuesta);
@@ -32,13 +34,14 @@ export const ScoreApi = {
     const respuesta = await fetch(`${API_BASE_URL}/score/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(datos)
     });
     return manejarRespuesta(respuesta);
   },
 
   async eliminar(id) {
-    const respuesta = await fetch(`${API_BASE_URL}/score/${id}`, { method: 'DELETE' });
+    const respuesta = await fetch(`${API_BASE_URL}/score/${id}`, { method: 'DELETE', credentials: 'include' });
     return manejarRespuesta(respuesta);
   }
 };

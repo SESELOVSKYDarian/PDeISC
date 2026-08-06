@@ -13,6 +13,16 @@
   fill: var(--color-secundario);
 }
 
+[data-tema="oscuro"] .boton--secundario {
+  color: #111111;
+}
+
+[data-tema="oscuro"] .selector-categorias__lista label:hover,
+[data-tema="oscuro"] .selector-dificultad__opcion:hover,
+[data-tema="oscuro"] .selector-dificultad__opcion--seleccionada {
+  color: #111111;
+}
+
 [data-tema="oscuro"] ::selection {
   background: var(--color-primario);
   color: #08260f;

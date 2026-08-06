@@ -44,6 +44,20 @@ export class JuegoController {
     }
   }
 
+  pausar() {
+    if (!this.ahorcado || this.ahorcado.estado !== ESTADOS_JUEGO.JUGANDO) return false;
+    this.ahorcado.estado = ESTADOS_JUEGO.PAUSADO;
+    this.detenerCronometro();
+    return true;
+  }
+
+  reanudar() {
+    if (!this.ahorcado || this.ahorcado.estado !== ESTADOS_JUEGO.PAUSADO) return false;
+    this.ahorcado.estado = ESTADOS_JUEGO.JUGANDO;
+    this.iniciarCronometro();
+    return true;
+  }
+
   procesarLetra(letra) {
     if (!this.ahorcado) return null;
 

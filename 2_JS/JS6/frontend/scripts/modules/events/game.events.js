@@ -25,6 +25,7 @@ export function inicializarEventosJuego() {
   const svgAhorcado = document.querySelector('[data-svg-ahorcado]');
   const contenedorTeclado = document.querySelector('[data-teclado]');
   const botonNuevaPartida = document.querySelector('[data-nueva-partida]');
+  const botonPausa = document.querySelector('[data-boton-pausa]');
 
   if (!svgAhorcado || !contenedorTeclado) return;
 
@@ -35,7 +36,7 @@ export function inicializarEventosJuego() {
       renderizarPanelInfo(ahorcado);
       renderizarPalabraOculta(ahorcado);
     },
-    onFinDePartida: (resumen, resultado) => manejarFinDePartida(resumen, resultado, svgAhorcado)
+    onFinDePartida: (resumen, resultado) => manejarFinDePartida(resumen, resultado, svgAhorcado, iniciar)
   });
 
   const iniciar = async () => {
@@ -44,10 +45,13 @@ export function inicializarEventosJuego() {
       reiniciarDibujoAhorcado(svgAhorcado);
       await controller.iniciarPartida(dificultadSeleccionada, categoriasSeleccionadas);
       habilitarTeclado(contenedorTeclado, true);
+      botonPausa.hidden = false;
+      botonPausa.disabled = false;
+      actualizarBotonPausa(false);
       const botonPista = document.querySelector('[data-boton-pista]');
       if (botonPista) botonPista.hidden = !controller.ahorcado.pista;
       document.querySelector('[data-estado-inicial]')?.classList.add('estado-inicial--oculto');
-      botonNuevaPartida.innerHTML = '<i data-lucide="refresh-cw"></i> Nueva partida';
+      botonNuevaPartida.innerHTML = '<i data-lucide="refresh-cw"></i> Reiniciar partida';
       if (window.lucide) window.lucide.createIcons();
     } catch (error) {
       mostrarToast('No se pudo obtener una palabra desde el servidor.', 'error');
@@ -57,9 +61,15 @@ export function inicializarEventosJuego() {
   };
 
   botonNuevaPartida?.addEventListener('click', () => {
+    if (controller.ahorcado?.estado === ESTADOS_JUEGO.JUGANDO || controller.ahorcado?.estado === ESTADOS_JUEGO.PAUSADO) {
+      abrirModalConfirmarReinicio(iniciar);
+      return;
+    }
     if (!controller.ahorcado || controller.ahorcado.estado !== ESTADOS_JUEGO.JUGANDO) abrirModalInicio(iniciar);
     else mostrarToast('Terminá la partida actual antes de cambiar la dificultad.', 'info');
   });
+
+  botonPausa?.addEventListener('click', () => alternarPausa(contenedorTeclado));
 
   contenedorTeclado.addEventListener('click', (evento) => {
     const tecla = evento.target.closest('.tecla');
@@ -88,6 +98,10 @@ export function inicializarEventosJuego() {
 
 function mostrarFlujoDeBienvenida(iniciar) {
   if (localStorage.getItem('ahorcado_tutorial_visto') === 'true') return abrirModalInicio(iniciar);
+  abrirTutorial(iniciar);
+}
+
+function abrirTutorial(iniciar) {
   abrirModal({
     titulo: 'Como jugar',
     contenidoHtml: `<div class="tutorial" data-tutorial><section class="tutorial__paso tutorial__paso--activo"><b>1 de 2</b><h4>Adivina la palabra</h4><p>Usa el teclado virtual o fisico para probar letras.</p></section><section class="tutorial__paso" aria-hidden="true"><b>2 de 2</b><h4>Tienes 6 intentos</h4><p>Cada error dibuja una parte del ahorcado. Si se terminan, pierdes la partida.</p></section><div class="modal__acciones"><button type="button" class="boton" data-tutorial-siguiente>Siguiente</button></div></div>`,
@@ -122,6 +136,17 @@ function abrirModalInicio(iniciar) {
         seccion.classList.toggle('inicio-partida__paso--activo', activo);
       });
       const botonSiguiente = cuerpo.querySelector('[data-siguiente-inicio]');
+      const botonTutorial = document.createElement('button');
+      botonTutorial.type = 'button';
+      botonTutorial.className = 'boton';
+      botonTutorial.dataset.verTutorial = '';
+      botonTutorial.innerHTML = '<i data-lucide="book-open"></i> Ver tutorial';
+      botonSiguiente.parentElement.prepend(botonTutorial);
+      if (window.lucide) window.lucide.createIcons();
+      botonTutorial.addEventListener('click', () => {
+        cerrarModal();
+        setTimeout(() => abrirTutorial(iniciar), 300);
+      });
       botonSiguiente.addEventListener('click', () => {
         categoriasSeleccionadas = [...cuerpo.querySelectorAll('input[name="categoria-juego"]:checked')].map(input => input.value);
         if (!categoriasSeleccionadas.length) {
@@ -163,6 +188,53 @@ function habilitarTeclado(contenedor, habilitar) {
   });
 }
 
+function actualizarBotonPausa(estaPausado) {
+  const boton = document.querySelector('[data-boton-pausa]');
+  if (!boton) return;
+  boton.innerHTML = estaPausado
+    ? '<i data-lucide="play"></i> Reanudar'
+    : '<i data-lucide="pause"></i> Pausar';
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function alternarPausa(contenedorTeclado) {
+  if (controller.ahorcado?.estado === ESTADOS_JUEGO.JUGANDO) {
+    controller.pausar();
+    habilitarTeclado(contenedorTeclado, false);
+    actualizarBotonPausa(true);
+    abrirModal({
+      titulo: 'Partida pausada',
+      contenidoHtml: '<p>El tiempo quedó detenido. Cuando estés listo, podés continuar la partida.</p><div class="modal__acciones"><button type="button" class="boton boton--primario" data-reanudar-partida><i data-lucide="play"></i> Continuar partida</button></div>',
+      alAbrir(cuerpo) {
+        cuerpo.querySelector('[data-reanudar-partida]').addEventListener('click', () => {
+          controller.reanudar();
+          habilitarTeclado(contenedorTeclado, true);
+          actualizarBotonPausa(false);
+          cerrarModal();
+        });
+      }
+    });
+  } else if (controller.ahorcado?.estado === ESTADOS_JUEGO.PAUSADO) {
+    controller.reanudar();
+    habilitarTeclado(contenedorTeclado, true);
+    actualizarBotonPausa(false);
+  }
+}
+
+function abrirModalConfirmarReinicio(iniciar) {
+  abrirModal({
+    titulo: '¿Reiniciar partida?',
+    contenidoHtml: '<p>Vas a perder los puntos, los intentos y el progreso de la partida actual.</p><div class="modal__acciones"><button type="button" class="boton" data-cancelar-reinicio>Seguir jugando</button><button type="button" class="boton boton--peligro" data-confirmar-reinicio>Reiniciar partida</button></div>',
+    alAbrir(cuerpo) {
+      cuerpo.querySelector('[data-cancelar-reinicio]').addEventListener('click', cerrarModal);
+      cuerpo.querySelector('[data-confirmar-reinicio]').addEventListener('click', () => {
+        cerrarModal();
+        setTimeout(() => iniciar(), 300);
+      });
+    }
+  });
+}
+
 function procesarLetra(letra, teclaEl, svgAhorcado) {
   const resultado = controller.procesarLetra(letra);
   if (!resultado || !resultado.valido) return;
@@ -178,9 +250,11 @@ function procesarLetra(letra, teclaEl, svgAhorcado) {
   }
 }
 
-function manejarFinDePartida(resumen, resultado, svgAhorcado) {
+function manejarFinDePartida(resumen, resultado, svgAhorcado, iniciar) {
   const contenedorTeclado = document.querySelector('[data-teclado]');
+  const botonPausa = document.querySelector('[data-boton-pausa]');
   habilitarTeclado(contenedorTeclado, false);
+  if (botonPausa) { botonPausa.hidden = true; botonPausa.disabled = true; }
   reproducirAnimacionFinal(svgAhorcado, resumen.gano);
 
   if (resumen.gano) {
@@ -189,18 +263,23 @@ function manejarFinDePartida(resumen, resultado, svgAhorcado) {
     mostrarToast(`Perdiste. La palabra era "${resumen.palabra}".`, 'error');
   }
 
-  abrirModalResultado(resumen);
+  abrirModalResultado(resumen, iniciar);
   const botonNuevaPartida = document.querySelector('[data-nueva-partida]');
-  if (botonNuevaPartida) botonNuevaPartida.innerHTML = '<i data-lucide="rotate-ccw"></i> Volver a jugar';
+  if (botonNuevaPartida) botonNuevaPartida.innerHTML = '<i data-lucide="refresh-cw"></i> Reiniciar partida';
   if (window.lucide) window.lucide.createIcons();
 }
 
-function abrirModalResultado(resumen) {
+function abrirModalResultado(resumen, iniciar) {
   const nombreGuardado = leerUltimoNombre();
 
   abrirModal({
+    permitirCerrar: false,
     titulo: resumen.gano ? '¡Victoria!' : 'Partida terminada',
     contenidoHtml: `
+      <div class="resultado-partida ${resumen.gano ? 'resultado-partida--ganado' : 'resultado-partida--perdido'}" role="status" aria-label="${resumen.gano ? 'Ganaste la partida. Felicitaciones.' : 'Perdiste la partida.'}">
+        <span class="resultado-partida__cara" aria-hidden="true">${resumen.gano ? '😄' : '😵'}</span>
+        <strong>${resumen.gano ? '¡Ganaste! ¡Felicitaciones!' : 'Perdiste la partida'}</strong>
+      </div>
       <p>Palabra: <strong>${resumen.palabra}</strong></p>
       <p>Puntos obtenidos: <strong>${resumen.puntos}</strong></p>
       <p>Tiempo: <strong>${resumen.tiempo}s</strong></p>
@@ -215,10 +294,23 @@ function abrirModalResultado(resumen) {
           <button type="submit" class="boton boton--primario">Guardar score</button>
         </div>
       </form>
+      <div class="modal__acciones modal__acciones--partida">
+        <button type="button" class="boton boton--terciario" data-volver-jugar><i data-lucide="rotate-ccw"></i> Volver a jugar</button>
+        <button type="button" class="boton boton--secundario" data-nueva-partida-final><i data-lucide="sliders-horizontal"></i> Nueva partida</button>
+      </div>
     `,
     alAbrir(cuerpo) {
       const formulario = cuerpo.querySelector('[data-form-guardar-score]');
       const inputNombre = cuerpo.querySelector('#input-nombre-score');
+
+      cuerpo.querySelector('[data-volver-jugar]').addEventListener('click', () => {
+        cerrarModal();
+        setTimeout(() => iniciar(), 300);
+      });
+      cuerpo.querySelector('[data-nueva-partida-final]').addEventListener('click', () => {
+        cerrarModal();
+        setTimeout(() => abrirModalInicio(iniciar), 300);
+      });
 
       formulario.addEventListener('submit', async (evento) => {
         evento.preventDefault();
@@ -240,7 +332,6 @@ function abrirModalResultado(resumen) {
           await ScoreApi.crear({ nombre: inputNombre.value.trim(), tiempo: resumen.tiempo, puntos: resumen.puntos });
           guardarUltimoNombre(inputNombre.value.trim());
           mostrarToast('Score guardado correctamente.', 'exito');
-          cerrarModal();
         } catch {
           mostrarToast('No se pudo guardar el score.', 'error');
         } finally {

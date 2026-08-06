@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 import { ENV } from './config/environment.js';
 import { verificarConexion } from './config/database.js';
@@ -12,6 +13,7 @@ import palabrasRoutes from './routes/palabras.routes.js';
 import scoreRoutes from './routes/score.routes.js';
 import estadisticasRoutes from './routes/estadisticas.routes.js';
 import pdfRoutes from './routes/pdf.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 const app = express();
 
@@ -19,10 +21,11 @@ const app = express();
 app.use(helmet());
 
 // habilito CORS solo para el origen configurado del frontend
-app.use(cors({ origin: ENV.CORS_ORIGIN }));
+app.use(cors({ origin: ENV.CORS_ORIGIN === '*' ? true : ENV.CORS_ORIGIN, credentials: true }));
 
 // limito el tamaño del JSON para evitar payloads gigantes
 app.use(express.json({ limit: LIMITE_JSON }));
+app.use(cookieParser());
 
 // ruta principal: permite comprobar desde el navegador que la API está disponible
 app.get('/', (req, res) => {
@@ -39,6 +42,7 @@ app.use('/api/palabras', palabrasRoutes);
 app.use('/api/score', scoreRoutes);
 app.use('/api/estadisticas', estadisticasRoutes);
 app.use('/api/pdf', pdfRoutes);
+app.use('/api/auth', authRoutes);
 
 // si ninguna ruta respondio, es un 404
 app.use(rutaNoEncontrada);

@@ -21,12 +21,12 @@ function asegurarContenedor() {
   document.body.appendChild(elementoFondo);
 
   elementoFondo.addEventListener('click', (evento) => {
-    if (evento.target === elementoFondo) cerrarModal();
+    if (evento.target === elementoFondo && elementoFondo.dataset.permitirCerrar !== 'false') cerrarModal();
   });
   elementoFondo.querySelector('[data-cerrar-modal]').addEventListener('click', cerrarModal);
 
   document.addEventListener('keydown', (evento) => {
-    if (evento.key === 'Escape' && elementoFondo.classList.contains('modal-fondo--abierto')) {
+    if (evento.key === 'Escape' && elementoFondo.classList.contains('modal-fondo--abierto') && elementoFondo.dataset.permitirCerrar !== 'false') {
       cerrarModal();
     }
   });
@@ -34,12 +34,14 @@ function asegurarContenedor() {
   return elementoFondo;
 }
 
-export function abrirModal({ titulo, contenidoHtml, alAbrir }) {
+export function abrirModal({ titulo, contenidoHtml, alAbrir, permitirCerrar = true }) {
   const fondo = asegurarContenedor();
   elementoAnterior = document.activeElement;
 
   fondo.querySelector('#modal-titulo').textContent = titulo;
   fondo.querySelector('.modal__cuerpo').innerHTML = contenidoHtml;
+  fondo.dataset.permitirCerrar = String(permitirCerrar);
+  fondo.querySelector('[data-cerrar-modal]').hidden = !permitirCerrar;
 
   fondo.classList.remove('modal-fondo--cerrando');
   fondo.classList.add('modal-fondo--abierto');

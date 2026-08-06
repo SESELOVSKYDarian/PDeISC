@@ -9,3 +9,8 @@ export const LONGITUD_MAXIMA_NOMBRE = 40;
 export const DIFICULTADES_VALIDAS = ['facil', 'media', 'dificil'];
 
 export const LIMITE_JSON = '2mb';
+
+export const NOMBRE_COOKIE_SESION_ADMIN = 'admin_session';
+export const LONGITUD_CODIGO_VERIFICACION = 6;
+export const MINUTOS_CODIGO_VERIFICACION = 10;
+export const DIAS_SESION_ADMIN = 7;

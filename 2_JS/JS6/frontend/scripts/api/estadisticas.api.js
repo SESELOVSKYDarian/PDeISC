@@ -6,6 +6,7 @@ export const EstadisticasApi = {
     const respuesta = await fetch(`${API_BASE_URL}/estadisticas/resumen`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({})
     });
     const datos = await respuesta.json();

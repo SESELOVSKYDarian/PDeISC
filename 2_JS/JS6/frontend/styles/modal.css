@@ -42,6 +42,25 @@
 
 .modal__cuerpo > p { margin-bottom: .75rem; }
 
+.resultado-partida {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  margin-bottom: 1rem;
+  padding: .85rem;
+  border: var(--grosor-borde) solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-secundario);
+  color: #111111;
+  text-align: center;
+}
+
+.resultado-partida__cara {
+  font-size: 2rem;
+  line-height: 1;
+}
+
 .modal-fondo--abierto .modal {
   transform: translateY(0) rotate(0) scale(1);
   opacity: 1;
@@ -70,7 +89,7 @@
 .modal__acciones {
   display: flex;
   justify-content: flex-end;
-  gap: 0.6rem;
+  gap: 1rem;
   margin-top: 1.25rem;
 }
 

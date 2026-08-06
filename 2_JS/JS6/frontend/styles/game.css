@@ -145,6 +145,7 @@
 }
 
 .tablero-principal__inicio { position: absolute; top: 1.8rem; left: 2rem; z-index: 4; }
+.tablero-principal__pausa { position: absolute; top: 1.8rem; left: 16rem; z-index: 4; }
 .tablero-principal__titulo { grid-column: 2; text-align: center; padding-inline: 4rem; }
 .tablero-principal__titulo h1 { font-size: clamp(2.6rem, 5vw, 5rem); line-height: .95; }
 .tablero-principal__badge { position: absolute; top: 1.8rem; right: 2rem; z-index: 4; padding: .55rem .9rem; box-shadow: var(--sombra-dura-chica); }
@@ -201,12 +202,14 @@
   .tablero-principal__izquierda { order: 1; }
   .tablero-principal__derecha { order: 2; width: 100%; min-width: 0; }
   .tablero-principal__inicio { top: 1.2rem; left: 1.2rem; }
+  .tablero-principal__pausa { top: 1.2rem; left: auto; right: 1.2rem; }
   .tablero-principal__badge { top: 1.2rem; right: 1.2rem; }
   .tablero-principal .hangman-stage { min-height: 330px; }
 }
 
 @media (max-width: 480px) {
   .tablero-principal__inicio { max-width: calc(100% - 8rem); min-width: 0; font-size: .85rem; }
+  .tablero-principal__pausa { top: 4.5rem; right: 1.2rem; }
   .ayuda-carrusel { grid-template-columns: 1fr; }
   .ayuda-carrusel__controles { flex-direction: row; justify-content: center; }
   .ayuda-carrusel__punto { width: 44px; height: 18px; }

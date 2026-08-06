@@ -21,6 +21,14 @@ export function errorHandler(error, req, res, next) {
     });
   }
 
+  if (error.status && error.status < 500) {
+    return res.status(error.status).json({
+      ok: false,
+      mensaje: error.message,
+      errores: []
+    });
+  }
+
   return res.status(error.status || 500).json({
     ok: false,
     mensaje: 'Ocurrió un error inesperado en el servidor.',

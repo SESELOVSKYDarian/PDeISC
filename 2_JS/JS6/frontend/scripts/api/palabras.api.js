@@ -14,6 +14,7 @@ export const PalabrasApi = {
     const respuesta = await fetch(`${API_BASE_URL}/palabras/listar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({})
     });
     const datos = await manejarRespuesta(respuesta);
@@ -29,6 +30,7 @@ export const PalabrasApi = {
     const respuesta = await fetch(`${API_BASE_URL}/palabras/listar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(filtros)
     });
     return manejarRespuesta(respuesta);
@@ -38,6 +40,7 @@ export const PalabrasApi = {
     const respuesta = await fetch(`${API_BASE_URL}/palabras/aleatoria`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ dificultad, categorias })
     });
     return manejarRespuesta(respuesta);
@@ -47,6 +50,7 @@ export const PalabrasApi = {
     const respuesta = await fetch(`${API_BASE_URL}/palabras/crear`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(datos)
     });
     return manejarRespuesta(respuesta);
@@ -56,13 +60,14 @@ export const PalabrasApi = {
     const respuesta = await fetch(`${API_BASE_URL}/palabras/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(datos)
     });
     return manejarRespuesta(respuesta);
   },
 
   async eliminar(id) {
-    const respuesta = await fetch(`${API_BASE_URL}/palabras/${id}`, { method: 'DELETE' });
+    const respuesta = await fetch(`${API_BASE_URL}/palabras/${id}`, { method: 'DELETE', credentials: 'include' });
     return manejarRespuesta(respuesta);
   }
 };
