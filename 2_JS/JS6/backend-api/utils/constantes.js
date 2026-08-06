@@ -14,3 +14,4 @@ export const NOMBRE_COOKIE_SESION_ADMIN = 'admin_session';
 export const LONGITUD_CODIGO_VERIFICACION = 6;
 export const MINUTOS_CODIGO_VERIFICACION = 10;
 export const DIAS_SESION_ADMIN = 7;
+export const VALOR_MAXIMO_SCORE = 2147483647;

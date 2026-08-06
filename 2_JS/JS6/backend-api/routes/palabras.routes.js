@@ -8,7 +8,7 @@ import { requerirAdmin } from '../middlewares/requerirAdmin.js';
 const router = Router();
 
 router.post('/listar', PalabrasController.listar);
-router.get('/categorias', PalabrasController.categorias);
+router.post('/categorias', PalabrasController.categorias);
 router.post('/aleatoria', PalabrasController.aleatoria);
 router.post('/crear', requerirAdmin, validarPalabra, PalabrasController.crear);
 router.put('/:id', requerirAdmin, validarId, validarPalabra, PalabrasController.actualizar);

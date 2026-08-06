@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS score (
   tiempo INT NOT NULL,
   puntos INT NOT NULL,
   fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT uq_score_unico UNIQUE (nombre, tiempo, puntos),
   CONSTRAINT chk_tiempo_positivo CHECK (tiempo >= 0),
   CONSTRAINT chk_puntos_positivo CHECK (puntos >= 0),
   CONSTRAINT chk_nombre_longitud CHECK (CHAR_LENGTH(nombre) BETWEEN 2 AND 40)

@@ -6,6 +6,6 @@ import { requerirAdmin } from '../middlewares/requerirAdmin.js';
 const router = Router();
 router.post('/solicitar-codigo', AuthController.solicitarCodigo);
 router.post('/verificar-codigo', AuthController.verificarCodigo);
-router.get('/sesion', requerirAdmin, AuthController.sesion);
+router.post('/sesion', requerirAdmin, AuthController.sesion);
 router.post('/cerrar-sesion', requerirAdmin, AuthController.cerrarSesion);
 export default router;

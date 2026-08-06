@@ -48,6 +48,16 @@ export const ScoreModel = {
     return resultado.insertId;
   },
 
+  async existeScore({ nombre, tiempo, puntos, excluirId = null }) {
+    const condicionId = excluirId === null ? '' : ' AND id <> ?';
+    const params = excluirId === null ? [nombre, tiempo, puntos] : [nombre, tiempo, puntos, excluirId];
+    const [filas] = await pool.query(
+      `SELECT id FROM score WHERE nombre = ? AND tiempo = ? AND puntos = ?${condicionId} LIMIT 1`,
+      params
+    );
+    return Boolean(filas[0]);
+  },
+
   async actualizar(id, { nombre, tiempo, puntos }) {
     const [resultado] = await pool.query(
       'UPDATE score SET nombre = ?, tiempo = ?, puntos = ? WHERE id = ?',

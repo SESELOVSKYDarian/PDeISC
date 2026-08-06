@@ -3,16 +3,13 @@ import { validarNombre } from './nombre.validation.js';
 
 export function validarScoreFormulario({ nombre, tiempo, puntos }) {
   const errores = {};
-
   const resultadoNombre = validarNombre(nombre);
-  if (!resultadoNombre.valido) errores.nombre = resultadoNombre.mensaje;
+  const tiempoNumero = Number(tiempo);
+  const puntosNumero = Number(puntos);
 
-  if (isNaN(tiempo) || Number(tiempo) < 0) {
-    errores.tiempo = 'El tiempo debe ser un número positivo.';
-  }
-  if (isNaN(puntos) || Number(puntos) < 0) {
-    errores.puntos = 'Los puntos deben ser un número positivo.';
-  }
+  if (!resultadoNombre.valido) errores.nombre = resultadoNombre.mensaje;
+  if (!Number.isSafeInteger(tiempoNumero) || tiempoNumero < 0 || tiempoNumero > 2147483647) errores.tiempo = 'El tiempo debe ser un entero válido.';
+  if (!Number.isSafeInteger(puntosNumero) || puntosNumero < 0 || puntosNumero > 2147483647) errores.puntos = 'Los puntos deben ser un entero válido.';
 
   return { valido: Object.keys(errores).length === 0, errores };
 }

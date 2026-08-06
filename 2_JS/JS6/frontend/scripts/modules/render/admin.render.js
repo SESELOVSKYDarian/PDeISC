@@ -1,6 +1,7 @@
 // pinta la tabla de palabras en el panel administrador
 import { capitalizar } from '../../utils/formatters.js';
 import { renderizarEstadoVacio } from '../ui/emptyState.js';
+import { escaparHtml } from '../../utils/helpers.js';
 
 export function renderizarTablaPalabras(palabras) {
   const cuerpo = document.querySelector('[data-cuerpo-tabla-palabras]');
@@ -14,15 +15,15 @@ export function renderizarTablaPalabras(palabras) {
 
   cuerpo.innerHTML = palabras.map(item => `
     <tr>
-      <td>${item.palabra}</td>
-      <td>${capitalizar(item.categoria)}</td>
-      <td><span class="badge-dificultad badge-dificultad--${item.dificultad}">${capitalizar(item.dificultad)}</span></td>
+      <td>${escaparHtml(item.palabra)}</td>
+      <td>${escaparHtml(capitalizar(item.categoria))}</td>
+      <td><span class="badge-dificultad badge-dificultad--${escaparHtml(item.dificultad)}">${escaparHtml(capitalizar(item.dificultad))}</span></td>
       <td>${new Date(item.fecha_creacion).toLocaleDateString('es-AR')}</td>
       <td class="tabla__acciones">
-        <button type="button" class="boton boton--chico boton--icono" data-editar-palabra="${item.id}" aria-label="Editar ${item.palabra}">
+        <button type="button" class="boton boton--chico boton--icono" data-editar-palabra="${item.id}" aria-label="Editar ${escaparHtml(item.palabra)}">
           <span class="icono-mask icono-mask--pencil" aria-hidden="true"></span>
         </button>
-        <button type="button" class="boton boton--chico boton--icono boton--peligro" data-eliminar-palabra="${item.id}" aria-label="Eliminar ${item.palabra}">
+        <button type="button" class="boton boton--chico boton--icono boton--peligro" data-eliminar-palabra="${item.id}" aria-label="Eliminar ${escaparHtml(item.palabra)}">
           <span class="icono-mask icono-mask--trash" aria-hidden="true"></span>
         </button>
       </td>

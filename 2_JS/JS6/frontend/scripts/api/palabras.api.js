@@ -11,19 +11,13 @@ async function manejarRespuesta(respuesta) {
 
 export const PalabrasApi = {
   async categorias() {
-    const respuesta = await fetch(`${API_BASE_URL}/palabras/listar`, {
+    const respuesta = await fetch(`${API_BASE_URL}/palabras/categorias`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: JSON.stringify({})
     });
-    const datos = await manejarRespuesta(respuesta);
-    return {
-      ...datos,
-      datos: {
-        categorias: [...new Set(datos.datos.palabras.map(item => item.categoria))].sort()
-      }
-    };
+    return manejarRespuesta(respuesta);
   },
 
   async listar(filtros = {}) {

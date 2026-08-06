@@ -17,7 +17,7 @@ export const AuthApi = {
     return manejarRespuesta(respuesta);
   },
   async obtenerSesion() {
-    const respuesta = await fetch(`${API_BASE_URL}/auth/sesion`, { credentials: 'include' });
+    const respuesta = await fetch(`${API_BASE_URL}/auth/sesion`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}), credentials: 'include' });
     return manejarRespuesta(respuesta);
   }
 };

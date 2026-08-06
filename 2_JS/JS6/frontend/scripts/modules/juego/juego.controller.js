@@ -11,6 +11,7 @@ export class JuegoController {
     this.ahorcado = null;
     this.intervaloTiempo = null;
     this.segundos = 0;
+    this.partidaToken = null;
   }
 
   // pide una palabra real a la API (nunca un array local) e inicia la partida
@@ -18,10 +19,11 @@ export class JuegoController {
     this.detenerCronometro();
 
     const respuesta = await PalabrasApi.aleatoria(dificultad, categorias);
-    const { palabra, categoria, pista, dificultad: dificultadReal } = respuesta.datos.palabra;
+    const { palabra, categoria, pista, dificultad: dificultadReal, partidaToken } = respuesta.datos.palabra;
 
     this.ahorcado = new Ahorcado({ palabra, categoria, pista, dificultad: dificultadReal });
     this.segundos = 0;
+    this.partidaToken = partidaToken;
 
     this.iniciarCronometro();
     this.notificarCambios();
@@ -56,6 +58,10 @@ export class JuegoController {
     this.ahorcado.estado = ESTADOS_JUEGO.JUGANDO;
     this.iniciarCronometro();
     return true;
+  }
+
+  obtenerPartidaToken() {
+    return this.partidaToken;
   }
 
   procesarLetra(letra) {

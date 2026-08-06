@@ -13,3 +13,13 @@ export function debounce(funcion, espera = 350) {
 export function generarIdCorto() {
   return Math.random().toString(36).slice(2, 9);
 }
+
+// escapa texto externo antes de insertarlo en una plantilla html
+export function escaparHtml(valor) {
+  return String(valor ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}

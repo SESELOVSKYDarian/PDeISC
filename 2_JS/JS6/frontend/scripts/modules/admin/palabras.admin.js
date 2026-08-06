@@ -7,6 +7,7 @@ import { mostrarToast } from '../ui/toast.js';
 import { validarPalabraFormulario } from '../validation/palabra.validation.js';
 import { mostrarErrorCampo } from '../validation/form.validation.js';
 import { mostrarLoaderEnContenedor, activarCargaBoton, desactivarCargaBoton } from '../ui/loader.js';
+import { escaparHtml } from '../../utils/helpers.js';
 
 let cachePalabras = [];
 let paginaActual = 1;
@@ -46,17 +47,17 @@ function formularioPalabra(datosIniciales = {}) {
     <form data-form-palabra novalidate>
       <div class="campo">
         <label class="campo__etiqueta" for="input-palabra">Palabra</label>
-        <input class="campo__control" type="text" id="input-palabra" name="palabra" value="${datosIniciales.palabra || ''}" required>
+        <input class="campo__control" type="text" id="input-palabra" name="palabra" value="${escaparHtml(datosIniciales.palabra)}" required>
         <span class="campo__mensaje-error" role="alert"></span>
       </div>
       <div class="campo">
         <label class="campo__etiqueta" for="input-categoria">Categoría</label>
-        <input class="campo__control" type="text" id="input-categoria" name="categoria" value="${datosIniciales.categoria || ''}" required>
+        <input class="campo__control" type="text" id="input-categoria" name="categoria" value="${escaparHtml(datosIniciales.categoria)}" required>
         <span class="campo__mensaje-error" role="alert"></span>
       </div>
       <div class="campo">
         <label class="campo__etiqueta" for="input-pista">Pista <small>(opcional)</small></label>
-        <input class="campo__control" type="text" id="input-pista" name="pista" maxlength="160" value="${datosIniciales.pista || ''}" placeholder="Ej.: Se encuentra en una biblioteca">
+        <input class="campo__control" type="text" id="input-pista" name="pista" maxlength="160" value="${escaparHtml(datosIniciales.pista)}" placeholder="Ej.: Se encuentra en una biblioteca">
         <span class="campo__mensaje-error" role="alert"></span>
       </div>
       <div class="campo">

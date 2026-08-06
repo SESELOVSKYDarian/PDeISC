@@ -14,6 +14,7 @@ import { PalabrasApi } from '../../api/palabras.api.js';
 import { guardarUltimoNombre, leerUltimoNombre } from '../../storage/preferences.storage.js';
 import { activarCargaBoton, desactivarCargaBoton } from '../ui/loader.js';
 import { ESTADOS_JUEGO } from '../juego/estadoJuego.js';
+import { escaparHtml } from '../../utils/helpers.js';
 
 const ALFABETO = 'abcdefghijklmnopqrstuvwxyzñ'.split('');
 
@@ -164,7 +165,7 @@ function abrirModalInicio(iniciar) {
       PalabrasApi.categorias().then(respuesta => {
         const categorias = respuesta.datos.categorias;
         const lista = cuerpo.querySelector('[data-categorias-juego]');
-        lista.innerHTML = categorias.length ? categorias.map(categoria => `<label><input type="checkbox" name="categoria-juego" value="${categoria}"> ${categoria}</label>`).join('') : 'No hay categorias disponibles.';
+        lista.innerHTML = categorias.length ? categorias.map(categoria => `<label><input type="checkbox" name="categoria-juego" value="${escaparHtml(categoria)}"> ${escaparHtml(categoria)}</label>`).join('') : 'No hay categorias disponibles.';
         lista.addEventListener('change', () => {
           const haySeleccion = Boolean(lista.querySelector('input:checked'));
           botonSiguiente.disabled = !haySeleccion;
@@ -286,7 +287,7 @@ function abrirModalResultado(resumen, iniciar) {
       <form data-form-guardar-score novalidate>
         <div class="campo">
           <label class="campo__etiqueta" for="input-nombre-score">Tu nombre</label>
-          <input class="campo__control" type="text" id="input-nombre-score" name="nombre" value="${nombreGuardado}" required>
+          <input class="campo__control" type="text" id="input-nombre-score" name="nombre" value="${escaparHtml(nombreGuardado)}" minlength="2" maxlength="40" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' ]+" required>
           <span class="campo__mensaje-error" role="alert"></span>
         </div>
         <div class="modal__acciones">
@@ -302,6 +303,7 @@ function abrirModalResultado(resumen, iniciar) {
     alAbrir(cuerpo) {
       const formulario = cuerpo.querySelector('[data-form-guardar-score]');
       const inputNombre = cuerpo.querySelector('#input-nombre-score');
+      let scoreGuardado = false;
 
       cuerpo.querySelector('[data-volver-jugar]').addEventListener('click', () => {
         cerrarModal();
@@ -314,6 +316,7 @@ function abrirModalResultado(resumen, iniciar) {
 
       formulario.addEventListener('submit', async (evento) => {
         evento.preventDefault();
+        if (scoreGuardado) return;
         const { valido, errores } = validarScoreFormulario({
           nombre: inputNombre.value,
           tiempo: resumen.tiempo,
@@ -329,13 +332,24 @@ function abrirModalResultado(resumen, iniciar) {
         activarCargaBoton(botonSubmit, 'Guardando...');
 
         try {
-          await ScoreApi.crear({ nombre: inputNombre.value.trim(), tiempo: resumen.tiempo, puntos: resumen.puntos });
+          await ScoreApi.crear({
+            nombre: inputNombre.value.trim(),
+            tiempo: resumen.tiempo,
+            puntos: resumen.puntos,
+            partidaToken: controller.obtenerPartidaToken(),
+            letrasUtilizadas: controller.ahorcado.letrasUtilizadas
+          });
           guardarUltimoNombre(inputNombre.value.trim());
           mostrarToast('Score guardado correctamente.', 'exito');
+          scoreGuardado = true;
         } catch {
           mostrarToast('No se pudo guardar el score.', 'error');
         } finally {
           desactivarCargaBoton(botonSubmit);
+          if (scoreGuardado) {
+            botonSubmit.disabled = true;
+            botonSubmit.textContent = 'Score guardado';
+          }
         }
       });
 
@@ -349,6 +363,8 @@ function abrirModalResultado(resumen, iniciar) {
         try {
           await PdfApi.descargarScoreActual({
             nombre: inputNombre.value.trim() || 'Jugador',
+            partidaToken: controller.obtenerPartidaToken(),
+            letrasUtilizadas: controller.ahorcado.letrasUtilizadas,
             puntos: resumen.puntos,
             tiempo: resumen.tiempo,
             fecha: new Date().toISOString(),

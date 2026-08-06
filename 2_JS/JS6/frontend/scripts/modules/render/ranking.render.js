@@ -1,6 +1,7 @@
 // pinta la tabla del ranking con los scores que llegan del backend
 import { formatearFechaCorta } from '../../utils/fechas.js';
 import { renderizarEstadoVacio } from '../ui/emptyState.js';
+import { escaparHtml } from '../../utils/helpers.js';
 
 export function renderizarTablaRanking(scores) {
   const cuerpo = document.querySelector('[data-cuerpo-tabla-ranking]');
@@ -14,7 +15,7 @@ export function renderizarTablaRanking(scores) {
 
   cuerpo.innerHTML = scores.map(item => `
     <tr>
-      <td>${item.nombre}</td>
+      <td>${escaparHtml(item.nombre)}</td>
       <td>${item.puntos}</td>
       <td>${item.tiempo}s</td>
       <td>${formatearFechaCorta(item.fecha)}</td>

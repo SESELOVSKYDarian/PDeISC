@@ -27,3 +27,22 @@ export function sumarMinutos(fecha, minutos) {
 export function sumarDias(fecha, dias) {
   return new Date(fecha.getTime() + dias * 24 * 60 * 60 * 1000);
 }
+
+export function crearTokenPartida(datos) {
+  const contenido = Buffer.from(JSON.stringify(datos)).toString('base64url');
+  const firma = hashearValor(contenido);
+  return `${contenido}.${firma}`;
+}
+
+export function verificarTokenPartida(token) {
+  if (typeof token !== 'string') return null;
+  const [contenido, firma] = token.split('.');
+  if (!contenido || !firma || !compararValores(contenido, firma)) return null;
+  try {
+    const datos = JSON.parse(Buffer.from(contenido, 'base64url').toString('utf8'));
+    if (!datos.expiraEn || Date.now() > datos.expiraEn) return null;
+    return datos;
+  } catch {
+    return null;
+  }
+}

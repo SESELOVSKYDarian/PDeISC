@@ -1,5 +1,6 @@
 // acá está la lógica de negocio de palabras, entre el controller y el modelo
 import { PalabraModel } from '../models/palabra.model.js';
+import { crearTokenPartida } from '../utils/seguridad.js';
 
 export const PalabrasService = {
   async obtenerCategorias() {
@@ -17,7 +18,14 @@ export const PalabrasService = {
       error.status = 404;
       throw error;
     }
-    return palabra;
+    return {
+      ...palabra,
+      partidaToken: crearTokenPartida({
+        palabra: palabra.palabra,
+        dificultad: palabra.dificultad,
+        expiraEn: Date.now() + 2 * 60 * 60 * 1000
+      })
+    };
   },
 
   async crear({ palabraLimpia, categoria, dificultad, pista }) {

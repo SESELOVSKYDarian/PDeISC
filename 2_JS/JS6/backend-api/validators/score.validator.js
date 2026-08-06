@@ -1,23 +1,24 @@
 // valido los datos de un puntaje antes de guardarlo en el ranking
-import { LONGITUD_MINIMA_NOMBRE, LONGITUD_MAXIMA_NOMBRE } from '../utils/constantes.js';
+import { LONGITUD_MINIMA_NOMBRE, LONGITUD_MAXIMA_NOMBRE, VALOR_MAXIMO_SCORE } from '../utils/constantes.js';
 
-export function validarDatosScore(body) {
+export function validarDatosScore(body = {}) {
   const errores = [];
+  const nombre = typeof body.nombre === 'string' ? body.nombre.trim() : '';
 
-  if (!body.nombre || typeof body.nombre !== 'string' || body.nombre.trim().length === 0) {
+  if (!nombre) {
     errores.push('El nombre es obligatorio.');
-  } else if (body.nombre.trim().length < LONGITUD_MINIMA_NOMBRE || body.nombre.trim().length > LONGITUD_MAXIMA_NOMBRE) {
+  } else if (nombre.length < LONGITUD_MINIMA_NOMBRE || nombre.length > LONGITUD_MAXIMA_NOMBRE) {
     errores.push(`El nombre debe tener entre ${LONGITUD_MINIMA_NOMBRE} y ${LONGITUD_MAXIMA_NOMBRE} caracteres.`);
-  } else if (!/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/.test(body.nombre.trim())) {
-    errores.push('El nombre solo puede contener letras, números y espacios.');
+  } else if (!/^[\p{L}\s']+$/u.test(nombre)) {
+    errores.push('El nombre solo puede contener letras, espacios y apóstrofes.');
   }
 
-  if (body.tiempo === undefined || body.tiempo === null || isNaN(body.tiempo) || Number(body.tiempo) < 0) {
-    errores.push('El tiempo debe ser un número positivo.');
+  if (!Number.isSafeInteger(body.tiempo) || body.tiempo < 0 || body.tiempo > VALOR_MAXIMO_SCORE) {
+    errores.push(`El tiempo debe ser un entero entre 0 y ${VALOR_MAXIMO_SCORE}.`);
   }
 
-  if (body.puntos === undefined || body.puntos === null || isNaN(body.puntos) || Number(body.puntos) < 0) {
-    errores.push('Los puntos deben ser un número positivo.');
+  if (!Number.isSafeInteger(body.puntos) || body.puntos < 0 || body.puntos > VALOR_MAXIMO_SCORE) {
+    errores.push(`Los puntos deben ser un entero entre 0 y ${VALOR_MAXIMO_SCORE}.`);
   }
 
   return { valido: errores.length === 0, errores };

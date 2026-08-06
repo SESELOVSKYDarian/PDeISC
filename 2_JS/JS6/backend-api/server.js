@@ -28,12 +28,12 @@ app.use(express.json({ limit: LIMITE_JSON }));
 app.use(cookieParser());
 
 // ruta principal: permite comprobar desde el navegador que la API está disponible
-app.get('/', (req, res) => {
+app.post('/', (req, res) => {
   res.json({ ok: true, mensaje: 'API de El Ahorcado funcionando correctamente.' });
 });
 
 // ruta simple para chequear que el server esta vivo (no cuenta como endpoint de datos)
-app.get('/api/estado', (req, res) => {
+app.post('/api/estado', (req, res) => {
   res.json({ ok: true, mensaje: 'API de El Ahorcado funcionando correctamente.' });
 });
 

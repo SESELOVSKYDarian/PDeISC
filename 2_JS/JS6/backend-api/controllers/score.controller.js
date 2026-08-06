@@ -20,8 +20,8 @@ export const ScoreController = {
 
   async crear(req, res, next) {
     try {
-      const { nombre, tiempo, puntos } = req.body;
-      const creado = await ScoreService.crear({ nombre, tiempo, puntos });
+      const { nombre, partidaToken, letrasUtilizadas } = req.body;
+      const creado = await ScoreService.crear({ nombre, partidaToken, letrasUtilizadas });
       respuestaOk(res, 'Score guardado correctamente.', { score: creado }, 201);
     } catch (error) {
       next(error);

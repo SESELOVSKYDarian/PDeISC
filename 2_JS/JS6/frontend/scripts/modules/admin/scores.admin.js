@@ -7,6 +7,7 @@ import { mostrarToast } from '../ui/toast.js';
 import { validarScoreFormulario } from '../validation/score.validation.js';
 import { mostrarErrorCampo } from '../validation/form.validation.js';
 import { activarCargaBoton, desactivarCargaBoton } from '../ui/loader.js';
+import { escaparHtml } from '../../utils/helpers.js';
 
 let cacheScores = [];
 let paginaActual = 1;
@@ -70,15 +71,15 @@ function renderizarTabla(scores) {
 
   cuerpo.innerHTML = scores.map(score => `
     <tr>
-      <td>${score.nombre}</td>
+      <td>${escaparHtml(score.nombre)}</td>
       <td>${score.puntos}</td>
       <td>${score.tiempo}s</td>
       <td>${formatearFechaCorta(score.fecha)}</td>
       <td class="tabla__acciones">
-        <button type="button" class="boton boton--chico boton--icono" data-editar-score-admin="${score.id}" aria-label="Editar score de ${score.nombre}">
+        <button type="button" class="boton boton--chico boton--icono" data-editar-score-admin="${score.id}" aria-label="Editar score de ${escaparHtml(score.nombre)}">
           <span class="icono-mask icono-mask--pencil" aria-hidden="true"></span>
         </button>
-        <button type="button" class="boton boton--chico boton--icono boton--peligro" data-eliminar-score-admin="${score.id}" aria-label="Eliminar score de ${score.nombre}">
+        <button type="button" class="boton boton--chico boton--icono boton--peligro" data-eliminar-score-admin="${score.id}" aria-label="Eliminar score de ${escaparHtml(score.nombre)}">
           <span class="icono-mask icono-mask--trash" aria-hidden="true"></span>
         </button>
       </td>
@@ -112,17 +113,17 @@ function abrirModalEditarScore(id) {
       <form data-form-editar-score novalidate>
         <div class="campo">
           <label class="campo__etiqueta" for="editar-nombre">Nombre</label>
-          <input class="campo__control" type="text" id="editar-nombre" value="${score.nombre}" required>
+          <input class="campo__control" type="text" id="editar-nombre" value="${escaparHtml(score.nombre)}" minlength="2" maxlength="40" pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' ]+" required>
           <span class="campo__mensaje-error" role="alert"></span>
         </div>
         <div class="campo">
           <label class="campo__etiqueta" for="editar-puntos">Puntos</label>
-          <input class="campo__control" type="number" min="0" id="editar-puntos" value="${score.puntos}" required>
+          <input class="campo__control" type="number" min="0" max="2147483647" step="1" id="editar-puntos" value="${score.puntos}" required>
           <span class="campo__mensaje-error" role="alert"></span>
         </div>
         <div class="campo">
           <label class="campo__etiqueta" for="editar-tiempo">Tiempo (segundos)</label>
-          <input class="campo__control" type="number" min="0" id="editar-tiempo" value="${score.tiempo}" required>
+          <input class="campo__control" type="number" min="0" max="2147483647" step="1" id="editar-tiempo" value="${score.tiempo}" required>
           <span class="campo__mensaje-error" role="alert"></span>
         </div>
         <div class="modal__acciones">
