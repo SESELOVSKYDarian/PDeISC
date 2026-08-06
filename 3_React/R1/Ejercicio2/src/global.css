@@ -1,0 +1,82 @@
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  color: #172033;
+  background: #f5f8fc;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+}
+main {
+  min-height: 100vh;
+  padding: clamp(1rem, 5vw, 5rem);
+  display: grid;
+  place-items: center;
+}
+.wrap {
+  width: min(1000px, 100%);
+}
+.exercise-heading {
+  color: #2176ae;
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 8px 25px #2176ae35;
+  margin: 0 0 2rem;
+}
+.split-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+.profile-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(2rem, 7vw, 5rem);
+  flex-wrap: wrap;
+}
+.profile-cards .pc-card-wrapper {
+  flex: 0 1 360px;
+  width: min(360px, 100%);
+}
+.theme {
+  position: fixed;
+  z-index: 3;
+  right: 1.2rem;
+  top: 1.2rem;
+  border: 0;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: #245b9c;
+  box-shadow: 0 8px 24px #15375d25;
+  cursor: pointer;
+}
+.theme:focus-visible {
+  outline: 3px solid #f2a93b;
+}
+@media (max-width: 700px) {
+  .profile-cards {
+    gap: 2.5rem;
+  }
+  .profile-cards .pc-card-wrapper {
+    flex-basis: min(360px, 100%);
+  }
+}
+[data-theme="dark"] {
+  color: #e6eef8;
+  background: #0f1725;
+}
+[data-theme="dark"] .theme {
+  background: #1c3046;
+  color: #b9e5ff;
+}
