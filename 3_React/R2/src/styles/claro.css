@@ -1,0 +1,19 @@
+/* colores del modo claro */
+:root,
+[data-tema="claro"] {
+  --color-fondo: #f6f7fb;
+  --color-superficie: #ffffff;
+  --color-superficie-hover: #fcfcff;
+  --color-texto: #1f2430;
+  --color-texto-suave: #6b7080;
+  --color-borde: #e3e6ee;
+  --color-acento: #5b5bd6;
+  --color-acento-suave: #eceeff;
+  --color-acento-hover: #4848b8;
+  --color-exito: #2f9e67;
+  --color-exito-suave: #e5f6ee;
+  --color-peligro: #e0554f;
+  --color-peligro-suave: #fdecec;
+  --sombra-tarjeta: 0 1px 3px rgba(30, 34, 60, 0.06),
+    0 1px 2px rgba(30, 34, 60, 0.04);
+}
