@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-r4",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run db:prepare && concurrently -n API,WEB -c blue,cyan \"npm --prefix api run dev\" \"npm --prefix client run dev\"",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix api start",
+    "db:init": "npm --prefix api run db:init",
+    "db:prepare": "npm run db:init && npm run seed",
+    "seed": "npm --prefix api run seed",
+    "test": "npm --prefix api test && npm --prefix client test",
+    "install:all": "npm install && npm --prefix api install && npm --prefix client install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

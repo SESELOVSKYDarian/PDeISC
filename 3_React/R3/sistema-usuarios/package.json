@@ -1,0 +1,11 @@
+{
+  "name": "sistema-usuarios-react",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm --prefix api run dev\" \"npm --prefix cliente-usestate run dev\" \"npm --prefix cliente-router run dev\"",
+    "build": "npm --prefix cliente-usestate run build && npm --prefix cliente-router run build",
+    "seed": "npm --prefix api run seed"
+  },
+  "devDependencies": { "concurrently": "^9.1.2" }
+}

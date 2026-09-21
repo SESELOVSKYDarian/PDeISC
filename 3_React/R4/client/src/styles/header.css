@@ -1,0 +1,116 @@
+/* Barra de navegación */
+
+.site-header {
+  height: 76px;
+  padding: 0 clamp(24px, 5vw, 72px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.wordmark {
+  border: 0;
+  background: transparent;
+  font-family: Manrope, sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.wordmark span {
+  color: var(--blue);
+}
+
+.main-nav {
+  display: flex;
+  height: 100%;
+  gap: 8px;
+}
+
+.nav-link {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 0 14px;
+  cursor: pointer;
+  position: relative;
+  transition: color .2s ease;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--text);
+}
+
+.nav-link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 2px;
+  background: var(--blue);
+  box-shadow: 0 0 14px var(--blue);
+}
+
+.header-actions {
+  justify-self: end;
+  display: flex;
+  gap: 8px;
+}
+
+.menu-button {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    height: 70px;
+    padding: 0 20px;
+    grid-template-columns: 1fr auto;
+  }
+  .main-nav {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 62px;
+    height: auto;
+    padding: 10px;
+    display: grid;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: .2s;
+  }
+  .main-nav.is-open {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .nav-link {
+    text-align: left;
+    padding: 14px;
+  }
+  .nav-link.is-active::after {
+    left: 4px;
+    right: auto;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    height: auto;
+  }
+  .menu-button {
+    display: inline-grid;
+  }
+}

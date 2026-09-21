@@ -1,0 +1,42 @@
+/* Contacto */
+
+.contact-section {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: clamp(40px,8vw,110px);
+  background: radial-gradient(circle at 15% 55%,var(--blue-soft),transparent 38%);
+}
+
+.contact-copy h2 span {
+  color: var(--muted);
+}
+
+.contact-copy>p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 430px;
+}
+
+.contact-copy>a {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  color: var(--blue);
+  text-decoration: none;
+  margin-top: 28px;
+}
+
+@media (max-width: 1050px) {
+  .contact-section {
+    grid-template-columns: 1fr;
+  }
+  .contact-copy {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 430px) {
+  .contact-copy>a {
+    font-size: .88rem;
+  }
+}

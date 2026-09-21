@@ -1,0 +1,108 @@
+/* Experiencia y logros */
+
+.journey-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 54px;
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 111px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border-strong);
+}
+
+.timeline article {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 44px;
+  position: relative;
+  padding-bottom: 42px;
+}
+
+.timeline article::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  background: var(--blue);
+  border-radius: 50%;
+  position: absolute;
+  left: 107px;
+  top: 7px;
+  box-shadow: 0 0 16px var(--blue);
+}
+
+.timeline article>span {
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+.timeline h3,
+.achievement-list h3 {
+  margin: 0 0 5px;
+  font: 600 1.2rem Manrope;
+}
+
+.timeline strong {
+  color: var(--blue);
+  font-size: .86rem;
+}
+
+.timeline p,
+.achievement-list p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 12px 0 0;
+}
+
+.achievement-list {
+  display: grid;
+  gap: 14px;
+}
+
+.achievement-list article {
+  padding: 22px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+}
+
+.achievement-list svg {
+  color: var(--blue);
+}
+
+.achievement-list span {
+  color: var(--faint);
+  font-size: .75rem;
+}
+
+.achievement-list h3 {
+  margin-top: 5px;
+}
+
+@media (max-width: 1050px) {
+  .journey-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .timeline::before {
+    left: 79px;
+  }
+  .timeline article {
+    grid-template-columns: 62px 1fr;
+    gap: 34px;
+  }
+  .timeline article::before {
+    left: 75px;
+  }
+}

@@ -1,0 +1,89 @@
+/* Botones */
+
+.icon-button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: transparent;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.icon-button:hover {
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+}
+
+.icon-button svg {
+  width: 19px;
+}
+
+.button {
+  min-height: 48px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .2s ease,background .2s ease,border-color .2s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button svg {
+  width: 18px;
+}
+
+.button-primary {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.button-primary:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.button-ghost {
+  background: transparent;
+}
+
+.button-ghost:hover {
+  background: var(--surface-3);
+}
+
+.button-icon {
+  padding: 0;
+  width: 48px;
+  background: transparent;
+}
+
+.button-small {
+  min-height: 40px;
+  padding: 0 17px;
+  font-size: .86rem;
+}
+
+.button-danger {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: white;
+}
+
+.button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}

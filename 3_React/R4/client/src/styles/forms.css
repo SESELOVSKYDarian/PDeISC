@@ -1,0 +1,129 @@
+/* Campos y formularios */
+
+.contact-form,
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.field>span {
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+.field input,
+.field textarea,
+.field select,
+.password-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  border-radius: 11px;
+  padding: 13px 14px;
+  resize: vertical;
+}
+
+.field input,
+.field select {
+  height: 48px;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus,
+.password-input:focus-within {
+  outline: 0;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-soft);
+}
+
+.field.has-error input,
+.field.has-error textarea {
+  border-color: var(--danger);
+}
+
+.field small {
+  color: var(--danger);
+}
+
+.field-wide {
+  grid-column: 1/-1;
+}
+
+.form-status {
+  grid-column: 1/-1;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 0;
+  font-size: .88rem;
+}
+
+.form-status.success {
+  background: color-mix(in srgb,var(--success) 13%,transparent);
+  color: var(--success);
+}
+
+.form-status.error {
+  background: color-mix(in srgb,var(--danger) 13%,transparent);
+  color: var(--danger);
+}
+
+.form-submit {
+  grid-column: 1/-1;
+  justify-self: start;
+}
+
+.password-input {
+  display: flex;
+  padding: 0;
+}
+
+.password-input input {
+  border: 0;
+  background: transparent;
+}
+
+.password-input button {
+  width: 48px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.password-input svg {
+  width: 18px;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+}
+
+.checkbox-field input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--blue);
+}
+
+@media (max-width: 760px) {
+  .contact-form,
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .field-wide,
+  .form-status,
+  .form-submit {
+    grid-column: auto;
+  }
+}
