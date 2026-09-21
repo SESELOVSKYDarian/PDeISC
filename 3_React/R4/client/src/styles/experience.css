@@ -2,12 +2,23 @@
 
 .journey-grid {
   display: grid;
-  grid-template-columns: 1.2fr .8fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
   gap: 54px;
 }
 
 .timeline {
   position: relative;
+}
+
+.timeline p,
+.achievement-list h3,
+.achievement-list p {
+  overflow-wrap: anywhere;
+}
+
+.timeline article > *,
+.achievement-list article > * {
+  min-width: 0;
 }
 
 .timeline::before {
@@ -90,7 +101,7 @@
 
 @media (max-width: 1050px) {
   .journey-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

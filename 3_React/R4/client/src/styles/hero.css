@@ -116,8 +116,8 @@
 .hand-note {
   position: absolute;
   z-index: 4;
-  left: 7%;
-  top: 55%;
+  left: 1%;
+  top: 50%;
   font: 1.35rem/1.15 'Nothing You Could Do',cursive;
   transform: rotate(-8deg);
   color: #fff;
@@ -136,11 +136,26 @@
   transform: rotate(-22deg);
 }
 
+[data-theme='light'] .hand-note {
+  color: #000;
+  text-shadow: none;
+}
+
+[data-theme='light'] .sketch-arrow {
+  color: #000;
+}
+
+[data-theme='light'] .vertical-motto {
+  color: #000;
+}
+
 .vertical-motto {
   position: absolute;
   z-index: 3;
-  right: -2%;
+  right: 0;
   bottom: 8%;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
   font: .68rem/1.65 monospace;
   letter-spacing: .22em;
   color: var(--faint);

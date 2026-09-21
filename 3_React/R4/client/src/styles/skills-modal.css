@@ -96,3 +96,31 @@
 .empty-modal {
   color: var(--muted);
 }
+
+@media (max-width: 760px) {
+  .skills-backdrop {
+    padding: 12px;
+  }
+  .skills-modal {
+    grid-template-columns: 1fr;
+    max-height: calc(100dvh - 24px);
+  }
+  .skills-modal-visual {
+    min-height: 150px;
+    padding: 24px;
+  }
+  .skills-modal-visual h2 {
+    font-size: clamp(2.2rem, 12vw, 3.4rem);
+  }
+  .skills-modal-content {
+    padding: 64px 22px 28px;
+  }
+  .skills-modal-close {
+    top: 12px;
+    right: 12px;
+  }
+  .modal-skills {
+    gap: 22px;
+    margin-top: 24px;
+  }
+}

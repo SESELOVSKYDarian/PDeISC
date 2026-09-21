@@ -172,6 +172,21 @@
   object-fit: cover;
 }
 
+@media (max-width: 430px) {
+  .row-thumb {
+    display: none;
+  }
+
+  .admin-list article {
+    flex-wrap: wrap;
+  }
+
+  .admin-list article .row-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
 @media (max-width: 600px) {
   .modal-backdrop {
     align-items: end;

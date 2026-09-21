@@ -132,3 +132,25 @@
   filter: grayscale(1);
   flex-shrink: 0;
 }
+
+@media (max-width: 760px) {
+  .flow-menu-trigger {
+    gap: 12px;
+  }
+  .flow-menu-trigger>span {
+    font-size: clamp(1.45rem, 7.6vw, 2.2rem);
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: left;
+  }
+  .flow-menu-trigger small {
+    font-size: 0;
+    letter-spacing: 0;
+    flex-shrink: 0;
+  }
+  .flow-menu-trigger small::after {
+    content: '↗';
+    font-size: 1.3rem;
+    color: var(--muted);
+  }
+}
