@@ -50,6 +50,10 @@ try {
       WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'perfil' AND COLUMN_NAME = ?`, [safeName, column])
     if (found.length) await connection.query(`ALTER TABLE perfil DROP COLUMN \`${column}\``)
   }
+  // bases viejas: agrego la columna del favicon
+  const [faviconColumn] = await connection.execute(`SELECT COLUMN_NAME FROM information_schema.COLUMNS
+    WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'perfil' AND COLUMN_NAME = 'favicon_url'`, [safeName])
+  if (!faviconColumn.length) await connection.query('ALTER TABLE perfil ADD COLUMN favicon_url VARCHAR(500) NULL AFTER cv_url')
   console.log(`Base ${safeName} inicializada.`)
 } finally {
   await connection.end()

@@ -8,6 +8,9 @@ import { config, isProduction } from './config.js'
 import portfolioRoutes from './routes/portfolio.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import adminRoutes from './routes/admin.routes.js'
+import uploadRoutes from './routes/upload.routes.js'
+import orderRoutes from './routes/order.routes.js'
+import fileRoutes from './routes/files.routes.js'
 import { errorHandler, notFound } from './middleware/errors.js'
 
 export const app = express()
@@ -26,11 +29,15 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' }
 }))
 app.use(cors({ origin: config.clientUrl, credentials: true }))
-app.use(express.json({ limit: '256kb' }))
 app.use(cookieParser())
+// la subida de archivos va antes: tiene su propio límite de tamaño y pide sesión antes de leer el cuerpo
+app.use('/api/admin/archivos', uploadRoutes)
+app.use(express.json({ limit: '256kb' }))
+app.use('/archivos', fileRoutes)
 
 app.use('/api', portfolioRoutes)
 app.use('/api', authRoutes)
+app.use('/api', orderRoutes)
 app.use('/api', adminRoutes)
 
 if (isProduction) {

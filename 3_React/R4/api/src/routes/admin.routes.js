@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { pool, query } from '../services/db.js'
 import { requireAuth } from '../middleware/auth.js'
+import { nextOrder } from '../services/order.js'
 import { cleanText, isEmail, isUrl, toBoolean, toOrder, toPositiveId } from '../utils/validators.js'
 
 const router = Router()
@@ -11,7 +12,7 @@ const resources = {
     table: 'categorias_habilidades',
     fields: ['nombre', 'imagen_url', 'orden'],
     parse: (body) => ({ nombre: cleanText(body.nombre, 80), imagen_url: cleanText(body.imagen_url, 500), orden: toOrder(body.orden) }),
-    validate: (data) => data.nombre.length >= 2 && isUrl(data.imagen_url)
+    validate: (data) => data.nombre.length >= 2 && Boolean(data.imagen_url) && isUrl(data.imagen_url)
   },
   'enlaces-sociales': {
     table: 'enlaces_sociales',
@@ -49,6 +50,7 @@ const resourceHandler = (action) => async (req, res, next) => {
     }
     const data = resource.parse(req.body)
     if (!resource.validate(data)) return res.status(422).json({ message: 'Revisá los datos ingresados.' })
+    if (action === 'crear') data.orden = await nextOrder(resource.table)
     const values = resource.fields.map((field) => data[field])
     if (action === 'crear') {
       const placeholders = resource.fields.map(() => '?').join(', ')
@@ -56,8 +58,9 @@ const resourceHandler = (action) => async (req, res, next) => {
       return res.status(201).json({ message: 'Registro creado.', id: result.insertId })
     }
     if (!id) return res.status(422).json({ message: 'Identificador inválido.' })
-    const setters = resource.fields.map((field) => `${field} = ?`).join(', ')
-    await query(`UPDATE ${resource.table} SET ${setters} WHERE id = ?`, [...values, id])
+    const editable = resource.fields.filter((field) => field !== 'orden')
+    const setters = editable.map((field) => `${field} = ?`).join(', ')
+    await query(`UPDATE ${resource.table} SET ${setters} WHERE id = ?`, [...editable.map((field) => data[field]), id])
     return res.json({ message: 'Registro actualizado.' })
   } catch (error) {
     return next(error)
@@ -82,17 +85,16 @@ for (const action of ['crear', 'actualizar']) {
       const data = {
         nombre: cleanText(req.body.nombre, 80),
         categoria_id: toPositiveId(req.body.categoria_id),
-        nivel: Math.min(100, Math.max(1, Number(req.body.nivel) || 1)),
-        orden: toOrder(req.body.orden)
+        nivel: Math.min(100, Math.max(1, Number(req.body.nivel) || 1))
       }
       if (data.nombre.length < 2 || !data.categoria_id) return res.status(422).json({ message: 'Revisá la habilidad y su categoría.' })
       if (action === 'crear') {
-        const result = await query('INSERT INTO habilidades (nombre, categoria_id, nivel, orden) VALUES (?, ?, ?, ?)', [data.nombre, data.categoria_id, data.nivel, data.orden])
+        const result = await query('INSERT INTO habilidades (nombre, categoria_id, nivel, orden) VALUES (?, ?, ?, ?)', [data.nombre, data.categoria_id, data.nivel, await nextOrder('habilidades')])
         return res.status(201).json({ message: 'Habilidad creada.', id: result.insertId })
       }
       const id = toPositiveId(req.body.id)
       if (!id) return res.status(422).json({ message: 'Identificador inválido.' })
-      await query('UPDATE habilidades SET nombre = ?, categoria_id = ?, nivel = ?, orden = ? WHERE id = ?', [data.nombre, data.categoria_id, data.nivel, data.orden, id])
+      await query('UPDATE habilidades SET nombre = ?, categoria_id = ?, nivel = ? WHERE id = ?', [data.nombre, data.categoria_id, data.nivel, id])
       return res.json({ message: 'Habilidad actualizada.' })
     } catch (error) { return next(error) }
   })
@@ -115,15 +117,15 @@ router.post('/admin/perfil/listar', async (req, res, next) => {
 })
 
 router.post('/admin/perfil/actualizar', async (req, res, next) => {
-  const fields = ['nombre', 'rol', 'saludo', 'presentacion', 'descripcion', 'ubicacion', 'email', 'disponibilidad', 'retrato_url', 'cv_url']
+  const fields = ['nombre', 'rol', 'saludo', 'presentacion', 'descripcion', 'ubicacion', 'email', 'disponibilidad', 'retrato_url', 'cv_url', 'favicon_url']
   try {
     const data = {
       nombre: cleanText(req.body.nombre, 80), rol: cleanText(req.body.rol, 120), saludo: cleanText(req.body.saludo, 120),
       presentacion: cleanText(req.body.presentacion, 500), descripcion: cleanText(req.body.descripcion, 4000), ubicacion: cleanText(req.body.ubicacion, 120),
       email: cleanText(req.body.email, 160), disponibilidad: cleanText(req.body.disponibilidad, 120), retrato_url: cleanText(req.body.retrato_url, 500),
-      cv_url: cleanText(req.body.cv_url, 500)
+      cv_url: cleanText(req.body.cv_url, 500), favicon_url: cleanText(req.body.favicon_url, 500)
     }
-    if (data.nombre.length < 2 || data.rol.length < 2 || data.presentacion.length < 10 || !isEmail(data.email) || !isUrl(data.retrato_url) || !isUrl(data.cv_url)) {
+    if (data.nombre.length < 2 || data.rol.length < 2 || data.presentacion.length < 10 || !isEmail(data.email) || !data.retrato_url || !isUrl(data.retrato_url) || !isUrl(data.cv_url) || !isUrl(data.favicon_url)) {
       return res.status(422).json({ message: 'Revisá los datos del perfil.' })
     }
     await query(`UPDATE perfil SET ${fields.map((field) => `${field} = ?`).join(', ')} WHERE id = 1`, fields.map((field) => data[field]))
@@ -134,7 +136,7 @@ router.post('/admin/perfil/actualizar', async (req, res, next) => {
 const parseProject = (body) => ({
   titulo: cleanText(body.titulo, 120), resumen: cleanText(body.resumen, 240), descripcion: cleanText(body.descripcion, 1200),
   imagen_url: cleanText(body.imagen_url, 500), demo_url: cleanText(body.demo_url, 500), repo_url: cleanText(body.repo_url, 500),
-  destacado: toBoolean(body.destacado), orden: toOrder(body.orden),
+  destacado: toBoolean(body.destacado),
   tecnologias: [...new Set((Array.isArray(body.tecnologias) ? body.tecnologias : String(body.tecnologias || '').split(',')).map((item) => cleanText(item, 80)).filter(Boolean))].slice(0, 12)
 })
 
@@ -159,20 +161,20 @@ router.post('/admin/proyectos/listar', async (req, res, next) => {
 for (const action of ['crear', 'actualizar']) {
   router.post(`/admin/proyectos/${action}`, async (req, res, next) => {
     const data = parseProject(req.body)
-    if (data.titulo.length < 2 || data.resumen.length < 5 || data.descripcion.length < 10 || !isUrl(data.imagen_url) || !isUrl(data.demo_url) || !isUrl(data.repo_url)) {
+    if (data.titulo.length < 2 || data.resumen.length < 5 || data.descripcion.length < 10 || !data.imagen_url || !isUrl(data.imagen_url) || !isUrl(data.demo_url) || !isUrl(data.repo_url)) {
       return res.status(422).json({ message: 'Revisá los datos del proyecto.' })
     }
     const connection = await pool.getConnection()
     try {
       await connection.beginTransaction()
       let projectId = toPositiveId(req.body.id)
-      const values = [data.titulo, data.resumen, data.descripcion, data.imagen_url, data.demo_url || null, data.repo_url || null, data.destacado, data.orden]
+      const values = [data.titulo, data.resumen, data.descripcion, data.imagen_url, data.demo_url || null, data.repo_url || null, data.destacado]
       if (action === 'crear') {
-        const [result] = await connection.execute(`INSERT INTO proyectos (titulo, resumen, descripcion, imagen_url, demo_url, repo_url, destacado, orden) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, values)
+        const [result] = await connection.execute(`INSERT INTO proyectos (titulo, resumen, descripcion, imagen_url, demo_url, repo_url, destacado, orden) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, [...values, await nextOrder('proyectos')])
         projectId = result.insertId
       } else {
         if (!projectId) throw Object.assign(new Error('Identificador inválido.'), { status: 422 })
-        await connection.execute(`UPDATE proyectos SET titulo=?, resumen=?, descripcion=?, imagen_url=?, demo_url=?, repo_url=?, destacado=?, orden=? WHERE id=?`, [...values, projectId])
+        await connection.execute(`UPDATE proyectos SET titulo=?, resumen=?, descripcion=?, imagen_url=?, demo_url=?, repo_url=?, destacado=? WHERE id=?`, [...values, projectId])
       }
       await saveTechnologies(connection, projectId, data.tecnologias)
       await connection.commit()

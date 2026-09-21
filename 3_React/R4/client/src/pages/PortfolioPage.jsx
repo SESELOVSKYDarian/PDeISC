@@ -8,6 +8,7 @@ import { ExperienceSection } from '../components/public/ExperienceSection.jsx'
 import { ContactSection } from '../components/public/ContactSection.jsx'
 import { usePortfolio } from '../hooks/usePortfolio.js'
 import { useActiveSection } from '../hooks/useActiveSection.js'
+import { useFavicon } from '../hooks/useFavicon.js'
 import { useReveal } from '../hooks/useReveal.js'
 import { useScrollTop } from '../hooks/useScrollTop.js'
 
@@ -18,6 +19,7 @@ export function PortfolioPage() {
   const active = useActiveSection(sectionIds, Boolean(data?.profile))
   const showScrollTop = useScrollTop()
   useReveal(data)
+  useFavicon(data?.profile?.favicon_url)
 
   if (loading) return <main className="state-page"><div className="loader" /><p>Cargando portfolio…</p></main>
   if (error || !data?.profile) return <main className="state-page"><p className="eyebrow">Sin conexión</p><h1>No pudimos cargar el portfolio.</h1><p>{error}</p><button className="button button-primary" onClick={reload}><RotateCcw /> Reintentar</button></main>

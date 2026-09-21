@@ -2,6 +2,7 @@ export const notFound = (req, res) => res.status(404).json({ message: 'Ruta inex
 
 export const errorHandler = (error, req, res, next) => {
   if (res.headersSent) return next(error)
+  if (error.type === 'entity.too.large') return res.status(413).json({ message: 'El archivo es demasiado grande.' })
   console.error(error)
   if (error.code === 'ER_DUP_ENTRY') {
     return res.status(409).json({ message: 'Ya existe un registro con esos datos.' })

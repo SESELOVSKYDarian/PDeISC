@@ -6,7 +6,6 @@ import { api } from '../../services/api.js'
 import { ResourcePanel } from './ResourcePanel.jsx'
 import { ProfilePanel } from './ProfilePanel.jsx'
 import { MessagesPanel } from './MessagesPanel.jsx'
-import { SkillsPanel } from './SkillsPanel.jsx'
 import { resourceConfigs } from './resourceConfigs.js'
 
 const tabs = [
@@ -18,7 +17,6 @@ const tabs = [
 function ActivePanel({ active }) {
   if (active === 'perfil') return <ProfilePanel />
   if (active === 'mensajes') return <MessagesPanel />
-  if (active === 'habilidades') return <SkillsPanel />
   return <ResourcePanel key={active} resource={active} config={resourceConfigs[active]} />
 }
 

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Save } from 'lucide-react'
 import { api } from '../../services/api.js'
+import { isFileField, missingFileMessage } from '../../utils/fileRules.js'
+import { FileField } from './FileField.jsx'
 import { profileFields } from './resourceConfigs.js'
-
-const optionalFields = ['cv_url']
 
 export function ProfilePanel() {
   const [form, setForm] = useState(null)
@@ -16,9 +16,12 @@ export function ProfilePanel() {
   }, [])
 
   const change = (event) => setForm({ ...form, [event.target.name]: event.target.value })
+  const setFile = (name, value) => setForm({ ...form, [name]: value })
 
   const save = async (event) => {
     event.preventDefault()
+    const missing = missingFileMessage(profileFields, form)
+    if (missing) return setStatus({ loading: false, message: '', error: missing })
     setStatus({ loading: false, message: '', error: '' })
     try {
       const result = await api.updateProfile(form)
@@ -37,12 +40,12 @@ export function ProfilePanel() {
       {status.message ? <p className="form-status success" role="status">{status.message}</p> : null}
       {status.error ? <p className="form-status error" role="alert">{status.error}</p> : null}
       <form className="admin-form-grid" onSubmit={save}>
-        {profileFields.map((field) => (
+        {profileFields.map((field) => isFileField(field) ? <FileField key={field.name} field={field} value={form[field.name]} onChange={setFile} /> : (
           <label key={field.name} className={field.type === 'textarea' ? 'field field-wide' : 'field'}>
             <span>{field.label}</span>
             {field.type === 'textarea'
               ? <textarea rows="4" name={field.name} value={form[field.name] ?? ''} onChange={change} required />
-              : <input type={field.type} name={field.name} value={form[field.name] ?? ''} onChange={change} required={!optionalFields.includes(field.name)} />}
+              : <input type={field.type} name={field.name} value={form[field.name] ?? ''} onChange={change} required />}
           </label>
         ))}
         <div className="field-wide"><button className="button button-primary"><Save /> Guardar perfil</button></div>

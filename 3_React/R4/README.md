@@ -9,6 +9,8 @@ Portfolio full stack de una sola página con panel administrador. Está hecho co
 - Animaciones de entrada y scroll que respetan `prefers-reduced-motion`.
 - Formulario de contacto real con validación en React y en la API.
 - Panel privado en `/admin` con CRUD de todo el contenido y bandeja de mensajes.
+- Alta y edición en ventanas modales, y orden de las listas arrastrando las filas.
+- Subida de imágenes (retrato, favicon, proyectos, categorías) y del CV en PDF desde la computadora, con validación de formato y tamaño en el navegador y en la API.
 - Sesión con JWT en cookie `httpOnly`, contraseña con bcrypt, rate limit, Helmet y SQL parametrizado.
 - Todos los endpoints de datos usan `POST`.
 
@@ -69,7 +71,7 @@ El seed usa marcadores como `Tu Nombre`: no son experiencia inventada. Después 
 6. Cargar las variables de `api/.env.example` usando el host, usuario y contraseña del servicio MySQL. En producción usar `NODE_ENV=production`.
 7. Desplegar. El contenedor ejecuta la inicialización idempotente, carga el administrador y arranca la aplicación.
 
-El volumen persistente corresponde al servicio MySQL, no al contenedor web. Los retratos e imágenes pueden ser rutas incluidas en `client/public` o URLs HTTPS externas.
+El volumen persistente corresponde al servicio MySQL, no al contenedor web. Las imágenes y el CV que se suben desde el panel se guardan en la tabla `archivos` de MySQL, así que sobreviven a los redeploys sin configurar ningún volumen extra. Las rutas de `client/public` o URLs HTTPS ya cargadas siguen funcionando.
 
 ## Comandos
 

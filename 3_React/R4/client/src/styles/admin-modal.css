@@ -1,0 +1,202 @@
+/* Modales del panel y filas que se reordenan arrastrando */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0,0,0,.66);
+  backdrop-filter: blur(8px);
+}
+
+.modal-dialog {
+  width: min(760px,100%);
+  max-height: min(90dvh,900px);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  outline: 0;
+  animation: modal-pop .2s var(--ease-out);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+  margin: 0;
+  font: 700 1.15rem Manrope;
+}
+
+.modal-body {
+  --modal-pad: 22px;
+  overflow: auto;
+  padding: var(--modal-pad);
+}
+
+/* los botones quedan fijos abajo aunque el formulario sea largo */
+.modal-actions {
+  position: sticky;
+  bottom: calc(var(--modal-pad) * -1);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: var(--modal-pad) calc(var(--modal-pad) * -1) calc(var(--modal-pad) * -1);
+  padding: 14px var(--modal-pad);
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.modal-message {
+  margin: 0;
+  color: var(--muted);
+}
+
+.modal-body .form-status {
+  margin-bottom: 16px;
+}
+
+.modal-body .admin-form-grid {
+  margin-bottom: 0;
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(.98);
+  }
+}
+
+/* lista ordenable */
+
+.list-group + .list-group {
+  margin-top: 28px;
+}
+
+.list-group-title {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font: 600 .76rem Manrope;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.drag-tip {
+  margin: -12px 0 14px;
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.admin-list article {
+  gap: 12px;
+  background: var(--surface);
+}
+
+.drag-handle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--faint);
+  cursor: grab;
+  touch-action: none;
+}
+
+.drag-handle:hover,
+.drag-handle:focus-visible {
+  color: var(--text);
+  background: var(--surface-3);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-handle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.admin-list article.is-dragging {
+  position: relative;
+  z-index: 5;
+  border-radius: 12px;
+  background: var(--surface-2);
+  box-shadow: var(--shadow);
+}
+
+.row-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.row-text {
+  min-width: 0;
+}
+
+.row-text strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-list .row-text p {
+  max-width: none;
+}
+
+.row-thumb {
+  flex: none;
+  width: 56px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--surface-3);
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .modal-backdrop {
+    align-items: end;
+    padding: 0;
+  }
+
+  .modal-dialog {
+    max-height: 94dvh;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .modal-body {
+    --modal-pad: 18px;
+  }
+
+  .modal-body .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-actions .button {
+    flex: 1;
+  }
+
+  .row-thumb {
+    width: 44px;
+    height: 34px;
+  }
+}

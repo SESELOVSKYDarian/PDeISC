@@ -1,3 +1,5 @@
+import { fileToBase64 } from '../utils/fileToBase64.js'
+
 const request = async (url, body = {}) => {
   const response = await fetch(url, {
     method: 'POST',
@@ -26,5 +28,7 @@ export const api = {
   update: (resource, data) => request(`/api/admin/${resource}/actualizar`, data),
   remove: (resource, id) => request(`/api/admin/${resource}/eliminar`, { id }),
   updateProfile: (data) => request('/api/admin/perfil/actualizar', data),
+  upload: async (tipo, file) => request('/api/admin/archivos/subir', { tipo, nombre: file.name, contenido: await fileToBase64(file) }),
+  reorder: (resource, ids) => request(`/api/admin/${resource}/ordenar`, { ids }),
   markMessage: (id, leido) => request('/api/admin/mensajes/marcar-leido', { id, leido })
 }
