@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Check, Mail, MailOpen, Trash2 } from 'lucide-react'
+import { useToast } from '../../context/ToastContext.jsx'
 import { api } from '../../services/api.js'
+import { ConfirmDialog } from './ConfirmDialog.jsx'
 
 export function MessagesPanel() {
+  const toast = useToast()
   const [items, setItems] = useState([])
-  const [error, setError] = useState('')
+  const [loadError, setLoadError] = useState('')
+  const [deleting, setDeleting] = useState(null)
 
   // cargo los mensajes desde la API
   const load = async () => {
     try {
       const data = await api.list('mensajes')
       setItems(data.items)
-      setError('')
+      setLoadError('')
     } catch (failure) {
-      setError(failure.message)
+      setLoadError(failure.message)
     }
   }
 
@@ -24,17 +28,16 @@ export function MessagesPanel() {
       await api.markMessage(item.id, !item.leido)
       await load()
     } catch (failure) {
-      setError(failure.message)
+      toast.error(failure.message)
     }
   }
 
-  const remove = async (id) => {
-    try {
-      await api.remove('mensajes', id)
-      await load()
-    } catch (failure) {
-      setError(failure.message)
-    }
+  // borrar pide confirmación; si la API falla, el error queda dentro del diálogo
+  const remove = async () => {
+    const response = await api.remove('mensajes', deleting.id)
+    await load()
+    setDeleting(null)
+    toast.success(response.message)
   }
 
   const unread = items.filter((item) => !item.leido).length
@@ -45,12 +48,20 @@ export function MessagesPanel() {
         <div><p className="eyebrow">Bandeja</p><h2>Mensajes</h2></div>
         <span className="message-count">{unread} sin leer</span>
       </div>
-      {error ? <p className="form-status error" role="alert">{error}</p> : null}
+      {loadError ? <p className="form-status error" role="alert">{loadError}</p> : null}
       {items.length === 0 ? <div className="empty-state">No hay mensajes todavía.</div> : (
         <div className="message-list">
-          {items.map((item) => <MessageItem key={item.id} item={item} onToggle={toggle} onRemove={remove} />)}
+          {items.map((item) => <MessageItem key={item.id} item={item} onToggle={toggle} onRemove={setDeleting} />)}
         </div>
       )}
+      {deleting ? (
+        <ConfirmDialog
+          title="Eliminar mensaje"
+          message={`¿Eliminar el mensaje de «${deleting.nombre}»? Esta acción no se puede deshacer.`}
+          onConfirm={remove}
+          onClose={() => setDeleting(null)}
+        />
+      ) : null}
     </section>
   )
 }
@@ -67,7 +78,7 @@ function MessageItem({ item, onToggle, onRemove }) {
       </div>
       <div className="row-actions">
         <button onClick={() => onToggle(item)} title={item.leido ? 'Marcar sin leer' : 'Marcar leído'} aria-label={item.leido ? 'Marcar sin leer' : 'Marcar leído'}>{item.leido ? <Mail /> : <Check />}</button>
-        <button className="danger" onClick={() => onRemove(item.id)} title="Eliminar" aria-label="Eliminar mensaje"><Trash2 /></button>
+        <button className="danger" onClick={() => onRemove(item)} title="Eliminar" aria-label="Eliminar mensaje"><Trash2 /></button>
       </div>
     </article>
   )

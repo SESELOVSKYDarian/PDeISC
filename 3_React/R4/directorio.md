@@ -7,8 +7,9 @@ R4/
 │   └── src/
 │       ├── components/
 │       │   ├── public/      secciones de la página pública
-│       │   └── admin/       login, paneles, modales, filas arrastrables y campos de archivo
-│       ├── context/         tema claro/oscuro
+│       │   ├── admin/       login, paneles, modales, filas arrastrables y campos de archivo
+│       │   └── common/      Toaster y ToastItem (avisos), ScrollTopButton (volver arriba, en el sitio y en el panel)
+│       ├── context/         tema claro/oscuro y avisos (ToastContext: useToast)
 │       ├── hooks/           datos, scroll, secciones, animaciones, favicon y listas del panel (useResource)
 │       ├── pages/           PortfolioPage y AdminPage
 │       ├── services/        cliente HTTP centralizado
@@ -18,7 +19,8 @@ R4/
 │       │   ├── layout.css, buttons.css, forms.css, states.css   piezas compartidas
 │       │   ├── header.css, hero.css, about.css, skills-modal.css   portfolio público
 │       │   ├── projects.css, experience.css, contact.css, cards.css
-│       │   ├── admin-login.css, admin.css, admin-messages.css, file-field.css, admin-modal.css   panel privado (modales, subida de archivos, filas arrastrables)
+│       │   ├── toast.css        avisos abajo al centro
+│   ├── admin-login.css, admin.css, admin-messages.css, file-field.css, admin-modal.css   panel privado (modales, subida de archivos, filas arrastrables)
 │       │   └── animations.css   keyframes y prefers-reduced-motion
 │       └── utils/           validación del formulario y de archivos (fileRules.js)
 ├── api/
@@ -28,7 +30,8 @@ R4/
 │   │   └── seed.js          administrador y contenido inicial
 │   └── src/
 │       ├── middleware/      sesión y manejo de errores
-│       ├── routes/          portfolio, contacto, auth, administración, upload (subida) y files (descarga)
+│       ├── routes/          portfolio, contacto, auth, upload (subida), files (descarga) y order (orden por arrastre)
+│       │   └── admin/       un archivo por recurso: resources (categorías, enlaces, experiencias, logros), skills, profile, projects y messages
 │       ├── services/        pool y consultas MySQL (files.js: archivos subidos)
 │       ├── utils/           limpieza y validación backend (fileTypes.js: formatos permitidos)
 │       ├── app.js           configuración de Express
@@ -55,6 +58,13 @@ R4/
 - `proyectos` y `tecnologias`: relación muchos a muchos mediante `proyecto_tecnologias`.
 - `mensajes`: consultas recibidas desde el formulario.
 - `archivos`: imágenes y PDF subidos desde el panel (contenido en `LONGBLOB`). Los campos `retrato_url`, `cv_url` e `imagen_url` guardan la dirección `/archivos/<id>`.
+
+## Avisos (toast)
+
+- Los resultados de una acción (guardar, crear, eliminar, ordenar, enviar el formulario de contacto) se avisan con un toast abajo al centro: `useToast().success(mensaje)` o `.error(mensaje)`.
+- Se cierra solo a los 4 s (6 s si es un error), se pausa con el mouse encima, no roba el foco y los lectores de pantalla lo leen (`aria-live`).
+- Los errores de un formulario siguen inline, dentro del modal o del campo, porque ahí están más cerca de lo que hay que corregir.
+- No se usa `alert()`, `confirm()` ni `prompt()` en ningún lado: borrar pide confirmación con `ConfirmDialog`.
 
 ## Panel: listas, modales y orden
 

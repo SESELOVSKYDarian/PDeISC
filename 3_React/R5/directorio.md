@@ -17,6 +17,7 @@ api/
 │   ├── schema.sql        tablas roles, usuarios e identidades_oauth (3FN)
 │   ├── init.js           crea las tablas
 │   └── seed-admin.js     crea la BBDD, las tablas y el primer administrador
+├── test/                 oauth.unit.test.js (sin BBDD) y oauth.flow.test.js (ingreso completo con proveedores simulados)
 └── src/
     ├── server.js         arranca el servidor
     ├── app.js            arma Express (helmet, cors, rutas, errores)

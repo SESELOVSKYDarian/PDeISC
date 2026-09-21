@@ -15,7 +15,13 @@ function App() {
 
   if (loading) return <main className="center">Cargando sesión...</main>;
 
-  const panelProps = { theme, onToggleTheme: toggleTheme, onLogout: logout };
+  // al cerrar sesión vuelve siempre a la pantalla de login
+  async function handleLogout() {
+    await logout();
+    setMode("login");
+  }
+
+  const panelProps = { theme, onToggleTheme: toggleTheme, onLogout: handleLogout };
   if (user?.rol === "administrador") return <main><AdminPanel {...panelProps} /></main>;
   if (user) return <main><ProfilePanel user={user} onUpdated={setUser} {...panelProps} /></main>;
 

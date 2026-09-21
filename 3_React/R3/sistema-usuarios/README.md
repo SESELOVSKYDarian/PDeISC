@@ -19,10 +19,12 @@ Tecnologías: `useState`, `useEffect`, `useForm` (react-hook-form), `localStorag
 
 ```bash
 npm install
-npm --prefix api install
-npm --prefix cliente-usestate install
-npm --prefix cliente-router install
+cd api && npm install && cd ..
+cd cliente-usestate && npm install && cd ..
+cd cliente-router && npm install && cd ..
 ```
+
+Entrá a cada carpeta antes de instalar: con `npm --prefix carpeta install` npm agrega una dependencia falsa (`file:..`) al `package.json`.
 
 ## Configuración
 

@@ -54,7 +54,6 @@ export function ResourcePanel({ resource, config }) {
       </div>
 
       {loadedOptions && missingOptions && !status.loading ? <p className="form-status error">{config.needs}</p> : null}
-      {status.message ? <p className="form-status success" role="status">{status.message}</p> : null}
       {status.error ? <p className="form-status error" role="alert">{status.error}</p> : null}
       {!status.loading && items.length > 1 ? <p className="drag-tip">Arrastrá las filas desde el ícono ⋮⋮ para cambiar el orden.</p> : null}
 

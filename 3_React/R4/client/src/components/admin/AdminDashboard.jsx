@@ -3,6 +3,7 @@ import { ExternalLink, LogOut, Moon, Sun } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../../context/ThemeContext.jsx'
 import { api } from '../../services/api.js'
+import { ScrollTopButton } from '../common/ScrollTopButton.jsx'
 import { ResourcePanel } from './ResourcePanel.jsx'
 import { ProfilePanel } from './ProfilePanel.jsx'
 import { MessagesPanel } from './MessagesPanel.jsx'
@@ -54,6 +55,7 @@ export function AdminDashboard({ admin, onLogout }) {
         </header>
         <ActivePanel active={active} />
       </main>
+      <ScrollTopButton />
     </div>
   )
 }

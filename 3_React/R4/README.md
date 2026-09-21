@@ -10,6 +10,7 @@ Portfolio full stack de una sola página con panel administrador. Está hecho co
 - Formulario de contacto real con validación en React y en la API.
 - Panel privado en `/admin` con CRUD de todo el contenido y bandeja de mensajes.
 - Alta y edición en ventanas modales, y orden de las listas arrastrando las filas.
+- Avisos (toast) abajo al centro para cada acción y botón para volver arriba también en el panel.
 - Subida de imágenes (retrato, favicon, proyectos, categorías) y del CV en PDF desde la computadora, con validación de formato y tamaño en el navegador y en la API.
 - Sesión con JWT en cookie `httpOnly`, contraseña con bcrypt, rate limit, Helmet y SQL parametrizado.
 - Todos los endpoints de datos usan `POST`.

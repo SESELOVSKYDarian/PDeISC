@@ -18,9 +18,11 @@ Rutas del cliente: `/ingresar`, `/registro`, `/auth/:proveedor/callback`, `/` (u
 
 ```bash
 npm install
-npm --prefix api install
-npm --prefix cliente-router install
+cd api && npm install && cd ..
+cd cliente-router && npm install && cd ..
 ```
+
+Entrá a cada carpeta antes de instalar: con `npm --prefix carpeta install` npm agrega una dependencia falsa (`file:..`) al `package.json`.
 
 Copiá `api/.env.example` a `api/.env` y completá `JWT_SECRET` (un texto largo y propio). Las claves de Google, GitHub y Discord se explican abajo.
 
@@ -34,6 +36,7 @@ npm run dev    # API + cliente
 - Cliente: http://localhost:5175
 - API: http://localhost:4005
 - Administrador: `ADMIN_EMAIL` y `ADMIN_PASSWORD` del `.env`.
+- Pruebas: `npm test` (13 pruebas del ingreso con redes; Google, GitHub y Discord se simulan, solo hace falta MySQL prendido).
 
 ## Cómo funciona el ingreso con redes
 
