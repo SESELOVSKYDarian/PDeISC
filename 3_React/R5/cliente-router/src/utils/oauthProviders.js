@@ -2,7 +2,7 @@
 export const oauthProviders = [
   { id: "google", label: "Google" },
   { id: "github", label: "GitHub" },
-  { id: "meta", label: "Meta" },
+  { id: "discord", label: "Discord" },
 ];
 
 export const findProvider = (id) => oauthProviders.find((provider) => provider.id === id);

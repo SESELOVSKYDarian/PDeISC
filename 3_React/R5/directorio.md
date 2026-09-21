@@ -1,6 +1,6 @@
 # Directorio del proyecto
 
-Sistema de usuarios con React Router + API Express + MySQL, con ingreso por correo/contraseña y por Google, GitHub y Meta.
+Sistema de usuarios con React Router + API Express + MySQL, con ingreso por correo/contraseña y por Google, GitHub y Discord.
 
 | Parte | Carpeta | Puerto |
 |---|---|---|
@@ -20,14 +20,14 @@ api/
 └── src/
     ├── server.js         arranca el servidor
     ├── app.js            arma Express (helmet, cors, rutas, errores)
-    ├── config.js         variables del .env (incluye las claves de Google, GitHub y Meta)
+    ├── config.js         variables del .env (incluye las claves de Google, GitHub y Discord)
     ├── routes/           auth.routes.js, users.routes.js (solo POST)
     ├── controllers/
     │   ├── auth/         register, login, logout, session, updateProfile
     │   ├── oauth/        url (paso 1: dirección del proveedor), callback (paso 2: canje del código y sesión)
     │   └── users/        list, create, update, remove (solo administrador)
     ├── oauth/            todo lo de las redes
-    │   ├── providers/    google.js, github.js, meta.js (cada uno arma su URL y pide el perfil) + index.js
+    │   ├── providers/    google.js, github.js, discord.js (cada uno arma su URL y pide el perfil) + index.js
     │   ├── http.js       pedidos salientes a los proveedores
     │   ├── state.js      "state" anti-CSRF en cookie httpOnly
     │   ├── redirectUri.js  URL de retorno (pantalla del cliente)
@@ -71,7 +71,7 @@ src/
 
 | Qué | Dónde |
 |---|---|
-| Botones Google / GitHub / Meta | `cliente-router/src/components/auth/SocialButtons.jsx` |
+| Botones Google / GitHub / Discord | `cliente-router/src/components/auth/SocialButtons.jsx` |
 | Pantalla a la que vuelve el proveedor | `pages/OAuthCallbackPage.jsx` + `hooks/useOAuthCallback.js` |
 | Pedidos a la API | `services/authService.js` (`oauthUrlRequest`, `oauthCallbackRequest`) |
 | Claves y URL de retorno | `api/.env` (guía en el README) y `api/src/oauth/redirectUri.js` |

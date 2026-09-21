@@ -1,6 +1,6 @@
-# Sistema de usuarios con ingreso por Google, GitHub y Meta
+# Sistema de usuarios con ingreso por Google, GitHub y Discord
 
-Es el sistema con **React Router** del R3, más el ingreso y la creación de cuenta con **Google**, **GitHub** y **Meta**. También se puede seguir usando correo y contraseña.
+Es el sistema con **React Router** del R3, más el ingreso y la creación de cuenta con **Google**, **GitHub** y **Discord**. También se puede seguir usando correo y contraseña.
 
 | Parte | Carpeta | Puerto |
 |---|---|---|
@@ -22,7 +22,7 @@ npm --prefix api install
 npm --prefix cliente-router install
 ```
 
-Copiá `api/.env.example` a `api/.env` y completá `JWT_SECRET` (un texto largo y propio). Las claves de Google, GitHub y Meta se explican abajo.
+Copiá `api/.env.example` a `api/.env` y completá `JWT_SECRET` (un texto largo y propio). Las claves de Google, GitHub y Discord se explican abajo.
 
 ## Puesta en marcha
 
@@ -39,7 +39,7 @@ npm run dev    # API + cliente
 
 Todo el intercambio con el proveedor lo hace la API, así los secretos nunca llegan al navegador. Todos los endpoints son `POST`.
 
-1. La persona toca **Google / GitHub / Meta** → el cliente llama a `POST /api/auth/oauth/url`.
+1. La persona toca **Google / GitHub / Discord** → el cliente llama a `POST /api/auth/oauth/url`.
 2. La API genera un `state` aleatorio (lo guarda en una cookie `httpOnly`) y devuelve la dirección de autorización del proveedor.
 3. El navegador va al proveedor, la persona acepta y el proveedor vuelve a `http://localhost:5175/auth/<proveedor>/callback?code=...&state=...`.
 4. Esa pantalla del cliente manda `code` y `state` a `POST /api/auth/oauth/callback`.
@@ -81,19 +81,22 @@ GITHUB_CLIENT_SECRET=...
 
 Si tu correo de GitHub es privado no hay problema: la API pide el permiso `user:email` y usa el correo verificado.
 
-### Meta (Facebook)
+### Discord
 
-1. [developers.facebook.com](https://developers.facebook.com) → **Mis apps** → **Crear app** → caso de uso **Autenticar y solicitar datos de usuarios con el inicio de sesión con Facebook** (incluye el permiso `email`).
-2. **Configuración de la app** → **Básica**: copiá el **ID de la app** y la **Clave secreta**.
-3. **Inicio de sesión con Facebook** → **Configuración** → **URI de redireccionamiento de OAuth válidos:** `http://localhost:5175/auth/meta/callback`
-4. Mientras la app esté en modo **Desarrollo**, solo pueden entrar quienes tengan un rol en la app (administrador, desarrollador o probador): agregá tu cuenta en **Roles de la app**.
+1. Entrá a [discord.com/developers/applications](https://discord.com/developers/applications) con tu cuenta de Discord.
+2. **New Application** → nombre `Sistema usuarios R5` → aceptá los términos → **Create**.
+3. Menú **OAuth2**:
+   - Copiá el **Client ID**.
+   - **Reset Secret** → confirmá → copiá el **Client Secret** (se muestra una sola vez).
+   - En **Redirects** → **Add Redirect** → `http://localhost:5175/auth/discord/callback` → **Save Changes**.
+4. Cargá las claves en `api/.env`:
 
 ```env
-META_APP_ID=...
-META_APP_SECRET=...
+DISCORD_CLIENT_ID=...
+DISCORD_CLIENT_SECRET=...
 ```
 
-La cuenta de Facebook con la que pruebes debe tener un correo confirmado; si solo tiene teléfono, Meta no devuelve correo y no se puede entrar.
+No hace falta revisión ni agregar usuarios de prueba: entra cualquier cuenta de Discord. Debe tener el correo **verificado** (Discord → Ajustes de usuario → Mi cuenta).
 
 ## Base de datos (3FN)
 
@@ -125,7 +128,7 @@ La cuenta de Facebook con la que pruebes debe tener un correo confirmado; si sol
 ## Si algo falla
 
 - **"El ingreso con X todavía no está configurado"**: faltan `X_CLIENT_ID` / `X_CLIENT_SECRET` en `api/.env`, o no reiniciaste la API.
-- **`redirect_uri_mismatch` (Google) / "URL bloqueada" (Meta) / "redirect_uri is not associated" (GitHub)**: la URL de retorno cargada en el proveedor no es exactamente `http://localhost:5175/auth/<proveedor>/callback`.
+- **`redirect_uri_mismatch` (Google) / "Invalid OAuth2 redirect_uri" (Discord) / "redirect_uri is not associated" (GitHub)**: la URL de retorno cargada en el proveedor no es exactamente `http://localhost:5175/auth/<proveedor>/callback`.
 - **"No pudimos validar tu cuenta de X"**: el detalle está en la consola de la API (línea `[oauth:x]`); casi siempre es el secreto mal copiado.
 - **"no nos compartió un correo verificado"**: la cuenta de la red no tiene correo confirmado o no se otorgó el permiso de correo.
 - **`Access denied for user`**: revisá `DB_USER` y `DB_PASSWORD`. **`ECONNREFUSED 3306`**: MySQL está apagado.

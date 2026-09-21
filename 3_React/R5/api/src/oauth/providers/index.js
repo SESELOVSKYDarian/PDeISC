@@ -1,9 +1,9 @@
 import { OAuthError } from "../oauthError.js";
+import { discord } from "./discord.js";
 import { github } from "./github.js";
 import { google } from "./google.js";
-import { meta } from "./meta.js";
 
-const providers = { google, github, meta };
+const providers = { google, github, discord };
 
 // devuelve el proveedor pedido o corta con un error claro
 export function getProvider(name) {

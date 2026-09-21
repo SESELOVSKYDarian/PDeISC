@@ -11,7 +11,7 @@ export const config = {
   oauth: {
     google: provider("GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET"),
     github: provider("GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET"),
-    meta: provider("META_APP_ID", "META_APP_SECRET"),
+    discord: provider("DISCORD_CLIENT_ID", "DISCORD_CLIENT_SECRET"),
   },
 };
 

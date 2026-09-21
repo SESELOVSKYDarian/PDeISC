@@ -1,7 +1,7 @@
 import { oauthProviders } from "@/utils/oauthProviders";
 import { ProviderIcon } from "./ProviderIcon";
 
-// botones para ingresar o crear la cuenta con Google, GitHub o Meta
+// botones para ingresar o crear la cuenta con Google, GitHub o Discord
 export function SocialButtons({ isRegister, busy, onSelect }) {
   const action = isRegister ? "Crear cuenta con" : "Ingresar con";
 

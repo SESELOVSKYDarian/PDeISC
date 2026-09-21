@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
     return newUser;
   }
 
-  // vuelta del ingreso con Google, GitHub o Meta
+  // vuelta del ingreso con Google, GitHub o Discord
   async function oauthLogin(values) {
     const oauthUser = await oauthCallbackRequest(values);
     setUser(oauthUser);
