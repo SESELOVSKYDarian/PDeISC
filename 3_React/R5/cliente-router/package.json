@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5175 --strictPort",
+    "dev:https": "vite --port 5176 --strictPort --mode https",
     "build": "vite build"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
     "@vitejs/plugin-react": "^4.3.4",
     "tailwindcss": "^4.3.3",
     "vite": "^6.0.5"

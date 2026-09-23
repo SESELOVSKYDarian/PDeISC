@@ -2,6 +2,7 @@
 // necesita MySQL prendido y la base creada (npm run seed); si no, se saltea
 import test, { after } from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 
 process.env.GOOGLE_CLIENT_ID = "gid";
 process.env.GOOGLE_CLIENT_SECRET = "gsec";
@@ -9,6 +10,12 @@ process.env.GITHUB_CLIENT_ID = "hid";
 process.env.GITHUB_CLIENT_SECRET = "hsec";
 process.env.DISCORD_CLIENT_ID = "did";
 process.env.DISCORD_CLIENT_SECRET = "dsec";
+process.env.FACEBOOK_APP_ID = "fid";
+process.env.FACEBOOK_APP_SECRET = "fsec";
+process.env.X_CLIENT_ID = "xid";
+process.env.X_CLIENT_SECRET = "xsec";
+process.env.TWITCH_CLIENT_ID = "tid";
+process.env.TWITCH_CLIENT_SECRET = "tsec";
 
 const { default: app } = await import("../src/app.js");
 const { pool } = await import("../src/services/db.js");
@@ -67,6 +74,21 @@ const discord = (id, username, email, verified = true) => {
   fake["https://discord.com/api/users/@me"] = { body: { id, username, global_name: username, email, verified } };
 };
 
+const facebook = (id, name, email) => {
+  fake["https://graph.facebook.com/v25.0/oauth/access_token"] = { body: { access_token: "t" } };
+  fake["https://graph.facebook.com/v25.0/me"] = { body: { id, name, email } };
+};
+const twitch = (id, display_name, email) => {
+  fake["https://id.twitch.tv/oauth2/token"] = { body: { access_token: "t" } };
+  fake["https://api.twitch.tv/helix/users"] = { body: { data: [{ id, login: display_name, display_name, email }] } };
+};
+// X entrega el token con el verificador PKCE; guardo lo que la API le manda para comprobarlo
+let xTokenRequest = null;
+const x = (id, name, confirmed_email) => {
+  fake["https://api.x.com/2/oauth2/token"] = { body: { access_token: "t" } };
+  fake["https://api.x.com/2/users/me"] = { body: { data: { id, name, username: "user" + id, confirmed_email } } };
+};
+
 const clean = () => pool.query("DELETE FROM usuarios WHERE email LIKE ?", [`%${MAIL}`]);
 if (dbReady) await clean();
 
@@ -111,6 +133,53 @@ test("Discord: crea la cuenta y limpia el nombre; sin verificar o sin correo se 
   assert.equal((await browser().loginWith("discord")).status, 400);
 });
 
+test("Facebook: crea la cuenta; sin correo se rechaza", options, async () => {
+  facebook("f-1", "Marta Facebook", `marta${MAIL}`);
+  const ok = await browser().loginWith("facebook");
+  assert.equal(ok.status, 200);
+  assert.equal(ok.data.user.nombre, "Marta Facebook");
+
+  facebook("f-2", "Sin Mail", undefined);
+  assert.equal((await browser().loginWith("facebook")).status, 400);
+});
+
+test("Twitch: crea la cuenta y limpia el nombre; sin correo se rechaza", options, async () => {
+  twitch("t-1", "Gamer 99 Pro", `gamer${MAIL}`);
+  const ok = await browser().loginWith("twitch");
+  assert.equal(ok.status, 200);
+  assert.equal(ok.data.user.nombre, "Gamer Pro");
+
+  twitch("t-2", "sinmail", undefined);
+  assert.equal((await browser().loginWith("twitch")).status, 400);
+});
+
+test("X: manda el verificador PKCE y crea la cuenta con el correo confirmado", options, async () => {
+  x("x-1", "Pablo Equis", `pablo${MAIL}`);
+  const web = browser();
+  const { data } = await web.post("/oauth/url", { provider: "x" });
+  const url = new URL(data.url);
+  const challenge = url.searchParams.get("code_challenge");
+  assert.equal(url.searchParams.get("code_challenge_method"), "S256");
+
+  // intercepto el canje del token para ver que llegue el verificador y el Basic
+  const previous = globalThis.fetch;
+  globalThis.fetch = async (u, opts) => {
+    if (String(u).startsWith("https://api.x.com/2/oauth2/token")) xTokenRequest = { headers: opts.headers, body: String(opts.body) };
+    return previous(u, opts);
+  };
+  const result = await web.post("/oauth/callback", { provider: "x", code: "abc", state: url.searchParams.get("state") });
+  globalThis.fetch = previous;
+
+  assert.equal(result.status, 200);
+  assert.equal(result.data.user.nombre, "Pablo Equis");
+  const verifier = new URLSearchParams(xTokenRequest.body).get("code_verifier");
+  assert.equal(createHash("sha256").update(verifier).digest("base64url"), challenge);
+  assert.match(xTokenRequest.headers.Authorization, /^Basic /);
+
+  x("x-2", "Sin Correo", undefined);
+  assert.equal((await browser().loginWith("x")).status, 400);
+});
+
 test("seguridad del state: distinto, sin cookie, repetido o de otro proveedor", options, async () => {
   google("g-1", "Ana Pérez", `ana${MAIL}`);
   assert.equal((await browser().loginWith("google", { state: "x".repeat(48) })).status, 400);
@@ -152,7 +221,7 @@ test("un usuario con contraseña se vincula si el correo llega verificado, y no 
 
 test("borrar un usuario borra sus identidades", options, async () => {
   await clean();
-  const [[row]] = await pool.query("SELECT COUNT(*) AS n FROM identidades_oauth WHERE proveedor_uid IN ('g-1', 'g-2', '555', '777')");
+  const [[row]] = await pool.query("SELECT COUNT(*) AS n FROM identidades_oauth WHERE proveedor_uid IN ('g-1', 'g-2', '555', '777', 'f-1', 't-1', 'x-1')");
   assert.equal(row.n, 0);
 });
 

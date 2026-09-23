@@ -1,4 +1,4 @@
-import { randomBytes, timingSafeEqual } from "node:crypto";
+import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { cookieOptions } from "../utils/cookies.js";
 import { OAuthError } from "./oauthError.js";
 
@@ -6,21 +6,29 @@ const COOKIE = "oauth_state";
 const { maxAge, ...clearOptions } = cookieOptions;
 const stateCookie = { ...clearOptions, maxAge: 10 * 60 * 1000 };
 
-// crea el "state" anti-CSRF y lo deja en una cookie httpOnly
-export function startState(res, providerName) {
+// crea el "state" anti-CSRF y lo deja en una cookie httpOnly.
+// Si el proveedor usa PKCE (X), también guarda el verificador y devuelve el desafío que va en la URL.
+export function startState(res, providerName, withPkce = false) {
   const state = randomBytes(24).toString("hex");
-  res.cookie(COOKIE, `${providerName}.${state}`, stateCookie);
-  return state;
+  const verifier = withPkce ? randomBytes(32).toString("base64url") : "";
+  const codeChallenge = withPkce ? createHash("sha256").update(verifier).digest("base64url") : "";
+
+  res.cookie(COOKIE, [providerName, state, verifier].filter(Boolean).join("."), stateCookie);
+  return { state, codeChallenge };
 }
 
-// el state que vuelve del proveedor tiene que coincidir con el de la cookie (se usa una sola vez)
+// el state que vuelve del proveedor tiene que coincidir con el de la cookie (se usa una sola vez).
+// Devuelve el verificador PKCE, o "" si el proveedor no usa PKCE.
 export function checkState(req, res, providerName, state) {
-  const saved = req.cookies[COOKIE];
+  const saved = typeof req.cookies[COOKIE] === "string" ? req.cookies[COOKIE] : "";
   res.clearCookie(COOKIE, clearOptions);
 
+  const [savedProvider = "", savedState = "", verifier = ""] = saved.split(".");
   const expected = Buffer.from(`${providerName}.${typeof state === "string" ? state : ""}`);
-  const actual = Buffer.from(typeof saved === "string" ? saved : "");
+  const actual = Buffer.from(`${savedProvider}.${savedState}`);
+
   if (expected.length !== actual.length || !timingSafeEqual(expected, actual)) {
     throw new OAuthError(400, "La verificación de seguridad falló. Volvé a intentar el ingreso.");
   }
+  return verifier;
 }

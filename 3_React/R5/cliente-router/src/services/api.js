@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// la cookie de sesión viaja sola gracias a withCredentials
+// "/api" lo reenvía el servidor de Vite a la API (ver vite.config.js); la cookie de sesión viaja sola
 export const api = axios.create({
-  baseURL: "http://localhost:4005/api",
+  baseURL: "/api",
   withCredentials: true,
 });
 

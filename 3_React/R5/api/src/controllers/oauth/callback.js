@@ -12,10 +12,10 @@ export async function oauthCallback(req, res, next) {
     const { provider: providerName, code, state } = req.body;
     const provider = getProvider(providerName);
 
-    checkState(req, res, provider.name, state);
+    const codeVerifier = checkState(req, res, provider.name, state);
     if (!isText(code) || !code || code.length > 2000) throw new OAuthError(400, "Falta el código de autorización.");
 
-    const profile = await fetchProfile(provider, code);
+    const profile = await fetchProfile(provider, code, codeVerifier);
     const user = await resolveOAuthUser(provider, profile);
     sendSession(res, user);
   } catch (error) {
@@ -23,9 +23,9 @@ export async function oauthCallback(req, res, next) {
   }
 }
 
-async function fetchProfile(provider, code) {
+async function fetchProfile(provider, code, codeVerifier) {
   try {
-    return await provider.fetchProfile(code, redirectUri(provider.name));
+    return await provider.fetchProfile(code, redirectUri(provider.name), codeVerifier);
   } catch (error) {
     console.error(`[oauth:${provider.name}]`, error.message);
     throw new OAuthError(502, `No pudimos validar tu cuenta de ${provider.label}. Probá de nuevo.`);

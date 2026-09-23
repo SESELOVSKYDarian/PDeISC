@@ -7,8 +7,8 @@ import { startState } from "../../oauth/state.js";
 export function oauthUrl(req, res, next) {
   try {
     const provider = getProvider(req.body.provider);
-    const state = startState(res, provider.name);
-    res.json({ url: provider.buildUrl(state, redirectUri(provider.name)) });
+    const { state, codeChallenge } = startState(res, provider.name, provider.pkce);
+    res.json({ url: provider.buildUrl(state, redirectUri(provider.name), codeChallenge) });
   } catch (error) {
     sendOAuthError(error, res, next);
   }

@@ -4,7 +4,7 @@ import { AuthBrand } from "@/components/auth/AuthBrand";
 import { useOAuthCallback } from "@/hooks/useOAuthCallback";
 import { findProvider } from "@/utils/oauthProviders";
 
-// pantalla a la que vuelve Google, GitHub o Discord: procesa el ingreso y redirige
+// pantalla a la que vuelve cualquiera de las redes: procesa el ingreso y redirige
 export default function OAuthCallbackPage() {
   const { provider } = useParams();
   if (!findProvider(provider)) return <Navigate to="/ingresar" replace />;

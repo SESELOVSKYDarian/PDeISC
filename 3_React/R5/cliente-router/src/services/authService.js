@@ -35,3 +35,9 @@ export async function oauthCallbackRequest(values) {
   const { data } = await api.post("/auth/oauth/callback", values);
   return data.user;
 }
+
+// qué redes están habilitadas en el servidor
+export async function oauthProvidersRequest() {
+  const { data } = await api.post("/auth/oauth/proveedores");
+  return data.providers;
+}

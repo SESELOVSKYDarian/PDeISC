@@ -1,10 +1,9 @@
-import { PencilIcon, Trash2Icon } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { formatDate } from "@/utils/formatDate";
 import { initials } from "@/utils/initials";
+import { UserActions } from "./UserActions";
 
 export function UserRow({ user, onEdit, onDelete }) {
   const isAdmin = user.rol === "administrador";
@@ -22,16 +21,7 @@ export function UserRow({ user, onEdit, onDelete }) {
       <TableCell className="text-muted-foreground">{formatDate(user.creado_en)}</TableCell>
       <TableCell className="px-4">
         {/* al administrador no se le muestran acciones */}
-        {!isAdmin && (
-          <div className="flex justify-end gap-1">
-            <Button variant="ghost" size="icon" onClick={() => onEdit(user)} aria-label={`Editar a ${user.nombre}`} title="Editar">
-              <PencilIcon />
-            </Button>
-            <Button variant="ghost" size="icon" className="text-destructive" onClick={() => onDelete(user)} aria-label={`Eliminar a ${user.nombre}`} title="Eliminar">
-              <Trash2Icon />
-            </Button>
-          </div>
-        )}
+        {!isAdmin && <UserActions user={user} onEdit={onEdit} onDelete={onDelete} />}
       </TableCell>
     </TableRow>
   );

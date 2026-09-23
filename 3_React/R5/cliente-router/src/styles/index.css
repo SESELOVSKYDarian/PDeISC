@@ -13,3 +13,5 @@
 @import "./auth/fit.css";
 @import "./auth/dark.css";
 @import "./auth/social.css";
+@import "./auth/soon-dialog.css";
+@import "./auth/oauth-status.css";
