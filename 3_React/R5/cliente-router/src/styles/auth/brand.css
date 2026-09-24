@@ -5,9 +5,9 @@
   width: 154px !important;
   height: 48px !important;
   overflow: hidden !important;
-  border: 1px solid #dfe5f0 !important;
+  border: 1px solid var(--line) !important;
   border-radius: 12px !important;
-  background: #fff !important;
+  background: var(--surface-raised) !important;
   box-shadow: 0 5px 14px rgb(17 26 81/0.08) !important;
 }
 .brand-frame img {
