@@ -4,7 +4,7 @@ import EstadoTarea from "./EstadoTarea";
 import { useTareas } from "../context/TareasContext";
 
 // tarjeta que se ve en la lista de inicio, resume una tarea
-function TareaCard({ tarea }) {
+function TareaCard({ tarea, seleccionada, onAlternarSeleccion }) {
   const { cambiarEstado } = useTareas();
 
   function marcarTarea(evento) {
@@ -27,6 +27,17 @@ function TareaCard({ tarea }) {
       >
         {tarea.completada ? <Check size={17} /> : <Circle size={17} />}
       </button>
+      {!tarea.completada && (
+        <input
+          type="checkbox"
+          className="selector-tarea"
+          checked={seleccionada}
+          onChange={() => onAlternarSeleccion(tarea.id)}
+          onClick={(evento) => evento.stopPropagation()}
+          aria-label={`Seleccionar tarea ${tarea.titulo}`}
+          title="Seleccionar para marcar como completada"
+        />
+      )}
       <div className="cuerpo-tarjeta">
         <h3>{tarea.titulo}</h3>
         {/* muestro la descripcion resumida, pero el texto original no cambia */}

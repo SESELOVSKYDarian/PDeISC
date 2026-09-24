@@ -51,6 +51,23 @@ export function TareasProvider({ children }) {
     );
   }
 
+  // marca como completadas las tareas seleccionadas sin cambiar las demas
+  function marcarComoCompletadas(ids) {
+    const idsSeleccionados = new Set(ids);
+    setTareas((prev) =>
+      prev.map((tarea) =>
+        idsSeleccionados.has(tarea.id)
+          ? { ...tarea, completada: true }
+          : tarea
+      )
+    );
+  }
+
+  // completa todas las tareas pendientes de una sola vez
+  function marcarTodasComoCompletadas() {
+    setTareas((prev) => prev.map((tarea) => ({ ...tarea, completada: true })));
+  }
+
   // busca una tarea puntual por id, la usa la pagina de detalle
   function buscarTarea(id) {
     return tareas.find((tarea) => tarea.id === Number(id));
@@ -62,6 +79,8 @@ export function TareasProvider({ children }) {
     editarTarea,
     eliminarTarea,
     cambiarEstado,
+    marcarComoCompletadas,
+    marcarTodasComoCompletadas,
     buscarTarea,
   };
 

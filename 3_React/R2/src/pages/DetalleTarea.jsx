@@ -103,13 +103,20 @@ function DetalleTarea() {
             Editar
           </button>
 
-          <button
-            className="btn btn-peligro-suave d-flex align-items-center gap-2"
-            onClick={() => setMostrarModal(true)}
-          >
-            <Trash2 size={16} />
-            Eliminar
-          </button>
+          {tarea.completada && (
+            <button
+              className="btn btn-peligro-suave d-flex align-items-center gap-2"
+              onClick={() => setMostrarModal(true)}
+            >
+              <Trash2 size={16} />
+              Eliminar
+            </button>
+          )}
+          {!tarea.completada && (
+            <p className="mensaje-error mb-0" role="alert">
+              No podés eliminar una tarea hasta completarla.
+            </p>
+          )}
         </div>
       </div>
 

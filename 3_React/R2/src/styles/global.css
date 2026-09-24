@@ -152,6 +152,27 @@ a {
   margin-bottom: 0;
 }
 
+.acciones-lote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 0.9rem;
+  background-color: var(--color-superficie);
+}
+
+.selector-tarea {
+  flex: 0 0 auto;
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: var(--color-acento);
+  cursor: pointer;
+}
+
 /* tarjetas de tareas */
 
 .tarjeta-tarea {

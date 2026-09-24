@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { SaveIcon, Undo2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { FieldGroup } from "@/components/ui/field";
 import { Notice } from "@/components/common/Notice";
@@ -22,8 +23,17 @@ export function ProfileForm({ user, onUpdated }) {
     defaultValues: initialValues,
   });
   const [notice, setNotice] = useState(null);
+  const [pendingValues, setPendingValues] = useState(null);
 
   async function save(values) {
+    setPendingValues(values);
+  }
+
+  async function confirmSave() {
+    const values = pendingValues;
+    setPendingValues(null);
+    if (!values) return;
+
     setNotice(null);
     try {
       const updatedUser = await updateProfileRequest(values);
@@ -80,6 +90,21 @@ export function ProfileForm({ user, onUpdated }) {
           </Button>
         </CardFooter>
       </form>
+
+      <AlertDialog open={!!pendingValues} onOpenChange={(isOpen) => !isOpen && setPendingValues(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Actualizar perfil?</AlertDialogTitle>
+            <AlertDialogDescription>
+              ¿Estás seguro de actualizar tus datos?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmSave}>Actualizar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Card>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { PasswordField } from "@/components/common/PasswordField";
 import { TextField } from "@/components/common/TextField";
@@ -18,6 +19,7 @@ export function UserFormDialog({ open, onOpenChange, user, onSave }) {
   const isEditing = !!user;
   const { register, handleSubmit, reset, control, formState: { errors, isSubmitting } } = useForm({ mode: "onChange", defaultValues: emptyForm });
   const [serverError, setServerError] = useState("");
+  const [pendingValues, setPendingValues] = useState(null);
 
   // cada vez que se abre, cargo los datos del usuario (o el formulario vacío)
   useEffect(() => {
@@ -27,13 +29,23 @@ export function UserFormDialog({ open, onOpenChange, user, onSave }) {
   }, [open, user, reset]);
 
   async function submit(values) {
+    if (isEditing) {
+      setPendingValues(values);
+      return;
+    }
+
+    await save(values);
+  }
+
+  async function save(values) {
     const error = await onSave(values, user?.id);
     if (error) setServerError(error);
     else onOpenChange(false);
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{isEditing ? "Editar usuario" : "Nuevo usuario"}</DialogTitle>
@@ -75,6 +87,24 @@ export function UserFormDialog({ open, onOpenChange, user, onSave }) {
           </Button>
         </DialogFooter>
       </DialogContent>
-    </Dialog>
+      </Dialog>
+
+    <AlertDialog open={!!pendingValues} onOpenChange={(isOpen) => !isOpen && setPendingValues(null)}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>¿Actualizar usuario?</AlertDialogTitle>
+          <AlertDialogDescription>
+            ¿Estás seguro de actualizar los datos de este usuario?
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogAction onClick={() => save(pendingValues).then(() => setPendingValues(null))}>
+            Actualizar
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
