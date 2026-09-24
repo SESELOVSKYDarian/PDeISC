@@ -12,10 +12,10 @@ body {
 }
 main {
   min-height: 100vh;
-  padding: clamp(1rem, 5vw, 4rem);
+  padding: clamp(1rem, 3vw, 2.5rem);
 }
 .app {
-  width: min(900px, 100%);
+  width: min(1200px, 100%);
   margin: auto;
 }
 .eyebrow {
