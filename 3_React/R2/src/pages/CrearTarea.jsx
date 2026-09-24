@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import { useTareas } from "../context/TareasContext";
 import FormularioTarea from "../components/FormularioTarea";
 
@@ -20,6 +21,13 @@ function CrearTarea() {
           <h1>Nueva tarea</h1>
           <p>Completa los datos para agregarla a tu lista.</p>
         </div>
+        <Link
+          to="/"
+          className="btn btn-outline-acento d-inline-flex align-items-center gap-2"
+        >
+          <ArrowLeft size={16} />
+          Volver a mis tareas
+        </Link>
       </div>
 
       <div className="tarjeta-formulario">
