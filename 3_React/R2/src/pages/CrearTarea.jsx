@@ -31,7 +31,11 @@ function CrearTarea() {
       </div>
 
       <div className="tarjeta-formulario">
-        <FormularioTarea onGuardar={manejarGuardar} textoBoton="Crear tarea" />
+        <FormularioTarea
+          onGuardar={manejarGuardar}
+          textoBoton="Crear tarea"
+          mostrarEstado={false}
+        />
       </div>
     </div>
   );

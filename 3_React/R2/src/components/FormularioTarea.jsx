@@ -8,7 +8,12 @@ import {
 
 // formulario que se usa tanto para crear una tarea como para editarla
 // recibe los valores iniciales y una funcion que se ejecuta al confirmar
-function FormularioTarea({ valoresIniciales, onGuardar, textoBoton }) {
+function FormularioTarea({
+  valoresIniciales,
+  onGuardar,
+  textoBoton,
+  mostrarEstado = true,
+}) {
   const [titulo, setTitulo] = useState(valoresIniciales?.titulo || "");
   const [descripcion, setDescripcion] = useState(
     valoresIniciales?.descripcion || ""
@@ -70,7 +75,7 @@ function FormularioTarea({ valoresIniciales, onGuardar, textoBoton }) {
     onGuardar({
       titulo: titulo.trim(),
       descripcion: descripcion.trim(),
-      completada,
+      completada: mostrarEstado ? completada : false,
     });
   }
 
@@ -118,31 +123,33 @@ function FormularioTarea({ valoresIniciales, onGuardar, textoBoton }) {
         )}
       </div>
 
-      <div className="mb-4">
-        <label className="form-label d-block">Estado</label>
-        <div className="selector-estado">
-          <label
-            className={`opcion-estado ${!completada ? "activa" : ""}`}
-          >
-            <input
-              type="radio"
-              name="estado"
-              checked={!completada}
-              onChange={() => setCompletada(false)}
-            />
-            Incompleta
-          </label>
-          <label className={`opcion-estado ${completada ? "activa" : ""}`}>
-            <input
-              type="radio"
-              name="estado"
-              checked={completada}
-              onChange={() => setCompletada(true)}
-            />
-            Completa
-          </label>
+      {mostrarEstado && (
+        <div className="mb-4">
+          <label className="form-label d-block">Estado</label>
+          <div className="selector-estado">
+            <label
+              className={`opcion-estado ${!completada ? "activa" : ""}`}
+            >
+              <input
+                type="radio"
+                name="estado"
+                checked={!completada}
+                onChange={() => setCompletada(false)}
+              />
+              Incompleta
+            </label>
+            <label className={`opcion-estado ${completada ? "activa" : ""}`}>
+              <input
+                type="radio"
+                name="estado"
+                checked={completada}
+                onChange={() => setCompletada(true)}
+              />
+              Completa
+            </label>
+          </div>
         </div>
-      </div>
+      )}
 
       <button type="submit" className="btn btn-acento w-100">
         {textoBoton}
