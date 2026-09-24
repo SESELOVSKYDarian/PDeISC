@@ -1,294 +1,287 @@
-# Sistema de usuarios con ingreso por Google, Facebook, X, GitHub, Discord y Twitch
+# 🔐 R5 · Usuarios con ingreso por redes sociales
 
-Es el sistema con **React Router** del R3, más el ingreso y la creación de cuenta con **Google**, **Facebook (Meta)**, **X**, **GitHub**, **Discord** y **Twitch**. También se puede seguir usando correo y contraseña.
+Sistema con **React Router** (copia del R3) al que se le sumó **ingreso y creación de cuenta** con
+**Google · Facebook (Meta) · X · GitHub · Discord · Twitch**. Sigue funcionando el ingreso con correo y contraseña.
 
-| Parte | Carpeta | Puerto |
+| | |
+|---|---|
+| 🖥️ **Cliente** (React + Vite) | `cliente-router/` → http://localhost:5175 |
+| ⚙️ **API** (Express) | `api/` → http://localhost:4005 |
+| 🗄️ **Base de datos** | MySQL → `localhost:3306` |
+
+📚 **Otros documentos:** [directorio.md](directorio.md) (qué hay en cada carpeta) · [arquitectura.md](arquitectura.md) (cómo se conecta todo)
+
+---
+
+## 📑 Índice
+
+1. [🚀 Iniciar el proyecto](#-iniciar-el-proyecto)
+2. [🔑 Configurar cada red](#-configurar-cada-red)
+3. [🧭 Cómo funciona el ingreso](#-cómo-funciona-el-ingreso)
+4. [🔒 Seguridad y reglas](#-seguridad-y-reglas)
+5. [🩺 Si algo falla](#-si-algo-falla)
+
+---
+
+## 🚀 Iniciar el proyecto
+
+Todos los comandos se corren desde la carpeta **`R5/`** (la que tiene `api/` y `cliente-router/`).
+
+### ✅ Requisitos
+
+| Necesitás | Versión | Cómo verificar |
 |---|---|---|
-| Cliente React Router | `cliente-router/` | 5175 (http) y 5176 (https, solo Facebook) |
-| API + BBDD | `api/` | 4005 (MySQL en el 3306) |
+| Node.js | 18.11 o superior | `node -v` |
+| MySQL (XAMPP alcanza) | usuario `root`, sin contraseña | puerto 3306 en verde |
 
-Rutas del cliente: `/ingresar`, `/registro`, `/auth/:proveedor/callback`, `/` (usuario) y `/usuarios` (administrador).
+### 🟢 Primera vez (una sola vez)
 
-## Cómo iniciar R5 (paso a paso)
+| Paso | Qué hacer | Comando |
+|:---:|---|---|
+| **1** | Prender **MySQL** en el Panel de XAMPP → botón **Start** | — |
+| **2** | Instalar dependencias | `npm install` <br> `cd api && npm install && cd ..` <br> `cd cliente-router && npm install && cd ..` |
+| **3** | Crear el archivo de configuración | `Copy-Item api\.env.example api\.env` |
+| **4** | Completar `api/.env` (tabla de abajo) | — |
+| **5** | Crear la base, las tablas y el administrador | `npm run seed` |
 
-Todo se corre desde la carpeta `R5/` (la que tiene `package.json`, `api/` y `cliente-router/`). Sirve PowerShell o Git Bash.
+> 💡 Instalá **entrando a cada carpeta** (`cd api`…). Con `npm --prefix` npm agrega una dependencia falsa al `package.json`.
 
-### Requisitos
-
-- **Node.js 18.11 o superior** (se probó con la 22). Verificá con `node -v`.
-- **MySQL**. Con XAMPP alcanza (usuario `root`, sin contraseña, puerto 3306).
-
-### 1. Prender MySQL
-
-Abrí el **Panel de control de XAMPP** y tocá **Start** en la fila de **MySQL**. Tiene que quedar en verde con el puerto 3306. Sin MySQL prendido la API no arranca ni se puede correr `npm run seed`.
-
-### 2. Instalar las dependencias (solo la primera vez)
-
-Entrá a cada carpeta antes de instalar (con `npm --prefix carpeta install` npm agrega una dependencia falsa `file:..` al `package.json`):
-
-```bash
-npm install
-cd api && npm install && cd ..
-cd cliente-router && npm install && cd ..
-```
-
-### 3. Crear el archivo de configuración (solo la primera vez)
-
-Copiá el ejemplo a `api/.env`:
-
-```powershell
-Copy-Item api\.env.example api\.env
-```
-
-Abrí `api/.env` y completá:
+**Qué completar en `api/.env`:**
 
 | Variable | Qué poner |
 |---|---|
-| `JWT_SECRET` | Un texto largo y propio. Para generarlo: `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` |
-| `DB_USER` / `DB_PASSWORD` | `root` y vacío si usás XAMPP tal como viene |
-| `DB_NAME` | `r5` (la crea el paso 4) |
-| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | El administrador que vas a usar. La contraseña necesita 8+ caracteres con mayúscula, minúscula, número y un carácter especial |
-| Claves de las redes | Las que tengas (ver «Configurar cada proveedor»). Las vacías quedan como «Próximamente» |
-| `FACEBOOK_REDIRECT_BASE` | `https://localhost:5176` (solo si vas a probar Facebook) |
+| `JWT_SECRET` | un texto largo y propio. Generalo con: `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` |
+| `DB_USER` · `DB_PASSWORD` | `root` y vacío (XAMPP tal como viene) |
+| `DB_NAME` | `r5` (la crea el paso 5) |
+| `ADMIN_EMAIL` · `ADMIN_PASSWORD` | tu administrador. Contraseña: 8+ caracteres con mayúscula, minúscula, número y símbolo |
+| Claves de las redes | las que tengas ([ver cómo obtenerlas](#-configurar-cada-red)). Las que queden vacías se ven como «Próximamente» |
 
-El `.env` **no se sube a git**.
-
-### 4. Crear la base y el administrador (solo la primera vez, y cada vez que cambies `ADMIN_PASSWORD`)
-
-```bash
-npm run seed
-```
-
-Crea la base `r5`, las tablas y el administrador. Si el administrador ya existe, le actualiza la contraseña con la del `.env`.
-
-### 5. Levantar el sistema (cada vez que lo uses)
+### ▶️ Todos los días
 
 ```bash
 npm run dev
 ```
 
-Levanta **la API y el cliente juntos** (con `concurrently`). Tenés que ver estas dos líneas (el orden puede variar):
+Levanta la **API y el cliente juntos**. Tenés que ver estas dos líneas (el orden puede variar):
 
 ```text
 [0] API en http://localhost:4005
 [1]   ➜  Local:   http://localhost:5175/
 ```
 
-Abrí **http://localhost:5175** y entrá con el administrador (`ADMIN_EMAIL` y `ADMIN_PASSWORD`) o registrate.
+👉 Abrí **http://localhost:5175** y entrá con el administrador (`ADMIN_EMAIL` / `ADMIN_PASSWORD`) o registrate.
 
-### 6. Solo para probar Facebook: el cliente con HTTPS
+### 📌 Comandos útiles
 
-Facebook no acepta `http://localhost`. Con el paso 5 corriendo, abrí **otra terminal** en `R5/` y ejecutá:
-
-```bash
-npm run dev:https
-```
-
-Después abrí **https://localhost:5176/ingresar**. El navegador avisa que el certificado no es de confianza (es uno local autofirmado): **Avanzado → Continuar a localhost**. Recién ahí tocá **Facebook**. Cómo está hecho esto y qué hay que cargar en Meta: [arquitectura.md](arquitectura.md#4-el-https-de-facebook-explicado-en-el-código).
-
-### 7. Cada vez que cambies el `.env`
-
-La API lee el `.env` **solo al arrancar**. Frenala (`Ctrl + C` en la terminal del `npm run dev`) y volvé a correr `npm run dev`. Si no, el cambio no se ve (por ejemplo, un botón sigue como «Próximamente» aunque ya pegaste las claves).
-
-### 8. Frenar todo
-
-`Ctrl + C` en cada terminal.
-
-### Resumen: qué corro en el día a día
-
-| Situación | Comandos |
+| Quiero… | Comando |
 |---|---|
-| Uso normal | prender MySQL → `npm run dev` → http://localhost:5175 |
-| Probar Facebook | lo anterior + `npm run dev:https` en otra terminal → https://localhost:5176/ingresar |
+| Usar el sistema | prender MySQL → `npm run dev` |
+| Cambiar la contraseña del admin | editar `ADMIN_PASSWORD` → `npm run seed` |
+| Que se apliquen cambios del `.env` | `Ctrl + C` y `npm run dev` otra vez (la API lee el `.env` solo al arrancar) |
 | Correr las pruebas | `npm test` (con MySQL prendido) |
 | Compilar el cliente | `npm run build` |
+| Frenar todo | `Ctrl + C` |
 
-### Puertos que usa
+### 🔌 Puertos
 
 | Puerto | Qué es |
-|---|---|
+|:---:|---|
 | 3306 | MySQL |
 | 4005 | API |
-| 5175 | Cliente (http) |
-| 5176 | Cliente (https, solo Facebook) |
+| 5175 | Cliente |
 
-Estos puertos son fijos (`--strictPort`): si alguno está ocupado, Vite se detiene con un error en vez de usar otro. Para ver quién lo ocupa: `netstat -ano | findstr :5175`.
+Son fijos: si uno está ocupado, Vite avisa en vez de cambiar de puerto. Para ver quién lo usa: `netstat -ano | findstr :5175`
 
-### Si algo falla al arrancar
+---
 
-| Síntoma | Causa y arreglo |
-|---|---|
-| `ECONNREFUSED 127.0.0.1:3306` | MySQL está apagado: prendelo en XAMPP (paso 1). |
-| `Access denied for user` | `DB_USER` o `DB_PASSWORD` mal en `api/.env`. |
-| `Faltan variables obligatorias en .env` | Falta `JWT_SECRET`, `DB_HOST`, `DB_USER` o `DB_NAME`: revisá el paso 3. |
-| `Port 5175 is already in use` | Ya hay otro `npm run dev` corriendo: cerralo. |
-| La pantalla carga pero los pedidos fallan | La API no está corriendo, o cambiaste `PORT` y falta actualizarlo en `cliente-router/vite.config.js`. |
-| No puedo entrar como administrador | Corré `npm run seed` de nuevo: sincroniza la contraseña con `ADMIN_PASSWORD`. |
+## 🔑 Configurar cada red
 
-Las pruebas: `npm test` corre 19 pruebas del ingreso con redes. Los proveedores se simulan, solo hace falta MySQL prendido.
+> 📍 **Todas las redes usan la misma regla:** la **URL de retorno** es `http://localhost:5175/auth/<red>/callback`.
+> Las claves van en `api/.env` y después hay que **reiniciar la API**.
 
-## Cómo funciona el ingreso con redes
+### Resumen
 
-Todo el intercambio con el proveedor lo hace la API, así los secretos nunca llegan al navegador. Todos los endpoints son `POST`.
+| Red | Dónde se crea la app | URL de retorno | Variables del `.env` |
+|---|---|---|---|
+| 🔴 **Google** | console.cloud.google.com | `http://localhost:5175/auth/google/callback` | `GOOGLE_CLIENT_ID` · `GOOGLE_CLIENT_SECRET` |
+| 🔵 **Facebook** | developers.facebook.com | `http://localhost:5175/auth/facebook/callback` | `FACEBOOK_APP_ID` · `FACEBOOK_APP_SECRET` |
+| ⚫ **X** | developer.x.com | `http://localhost:5175/auth/x/callback` | `X_CLIENT_ID` · `X_CLIENT_SECRET` |
+| ⚪ **GitHub** | github.com/settings/developers | `http://localhost:5175/auth/github/callback` | `GITHUB_CLIENT_ID` · `GITHUB_CLIENT_SECRET` |
+| 🟣 **Discord** | discord.com/developers/applications | `http://localhost:5175/auth/discord/callback` | `DISCORD_CLIENT_ID` · `DISCORD_CLIENT_SECRET` |
+| 🟪 **Twitch** | dev.twitch.tv/console/apps | `http://localhost:5175/auth/twitch/callback` | `TWITCH_CLIENT_ID` · `TWITCH_CLIENT_SECRET` |
 
-1. La persona toca una de las redes → el cliente llama a `POST /api/auth/oauth/url`.
-2. La API genera un `state` aleatorio (lo guarda en una cookie `httpOnly`) y devuelve la dirección de autorización del proveedor.
-3. El navegador va al proveedor, la persona acepta y el proveedor vuelve a `http://localhost:5175/auth/<proveedor>/callback?code=...&state=...`.
-4. Esa pantalla del cliente manda `code` y `state` a `POST /api/auth/oauth/callback`.
-5. La API compara el `state` con la cookie, cambia el `code` por un token, pide nombre y correo al proveedor y:
-   - si esa cuenta de la red ya entró antes → abre su sesión;
-   - si el correo (verificado) ya tiene una cuenta → la **vincula** y abre la sesión;
-   - si no existe → **crea la cuenta** con rol `usuario` (sin contraseña) y abre la sesión.
+Elegí una y seguí sus pasos:
 
-Si el proveedor no comparte un correo verificado, no se entra: se avisa en pantalla.
+<details>
+<summary><b>🔴 Google</b></summary>
 
-**Redes sin configurar:** el cliente le pregunta a la API (`POST /api/auth/oauth/proveedores`) qué redes tienen sus claves cargadas. Las que no, se ven apagadas (borde punteado) y, al tocarlas, abren un aviso «Próximamente» en vez de intentar ingresar. Apenas cargás las claves en `api/.env` y reiniciás la API, el botón se activa solo. La respuesta solo dice `enabled: true/false`, nunca las claves.
-
-## Configurar cada proveedor
-
-En todos los casos la **URL de retorno** es la del cliente. Las claves van en `api/.env`; después reiniciá la API (el `.env` no se recarga solo).
-
-### Google
-
-1. [console.cloud.google.com](https://console.cloud.google.com) → creá un proyecto → **APIs y servicios** → **Pantalla de consentimiento de OAuth** (tipo *Externo*). Mientras esté en modo *Prueba*, agregá tu Gmail en **Usuarios de prueba**.
-2. **Credenciales** → **Crear credenciales** → **ID de cliente de OAuth** → tipo **Aplicación web**.
+1. [console.cloud.google.com](https://console.cloud.google.com) → creá un proyecto → **APIs y servicios** → **Pantalla de consentimiento de OAuth** (tipo *Externo*). En modo *Prueba*, agregá tu Gmail en **Usuarios de prueba**.
+2. **Credenciales** → **Crear credenciales** → **ID de cliente de OAuth** → **Aplicación web**.
 3. **Orígenes autorizados de JavaScript:** `http://localhost:5175`
 4. **URI de redireccionamiento autorizados:** `http://localhost:5175/auth/google/callback`
-5. Copiá el ID y el secreto:
+5. Copiá el ID y el secreto al `.env`.
+</details>
 
-```env
-GOOGLE_CLIENT_ID=...apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=...
-```
+<details>
+<summary><b>🔵 Facebook (Meta)</b></summary>
 
-### GitHub
+Facebook Login es el inicio de sesión de Meta: **un solo botón** cubre «Facebook» y «Meta».
+
+1. [developers.facebook.com](https://developers.facebook.com) → **Mis apps** → **Crear app** → caso de uso **Autenticar y solicitar datos de usuarios con el inicio de sesión con Facebook**.
+2. **Configuración de la app → Básica:** copiá el **ID de la app** y la **Clave secreta**. En **Dominios de la app** poné `localhost`.
+3. **Casos de uso → Personalizar → Permisos:** agregá **`email`** (queda «Listo para las pruebas»). Sin esto Facebook responde *Invalid Scopes: email*.
+4. **Inicio de sesión con Facebook → Configuración → URI de redireccionamiento de OAuth válidos:** `http://localhost:5175/auth/facebook/callback`
+5. **Roles de la app:** con la app en modo **Desarrollo** solo entran cuentas con rol (administrador, desarrollador o probador).
+
+La cuenta de Facebook tiene que tener el **correo confirmado**; si solo tiene teléfono, Facebook no lo devuelve y no se puede entrar.
+</details>
+
+<details>
+<summary><b>⚫ X (Twitter)</b></summary>
+
+1. [developer.x.com](https://developer.x.com) → **Developer Portal** → creá un proyecto y una app.
+2. **User authentication settings → Set up:**
+   - **App permissions:** *Read*
+   - **Type of App:** *Web App, Automated App or Bot* (cliente confidencial)
+   - **Callback URI:** `http://localhost:5175/auth/x/callback`
+   - **Website URL:** `https://example.com` (X rechaza `localhost` acá con «Not a valid URL format»; el campo es solo informativo)
+   - Si aparece **Request email from users**, activalo.
+3. **Keys and tokens → OAuth 2.0 Client ID and Client Secret:** generá y copiá los dos.
+
+X usa PKCE (la API lo hace sola). Si la app no tiene el correo habilitado, el ingreso se rechaza.
+</details>
+
+<details>
+<summary><b>⚪ GitHub</b></summary>
 
 1. [github.com/settings/developers](https://github.com/settings/developers) → **OAuth Apps** → **New OAuth App**.
 2. **Homepage URL:** `http://localhost:5175`
 3. **Authorization callback URL:** `http://localhost:5175/auth/github/callback`
-4. Creá la app y generá un **Client secret**:
+4. Creá la app y generá un **Client secret**.
 
-```env
-GITHUB_CLIENT_ID=...
-GITHUB_CLIENT_SECRET=...
-```
+Si tu correo de GitHub es privado no hay problema: la API usa el correo verificado.
+</details>
 
-Si tu correo de GitHub es privado no hay problema: la API pide el permiso `user:email` y usa el correo verificado.
+<details>
+<summary><b>🟣 Discord</b></summary>
 
-### Discord
+1. [discord.com/developers/applications](https://discord.com/developers/applications) → **New Application** → nombre `Sistema usuarios R5` → **Create**.
+2. Menú **OAuth2:** copiá el **Client ID**, tocá **Reset Secret** y copiá el **Client Secret** (se muestra una sola vez).
+3. En **Redirects → Add Redirect** poné `http://localhost:5175/auth/discord/callback` → **Save Changes**.
 
-1. Entrá a [discord.com/developers/applications](https://discord.com/developers/applications) con tu cuenta de Discord.
-2. **New Application** → nombre `Sistema usuarios R5` → aceptá los términos → **Create**.
-3. Menú **OAuth2**:
-   - Copiá el **Client ID**.
-   - **Reset Secret** → confirmá → copiá el **Client Secret** (se muestra una sola vez).
-   - En **Redirects** → **Add Redirect** → `http://localhost:5175/auth/discord/callback` → **Save Changes**.
-4. Cargá las claves en `api/.env`:
+Entra cualquier cuenta de Discord con el correo **verificado**.
+</details>
 
-```env
-DISCORD_CLIENT_ID=...
-DISCORD_CLIENT_SECRET=...
-```
+<details>
+<summary><b>🟪 Twitch</b></summary>
 
-No hace falta revisión ni agregar usuarios de prueba: entra cualquier cuenta de Discord. Debe tener el correo **verificado** (Discord → Ajustes de usuario → Mi cuenta).
-
-### Facebook (Meta)
-
-Facebook Login es el inicio de sesión de Meta: un solo botón cubre "Facebook" y "Meta".
-
-1. [developers.facebook.com](https://developers.facebook.com) → **Mis apps** → **Crear app** → caso de uso **Autenticar y solicitar datos de usuarios con el inicio de sesión con Facebook** (incluye el permiso `email`).
-2. **Configuración de la app** → **Básica**: copiá el **ID de la app** y la **Clave secreta**.
-3. **Configuración de la app** → **Básica** → **Dominios de la app:** `localhost`.
-4. **Inicio de sesión con Facebook** → **Configuración** → **URI de redireccionamiento de OAuth válidos:** `https://localhost:5176/auth/facebook/callback` (**https**, no http: las apps de Meta exigen HTTPS y rechazan `http://localhost`).
-5. Mientras la app esté en modo **Desarrollo**, solo entran cuentas con un rol en la app (**Roles de la app**: administrador, desarrollador o probador).
-
-```env
-FACEBOOK_APP_ID=...
-FACEBOOK_APP_SECRET=...
-FACEBOOK_REDIRECT_BASE=https://localhost:5176
-```
-
-**Cómo probar Facebook en tu compu (HTTPS local):**
-
-1. Con la API corriendo, en otra terminal: `npm run dev:https` (levanta el cliente con HTTPS en el puerto 5176; el normal, en el 5175, sigue funcionando para las demás redes).
-2. Abrí **https://localhost:5176/ingresar**. El navegador avisa que el certificado no es de confianza (es uno local autofirmado): **Avanzado → Continuar a localhost**. Solo se acepta una vez.
-3. Tocá **Facebook**. Facebook vuelve a `https://localhost:5176/auth/facebook/callback` y entrás.
-
-Conviene empezar desde `https://localhost:5176`, así todo el recorrido (salir a Facebook y volver) queda en el mismo origen. Si más adelante publicás el sistema con un dominio real con HTTPS, cambiá `FACEBOOK_REDIRECT_BASE` (o quitala y usá `CLIENT_URL`) y registrá esa URL en Meta.
-
-La cuenta de Facebook debe tener el correo confirmado; si solo tiene teléfono, Facebook no devuelve correo y no se puede entrar. Usa la versión v25.0 de la Graph API.
-
-### X (Twitter)
-
-1. [developer.x.com](https://developer.x.com) → **Developer Portal** → creá un proyecto y una app.
-2. En la app: **User authentication settings** → **Set up**:
-   - **App permissions:** *Read*
-   - **Type of App:** *Web App, Automated App or Bot* (cliente confidencial)
-   - **Callback URI:** `http://localhost:5175/auth/x/callback`
-   - **Website URL:** `http://localhost:5175`
-   - Si aparece la opción **Request email from users**, activala (X pide también las URLs de Términos y Privacidad: podés poner `http://localhost:5175`).
-3. En **Keys and tokens** → **OAuth 2.0 Client ID and Client Secret**: generá y copiá los dos.
-
-```env
-X_CLIENT_ID=...
-X_CLIENT_SECRET=...
-```
-
-X usa PKCE (lo hace la API sola) y pide el permiso `users.email`. Si la app de X no tiene el correo habilitado, el ingreso se rechaza con "X no nos compartió un correo verificado".
-
-### Twitch
-
-1. [dev.twitch.tv/console/apps](https://dev.twitch.tv/console/apps) → **Register Your Application** (hace falta tener activada la verificación en dos pasos en tu cuenta de Twitch).
+1. [dev.twitch.tv/console/apps](https://dev.twitch.tv/console/apps) → **Register Your Application** (necesitás la verificación en dos pasos activada).
 2. **Name:** `Sistema usuarios R5`
 3. **OAuth Redirect URLs:** `http://localhost:5175/auth/twitch/callback`
 4. **Category:** *Website Integration* · **Client Type:** *Confidential* → **Create**.
-5. Entrá a **Manage** de la app: copiá el **Client ID** y tocá **New Secret** para el secreto.
-
-```env
-TWITCH_CLIENT_ID=...
-TWITCH_CLIENT_SECRET=...
-```
+5. En **Manage** copiá el **Client ID** y tocá **New Secret**.
 
 Twitch solo devuelve el correo si la cuenta lo tiene verificado.
+</details>
 
-## Base de datos (3FN)
+### 🌫️ Redes sin configurar
 
-- `roles` → `usuarios` (`rol_id`).
-- `identidades_oauth` guarda qué cuenta de qué red pertenece a cada usuario: `usuario_id` (FK, `ON DELETE CASCADE`), `proveedor` y `proveedor_uid`, con `UNIQUE(proveedor, proveedor_uid)` y `UNIQUE(usuario_id, proveedor)`.
-- `usuarios.password_hash` admite `NULL`: las cuentas creadas con una red no tienen contraseña (desde **Mi perfil** pueden definir una).
+Si una red no tiene claves en el `.env`, su botón se ve **apagado** (borde punteado) y al tocarlo abre el aviso **«Próximamente»**. Apenas cargás las claves y reiniciás la API, el botón se activa solo.
 
-## Reglas de validación
+---
 
-- **Nombre:** 2 a 80 caracteres, solo letras y espacios. Si la red trae números o símbolos en el nombre, se limpian.
-- **Correo:** formato válido, hasta 120 caracteres.
-- **Contraseña:** 8 a 72 caracteres, con mayúscula, minúscula, número y un carácter especial.
+## 🧭 Cómo funciona el ingreso
 
-## Protección de datos
+```text
+ 👤 Persona      🖥️ Cliente          ⚙️ API               🌐 Red (Google, etc.)
+    │  toca botón    │                   │                        │
+    │───────────────►│  POST oauth/url   │                        │
+    │                │──────────────────►│ crea "state"           │
+    │                │◄──────────────────│ devuelve la URL        │
+    │◄───────────────│  redirige ────────┼───────────────────────►│
+    │                                                             │ acepta permisos
+    │◄────────────────────  vuelve con ?code=...&state=...  ──────│
+    │───────────────►│  POST oauth/callback (code + state)        │
+    │                │──────────────────►│ canjea code ──────────►│
+    │                │                   │◄────── perfil ─────────│
+    │                │◄──────────────────│ abre la sesión         │
+    │◄───────────────│  entra al sistema │                        │
+```
 
-- Contraseñas con bcrypt; sesión en cookie `httpOnly` de 8 horas; consultas SQL parametrizadas; rol leído de la BBDD en cada pedido.
-- Ingreso con redes: `state` aleatorio de un solo uso (anti-CSRF), secretos solo en la API, vuelta con `code` canjeado en el servidor y límite de intentos fallidos.
-- `helmet`, CORS solo para el cliente y todos los endpoints `POST`.
+**Qué hace la API con el perfil que recibe:**
 
-## Endpoints
+| Situación | Resultado |
+|---|---|
+| Esa cuenta de la red ya entró antes | 🔓 abre su sesión |
+| El correo verificado ya tiene una cuenta | 🔗 **vincula** la red a esa cuenta y abre la sesión |
+| No existe | ✨ **crea la cuenta** (rol `usuario`, sin contraseña) y abre la sesión |
+| La red no da un correo verificado | ⛔ no entra: se avisa en pantalla |
+
+Detalle técnico completo, archivo por archivo: [arquitectura.md](arquitectura.md).
+
+### 🗄️ Base de datos (3FN)
+
+```text
+roles ──< usuarios ──< identidades_oauth
+                         (usuario_id, proveedor, proveedor_uid)
+```
+
+- `usuarios.password_hash` admite `NULL`: las cuentas creadas con una red no tienen contraseña (pueden definir una desde **Mi perfil**).
+- `identidades_oauth`: `UNIQUE(proveedor, proveedor_uid)` y `UNIQUE(usuario_id, proveedor)`; se borra en cascada con el usuario.
+
+### 🔗 Endpoints (todos `POST`)
 
 | Ruta | Quién |
 |---|---|
-| `/api/auth/registro`, `/login`, `/logout` | público |
-| `/api/auth/oauth/url`, `/oauth/callback` | público |
-| `/api/auth/sesion`, `/perfil` | usuario con sesión |
-| `/api/usuarios/listar`, `/crear`, `/actualizar`, `/eliminar` | solo administrador |
+| `/api/auth/registro` · `/login` · `/logout` | público |
+| `/api/auth/oauth/proveedores` · `/oauth/url` · `/oauth/callback` | público |
+| `/api/auth/sesion` · `/perfil` | usuario con sesión |
+| `/api/usuarios/listar` · `/crear` · `/actualizar` · `/eliminar` | solo administrador |
 
-## Si algo falla
+---
 
-- **Un botón se ve apagado / «Próximamente»**: esa red no tiene claves en `api/.env`, o cargaste las claves pero no reiniciaste la API.
-- **"El ingreso con X todavía no está configurado"**: (solo si llamás a la API directo) faltan `X_CLIENT_ID` / `X_CLIENT_SECRET` en `api/.env`, o no reiniciaste la API.
-- **Facebook dice "URL bloqueada" o "redirect_uri" inválida**: en Meta tiene que estar `https://localhost:5176/auth/facebook/callback` (con https y puerto 5176), `localhost` en Dominios de la app, y conviene empezar desde `https://localhost:5176` en vez del 5175.
-- **`redirect_uri_mismatch` (Google) / "Invalid OAuth2 redirect_uri" (Discord) / "redirect_mismatch" (Twitch) / "redirect_uri is not associated" (GitHub)**: la URL de retorno cargada en el proveedor no es exactamente `http://localhost:5175/auth/<proveedor>/callback`.
-- **"No pudimos validar tu cuenta de X"**: el detalle está en la consola de la API (línea `[oauth:x]`); casi siempre es el secreto mal copiado.
-- **"no nos compartió un correo verificado"**: la cuenta de la red no tiene correo confirmado o no se otorgó el permiso de correo.
-- **`Access denied for user`**: revisá `DB_USER` y `DB_PASSWORD`. **`ECONNREFUSED 3306`**: MySQL está apagado.
-- **Un límite conocido:** el registro con correo y contraseña no verifica el correo. Por eso, quien se registra a mano con un correo ajeno podría quedar vinculado a esa cuenta cuando su dueño entre con una red. En un sistema real se agrega verificación de correo.
+## 🔒 Seguridad y reglas
 
-## Estructura
+| Tema | Cómo se resuelve |
+|---|---|
+| Contraseñas | bcrypt |
+| Sesión | cookie `httpOnly` de 8 horas; el rol se lee de la BBDD en cada pedido |
+| SQL | consultas parametrizadas |
+| Redes | `state` aleatorio de un solo uso (anti-CSRF) · secretos solo en la API · el `code` se canjea en el servidor · límite de intentos fallidos |
+| Cabeceras | `helmet`, CORS solo para el cliente, todos los endpoints `POST` |
 
-Qué hay en cada carpeta: [directorio.md](directorio.md). Cómo se conecta cada parte (cliente, API, MySQL y los proveedores) y cómo está hecho el HTTPS de Facebook: [arquitectura.md](arquitectura.md).
+**Validaciones:**
+
+| Campo | Regla |
+|---|---|
+| Nombre | 2 a 80 caracteres, solo letras y espacios (si la red trae números o símbolos, se limpian) |
+| Correo | formato válido, hasta 120 caracteres |
+| Contraseña | 8 a 72 caracteres, con mayúscula, minúscula, número y un carácter especial |
+
+> ⚠️ **Límite conocido:** el registro con correo y contraseña no verifica el correo. Quien se registre a mano con un correo ajeno podría quedar vinculado a esa cuenta cuando su dueño entre con una red. En un sistema real se agrega verificación de correo.
+
+---
+
+## 🩺 Si algo falla
+
+### Al arrancar
+
+| Síntoma | Causa y arreglo |
+|---|---|
+| `ECONNREFUSED 127.0.0.1:3306` | MySQL apagado → prendelo en XAMPP |
+| `Access denied for user` | `DB_USER` o `DB_PASSWORD` mal en `api/.env` |
+| `Faltan variables obligatorias en .env` | falta `JWT_SECRET`, `DB_HOST`, `DB_USER` o `DB_NAME` |
+| `Port 5175 is already in use` | ya hay otro `npm run dev` corriendo → cerralo |
+| La pantalla carga pero los pedidos fallan | la API no está corriendo (o cambiaste `PORT` y falta actualizar `cliente-router/vite.config.js`) |
+| No puedo entrar como administrador | `npm run seed` de nuevo: sincroniza la contraseña con `ADMIN_PASSWORD` |
+
+### Al ingresar con una red
+
+| Síntoma | Causa y arreglo |
+|---|---|
+| Botón apagado / «Próximamente» | la red no tiene claves en `api/.env`, o las cargaste y no reiniciaste la API |
+| `redirect_uri_mismatch` · «Invalid OAuth2 redirect_uri» · «redirect_uri is not associated» | la URL de retorno cargada en la red no es **exactamente** `http://localhost:5175/auth/<red>/callback` |
+| Facebook: *Invalid Scopes: email* | falta agregar el permiso `email` en Casos de uso ([ver Facebook](#-configurar-cada-red)) |
+| Facebook: «URL bloqueada» o URI no válido | revisá que la URI esté en *URI de redireccionamiento de OAuth válidos* y `localhost` en *Dominios de la app* |
+| «No pudimos validar tu cuenta de X» | el detalle está en la consola de la API (línea `[oauth:x]`); casi siempre es el secreto mal copiado |
+| «no nos compartió un correo verificado» | la cuenta no tiene el correo confirmado o no se dio el permiso de correo |

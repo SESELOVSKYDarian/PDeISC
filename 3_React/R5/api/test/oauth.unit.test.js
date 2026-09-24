@@ -16,10 +16,8 @@ process.env.X_CLIENT_SECRET = "xsec";
 process.env.TWITCH_CLIENT_ID = "tid";
 process.env.TWITCH_CLIENT_SECRET = "tsec";
 process.env.JWT_SECRET = "secreto-de-prueba";
-// el .env real no debe cambiar el resultado: fijo la dirección del cliente y las bases de retorno
+// el .env real no debe cambiar el resultado: fijo la dirección del cliente
 process.env.CLIENT_URL = "http://localhost:5175";
-for (const name of ["GOOGLE", "GITHUB", "DISCORD", "X", "TWITCH"]) process.env[`${name}_REDIRECT_BASE`] = "";
-process.env.FACEBOOK_REDIRECT_BASE = "https://localhost:5176";
 process.env.DB_HOST = "127.0.0.1";
 process.env.DB_USER = "root";
 process.env.DB_NAME = "r5";
@@ -45,9 +43,7 @@ test("cada proveedor arma su URL con state y la URL de retorno del cliente", () 
     const url = new URL(getProvider(name).buildUrl("estado123", redirectUri(name), "desafio"));
     assert.equal(url.host, host);
     assert.equal(url.searchParams.get("state"), "estado123");
-    // Facebook exige https: vuelve al servidor https local; las demás, al cliente normal
-    const base = name === "facebook" ? "https://localhost:5176" : "http://localhost:5175";
-    assert.equal(url.searchParams.get("redirect_uri"), `${base}/auth/${name}/callback`);
+    assert.equal(url.searchParams.get("redirect_uri"), `http://localhost:5175/auth/${name}/callback`);
   }
 });
 

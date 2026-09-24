@@ -4,7 +4,6 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm --prefix api run dev\" \"npm --prefix cliente-router run dev\"",
-    "dev:https": "npm --prefix cliente-router run dev:https",
     "build": "npm --prefix cliente-router run build",
     "seed": "npm --prefix api run seed",
     "test": "npm --prefix api test"
