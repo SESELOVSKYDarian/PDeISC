@@ -17,12 +17,12 @@
   background:
     radial-gradient(
       circle at 18% 14%,
-      rgb(255 255 255/0.74) 0 1.1rem,
+      rgb(255 255 255 / 0.42) 0 1.1rem,
       transparent 1.2rem
     ),
     radial-gradient(
       circle at 13% -12%,
-      rgb(255 255 255/0.47) 0 37%,
+      rgb(255 255 255 / 0.25) 0 37%,
       transparent 37.2%
     ),
     radial-gradient(
@@ -30,7 +30,7 @@
       rgb(92 160 226/0.25) 0 27%,
       transparent 27.2%
     ),
-    linear-gradient(145deg, #cceeff 0%, #ecfff9 58%, #d8fae7 100%);
+      linear-gradient(145deg, #bfd4e2 0%, #e0ebe8 58%, #cfe5d8 100%);
 }
 .auth-main .auth-art img {
   width: min(94%, 770px);

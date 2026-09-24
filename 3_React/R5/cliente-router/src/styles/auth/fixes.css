@@ -2,7 +2,7 @@
   width: 216px !important;
   height: 72px !important;
   padding: 0.3rem !important;
-  background: #fff !important;
+  background: var(--surface-raised) !important;
 }
 .brand-frame img {
   width: 100% !important;

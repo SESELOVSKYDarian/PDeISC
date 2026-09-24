@@ -4,38 +4,8 @@
 /* ---------- colores ---------- */
 :root {
   font-family: Manrope, system-ui, sans-serif;
-  color: #17233d;
-  background: #eef2f8;
-  --canvas: #eef2f8;
-  --surface: #fff;
-  --surface-soft: #f6f8fc;
-  --ink: #17233d;
-  --muted: #65708a;
-  --line: #dce2ed;
-  --accent: #315edb;
-  --accent-ink: #fff;
-  --accent-soft: #e8eeff;
-  --danger: #c83954;
-  --danger-soft: #fff0f3;
-  --focus: #f49b59;
-  --shadow: 0 18px 45px rgb(31 47 81/0.1);
-}
-
-/* modo oscuro (paleta DePaso) */
-:root[data-theme="dark"] {
-  --canvas: #0d1117;
-  --surface: #111821;
-  --surface-soft: #18202b;
-  --ink: #f7f9fc;
-  --muted: #aab4c3;
-  --line: #2a3544;
-  --accent: #8ba7ff;
-  --accent-ink: #101827;
-  --accent-soft: #26375f;
-  --danger: #ff9aae;
-  --danger-soft: #482334;
-  --focus: #ffbd82;
-  --shadow: 0 18px 45px rgb(0 0 0/0.27);
+  color: var(--ink);
+  background: var(--canvas);
 }
 
 /* ---------- reset ---------- */
