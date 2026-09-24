@@ -42,30 +42,21 @@ export function TareasProvider({ children }) {
     setTareas((prev) => prev.filter((tarea) => tarea.id !== id));
   }
 
-  // cambia entre completa e incompleta sin tocar el resto de los datos
-  function cambiarEstado(id) {
+  // cambia el estado de una tarea individual y lo conserva en localStorage
+  function cambiarEstadoTarea(id, completada) {
     setTareas((prev) =>
       prev.map((tarea) =>
-        tarea.id === id ? { ...tarea, completada: !tarea.completada } : tarea
+        tarea.id === id ? { ...tarea, completada } : tarea
       )
     );
   }
 
-  // marca como completadas las tareas seleccionadas sin cambiar las demas
-  function marcarComoCompletadas(ids) {
-    const idsSeleccionados = new Set(ids);
-    setTareas((prev) =>
-      prev.map((tarea) =>
-        idsSeleccionados.has(tarea.id)
-          ? { ...tarea, completada: true }
-          : tarea
-      )
-    );
-  }
-
-  // completa todas las tareas pendientes de una sola vez
-  function marcarTodasComoCompletadas() {
-    setTareas((prev) => prev.map((tarea) => ({ ...tarea, completada: true })));
+  // completa todas o vuelve incompletas todas las tareas, según el estado actual
+  function alternarEstadoTodas() {
+    setTareas((prev) => {
+      const todasCompletadas = prev.length > 0 && prev.every((tarea) => tarea.completada);
+      return prev.map((tarea) => ({ ...tarea, completada: !todasCompletadas }));
+    });
   }
 
   // busca una tarea puntual por id, la usa la pagina de detalle
@@ -78,9 +69,8 @@ export function TareasProvider({ children }) {
     agregarTarea,
     editarTarea,
     eliminarTarea,
-    cambiarEstado,
-    marcarComoCompletadas,
-    marcarTodasComoCompletadas,
+    cambiarEstadoTarea,
+    alternarEstadoTodas,
     buscarTarea,
   };
 

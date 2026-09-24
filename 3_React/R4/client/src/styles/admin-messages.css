@@ -13,6 +13,32 @@
   gap: 12px;
 }
 
+.message-toolbar,
+.message-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.message-toolbar {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.message-toolbar svg {
+  width: 16px;
+}
+
+.message-pagination {
+  justify-content: center;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: .88rem;
+}
+
 .message-list article {
   display: grid;
   grid-template-columns: auto 1fr auto;

@@ -1,8 +1,31 @@
 import { Router } from 'express'
+import { ipKeyGenerator, rateLimit } from 'express-rate-limit'
 import { query } from '../services/db.js'
 import { validateContact } from '../utils/validators.js'
 
 const router = Router()
+
+// Evita ráfagas desde un mismo navegador/red aunque cambien el correo ingresado.
+const contactIpLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  limit: 8,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Se alcanzó el límite de envíos. Intentá nuevamente más tarde.' }
+})
+
+// Un mismo correo no puede enviar más de un mensaje por minuto.
+const contactEmailLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  limit: 1,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => {
+    const email = String(req.body?.email || '').trim().toLowerCase()
+    return email || ipKeyGenerator(req.ip)
+  },
+  message: { message: 'Ese correo ya envió un mensaje recientemente. Esperá un minuto.' }
+})
 
 router.post('/portfolio/obtener', async (req, res, next) => {
   try {
@@ -44,7 +67,7 @@ router.post('/portfolio/obtener', async (req, res, next) => {
   }
 })
 
-router.post('/contacto/crear', async (req, res, next) => {
+router.post('/contacto/crear', contactIpLimiter, contactEmailLimiter, async (req, res, next) => {
   try {
     const { data, errors } = validateContact(req.body)
     if (Object.keys(errors).length) return res.status(422).json({ message: 'Revisá los campos.', errors })

@@ -1,16 +1,14 @@
 import { Link } from "react-router-dom";
 import { CalendarDays, Check, Circle } from "lucide-react";
-import EstadoTarea from "./EstadoTarea";
 import { useTareas } from "../context/TareasContext";
 
 // tarjeta que se ve en la lista de inicio, resume una tarea
-function TareaCard({ tarea, seleccionada, onAlternarSeleccion }) {
-  const { cambiarEstado } = useTareas();
+function TareaCard({ tarea }) {
+  const { cambiarEstadoTarea } = useTareas();
 
-  function marcarTarea(evento) {
-    evento.preventDefault();
+  function alternarEstado(evento) {
     evento.stopPropagation();
-    cambiarEstado(tarea.id);
+    cambiarEstadoTarea(tarea.id, !tarea.completada);
   }
 
   return (
@@ -18,36 +16,25 @@ function TareaCard({ tarea, seleccionada, onAlternarSeleccion }) {
       to={`/tareas/${tarea.id}`}
       className={`tarjeta-tarea ${tarea.completada ? "completada" : "pendiente"}`}
     >
-      <button
-        type="button"
-        className={`boton-completar ${tarea.completada ? "activo" : ""}`}
-        onClick={marcarTarea}
-        aria-label={tarea.completada ? "Marcar tarea como incompleta" : "Marcar tarea como completa"}
-        title={tarea.completada ? "Marcar como incompleta" : "Marcar como completa"}
-      >
-        {tarea.completada ? <Check size={17} /> : <Circle size={17} />}
-      </button>
-      {!tarea.completada && (
-        <input
-          type="checkbox"
-          className="selector-tarea"
-          checked={seleccionada}
-          onChange={() => onAlternarSeleccion(tarea.id)}
-          onClick={(evento) => evento.stopPropagation()}
-          aria-label={`Seleccionar tarea ${tarea.titulo}`}
-          title="Seleccionar para marcar como completada"
-        />
-      )}
       <div className="cuerpo-tarjeta">
         <h3>{tarea.titulo}</h3>
         {/* muestro la descripcion resumida, pero el texto original no cambia */}
         <p className="descripcion-corta">{tarea.descripcion}</p>
         <div className="meta-tarjeta">
-          <EstadoTarea completada={tarea.completada} />
           <span className="d-flex align-items-center gap-1">
             <CalendarDays size={14} />
             {tarea.fechaCreacion}
           </span>
+          <button
+            type="button"
+            className={`boton-estado ${tarea.completada ? "completada" : "pendiente"}`}
+            onClick={alternarEstado}
+            aria-pressed={tarea.completada}
+            aria-label={`${tarea.completada ? "Volver incompleta" : "Marcar como completa"}: ${tarea.titulo}`}
+          >
+            {tarea.completada ? <Check size={14} /> : <Circle size={14} />}
+            {tarea.completada ? "Completa" : "Incompleta"}
+          </button>
         </div>
       </div>
     </Link>

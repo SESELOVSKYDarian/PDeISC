@@ -5,6 +5,27 @@ import { api } from '../../services/api.js'
 import { validateContact } from '../../utils/validation.js'
 
 const initialValues = { nombre: '', email: '', asunto: '', mensaje: '' }
+const SEND_HISTORY_KEY = 'portfolio_contact_send_history'
+const EMAIL_COOLDOWN = 60 * 1000
+const BROWSER_WINDOW = 10 * 60 * 1000
+const BROWSER_LIMIT = 8
+
+function checkBrowserSendLimit(email) {
+  const now = Date.now()
+  let history = []
+  try { history = JSON.parse(localStorage.getItem(SEND_HISTORY_KEY) || '[]') } catch { history = [] }
+  history = Array.isArray(history) ? history.filter((entry) => now - entry.at < BROWSER_WINDOW) : []
+  const lastFromEmail = history.find((entry) => entry.email === email)
+  if (lastFromEmail && now - lastFromEmail.at < EMAIL_COOLDOWN) {
+    return 'Ese correo ya envió un mensaje recientemente. Esperá un minuto.'
+  }
+  if (history.length >= BROWSER_LIMIT) {
+    return 'Se alcanzó el límite de envíos de este navegador. Intentá nuevamente más tarde.'
+  }
+  history.unshift({ email, at: now })
+  try { localStorage.setItem(SEND_HISTORY_KEY, JSON.stringify(history.slice(0, BROWSER_LIMIT))) } catch { /* el servidor mantiene el límite */ }
+  return ''
+}
 
 export function ContactSection({ profile }) {
   const [values, setValues] = useState(initialValues)
@@ -22,6 +43,11 @@ export function ContactSection({ profile }) {
     const nextErrors = validateContact(values)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) return
+    const sendLimitError = checkBrowserSendLimit(values.email.trim().toLowerCase())
+    if (sendLimitError) {
+      toast.error(sendLimitError)
+      return
+    }
     setSending(true)
     try {
       const response = await api.contact(values)

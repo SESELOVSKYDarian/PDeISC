@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { CalendarDays, ArrowLeft, Pencil, Trash2, RotateCcw, Check } from "lucide-react";
+import { CalendarDays, ArrowLeft, Check, Circle, Pencil, Trash2 } from "lucide-react";
 import { useTareas } from "../context/TareasContext";
-import EstadoTarea from "../components/EstadoTarea";
 import FormularioTarea from "../components/FormularioTarea";
 import ModalEliminar from "../components/ModalEliminar";
 
@@ -10,7 +9,7 @@ import ModalEliminar from "../components/ModalEliminar";
 function DetalleTarea() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { buscarTarea, editarTarea, eliminarTarea, cambiarEstado } =
+  const { buscarTarea, editarTarea, eliminarTarea, cambiarEstadoTarea } =
     useTareas();
 
   const [modoEdicion, setModoEdicion] = useState(false);
@@ -75,7 +74,16 @@ function DetalleTarea() {
       <div className="tarjeta-detalle">
         <div className="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
           <h1 className="mb-0">{tarea.titulo}</h1>
-          <EstadoTarea completada={tarea.completada} />
+          <button
+            type="button"
+            className={`boton-estado ${tarea.completada ? "completada" : "pendiente"}`}
+            onClick={() => cambiarEstadoTarea(tarea.id, !tarea.completada)}
+            aria-pressed={tarea.completada}
+            aria-label={tarea.completada ? "Volver incompleta" : "Marcar como completa"}
+          >
+            {tarea.completada ? <Check size={14} /> : <Circle size={14} />}
+            {tarea.completada ? "Completa" : "Incompleta"}
+          </button>
         </div>
 
         <p className="d-flex align-items-center gap-2 text-secondary mb-3">
@@ -86,15 +94,6 @@ function DetalleTarea() {
         <p className="descripcion-completa">{tarea.descripcion}</p>
 
         <div className="acciones-detalle">
-          {/* el texto del boton cambia segun el estado, no muestro una accion que ya no tiene sentido */}
-          <button
-            className="btn btn-outline-acento d-flex align-items-center gap-2"
-            onClick={() => cambiarEstado(tarea.id)}
-          >
-            {tarea.completada ? <RotateCcw size={16} /> : <Check size={16} />}
-            {tarea.completada ? "Marcar incompleta" : "Marcar completa"}
-          </button>
-
           <button
             className="btn btn-outline-acento d-flex align-items-center gap-2"
             onClick={() => setModoEdicion(true)}
@@ -111,11 +110,6 @@ function DetalleTarea() {
               <Trash2 size={16} />
               Eliminar
             </button>
-          )}
-          {!tarea.completada && (
-            <p className="mensaje-error mb-0" role="alert">
-              No podés eliminar una tarea hasta completarla.
-            </p>
           )}
         </div>
       </div>

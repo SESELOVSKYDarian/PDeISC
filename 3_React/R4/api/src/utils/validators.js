@@ -1,5 +1,6 @@
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const urlPattern = /^(https?:\/\/|\/)[^\s]+$/i
+const unsafeMarkupPattern = /<|>|javascript\s*:|on\w+\s*=/i
 
 export const cleanText = (value, max = 500) => String(value ?? '').trim().slice(0, max)
 export const isEmail = (value) => emailPattern.test(cleanText(value, 160))
@@ -22,6 +23,11 @@ export const validateContact = (body = {}) => {
     mensaje: cleanText(body.mensaje, 2000)
   }
   const errors = {}
+  for (const field of ['nombre', 'email', 'asunto', 'mensaje']) {
+    if (unsafeMarkupPattern.test(String(body[field] ?? ''))) {
+      errors[field] = 'No se permiten etiquetas ni código en este campo.'
+    }
+  }
   if (data.nombre.length < 2) errors.nombre = 'Ingresá un nombre de al menos 2 caracteres.'
   if (!isEmail(data.email)) errors.email = 'Ingresá un correo válido.'
   if (data.asunto.length < 3) errors.asunto = 'El asunto debe tener al menos 3 caracteres.'

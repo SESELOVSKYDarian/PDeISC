@@ -23,12 +23,14 @@ export const api = {
   login: (data) => request('/api/auth/login', data),
   session: () => request('/api/auth/sesion'),
   logout: () => request('/api/auth/logout'),
-  list: (resource) => request(`/api/admin/${resource}/listar`),
+  list: (resource, data = {}) => request(`/api/admin/${resource}/listar`, data),
   create: (resource, data) => request(`/api/admin/${resource}/crear`, data),
   update: (resource, data) => request(`/api/admin/${resource}/actualizar`, data),
   remove: (resource, id) => request(`/api/admin/${resource}/eliminar`, { id }),
   updateProfile: (data) => request('/api/admin/perfil/actualizar', data),
   upload: async (tipo, file) => request('/api/admin/archivos/subir', { tipo, nombre: file.name, contenido: await fileToBase64(file) }),
   reorder: (resource, ids) => request(`/api/admin/${resource}/ordenar`, { ids }),
-  markMessage: (id, leido) => request('/api/admin/mensajes/marcar-leido', { id, leido })
+  markMessage: (id, leido) => request('/api/admin/mensajes/marcar-leido', { id, leido }),
+  markAllMessages: () => request('/api/admin/mensajes/marcar-todos-leidos'),
+  removeAllMessages: () => request('/api/admin/mensajes/eliminar-todos')
 }
