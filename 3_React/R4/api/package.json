@@ -4,11 +4,14 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
-    "db:init": "node database/init.js",
-    "seed": "node database/seed.js",
-    "test": "node --test"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/src/server.js",
+    "db:init": "tsx database/init.ts",
+    "seed": "tsx database/seed.ts",
+    "db:init:prod": "node dist/database/init.js",
+    "seed:prod": "node dist/database/seed.js",
+    "test": "tsx --test test/*.test.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -20,5 +23,15 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.15.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }

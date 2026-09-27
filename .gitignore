@@ -20,3 +20,16 @@ Thumbs.db
 Claude.md
 explicacion.md
 .codex-tmp
+
+# skills / agentes / ia
+.skills/
+skills/
+.agents/
+.agent/
+.ai/
+.codex/
+.claude/
+.cursor/
+.windsurf/
+AGENTS.md
+CLAUDE.md

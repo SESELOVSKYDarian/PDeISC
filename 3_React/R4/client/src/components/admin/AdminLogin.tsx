@@ -1,0 +1,55 @@
+import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { ArrowLeft, Eye, EyeOff, LockKeyhole } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { api } from '../../services/api'
+import type { ApiError } from '../../services/api'
+import type { AdminSession } from '../../types/admin'
+
+export function AdminLogin({ onLogin }: { onLogin: (admin: AdminSession) => void }) {
+  const [values, setValues] = useState({ email: '', password: '' })
+  const [visible, setVisible] = useState(false)
+  const [status, setStatus] = useState({ loading: false, error: '' })
+
+  const change = (event: ChangeEvent<HTMLInputElement>) => setValues({ ...values, [event.target.name]: event.target.value })
+
+  const submit = async (event: FormEvent) => {
+    event.preventDefault()
+    setStatus({ loading: true, error: '' })
+    try {
+      const response = await api.login(values) as { admin: AdminSession }
+      onLogin(response.admin)
+    } catch (error) {
+      setStatus({ loading: false, error: (error as ApiError).message })
+    }
+  }
+
+  return (
+    <main className="admin-login-page">
+      <Link className="back-link" to="/"><ArrowLeft size={17} /> Volver al portfolio</Link>
+      <form className="login-card" onSubmit={submit}>
+        <div className="login-icon"><LockKeyhole /></div>
+        <p className="eyebrow">Área privada</p>
+        <h1>Panel administrador</h1>
+        <p>Editá el portfolio y revisá los mensajes recibidos.</p>
+
+        <label className="field">
+          <span>Correo</span>
+          <input type="email" name="email" value={values.email} onChange={change} autoComplete="username" required />
+        </label>
+
+        <label className="field">
+          <span>Contraseña</span>
+          <div className="password-input">
+            <input type={visible ? 'text' : 'password'} name="password" value={values.password} onChange={change} autoComplete="current-password" minLength={8} required />
+            <button type="button" onClick={() => setVisible((value) => !value)} aria-label={visible ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
+              {visible ? <EyeOff /> : <Eye />}
+            </button>
+          </div>
+        </label>
+
+        {status.error ? <p className="form-status error" role="alert">{status.error}</p> : null}
+        <button className="button button-primary login-submit" disabled={status.loading}>{status.loading ? 'Ingresando…' : 'Ingresar'}</button>
+      </form>
+    </main>
+  )
+}
