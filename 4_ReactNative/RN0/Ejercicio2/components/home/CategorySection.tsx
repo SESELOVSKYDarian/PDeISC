@@ -1,28 +1,23 @@
 import { StyleSheet } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { Text, View, useThemeColor } from '@/components/Themed';
-import { TextStyles } from '@/constants/Typography';
-import { CategoryAccents } from '@/constants/Colors';
-import ComponentListItem from './ComponentListItem';
+import { Fonts } from '@/constants/Fonts';
+import ComponentCard from './ComponentCard';
 import type { Category } from '@/constants/componentsCatalog';
 
 export default function CategorySection({ category }: { category: Category }) {
-  const surface = useThemeColor({}, 'surface');
   const muted = useThemeColor({}, 'textMuted');
-  const tint = useThemeColor({}, 'tint');
-  const accent = CategoryAccents[category.id] ?? tint;
 
   return (
     <View style={styles.section} lightColor="transparent" darkColor="transparent">
-      <Text style={[styles.title, { color: muted }]}>{category.title.toUpperCase()}</Text>
-      <View style={[styles.card, { backgroundColor: surface }]}>
-        {category.items.map((item, index) => (
-          <ComponentListItem
-            key={item.id}
-            item={item}
-            accent={accent}
-            isLast={index === category.items.length - 1}
-          />
+      <View style={styles.header} lightColor="transparent" darkColor="transparent">
+        <Ionicons name={category.icon} size={22} color={muted} />
+        <Text style={[styles.title, { color: muted }]}>{category.title.toUpperCase()}</Text>
+      </View>
+      <View style={styles.list} lightColor="transparent" darkColor="transparent">
+        {category.items.map((item) => (
+          <ComponentCard key={item.id} item={item} />
         ))}
       </View>
     </View>
@@ -31,15 +26,21 @@ export default function CategorySection({ category }: { category: Category }) {
 
 const styles = StyleSheet.create({
   section: {
-    marginBottom: 24,
+    marginBottom: 28,
+    paddingHorizontal: 20,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 14,
   },
   title: {
-    ...TextStyles.footnote,
-    marginBottom: 6,
-    paddingHorizontal: 16,
+    fontFamily: Fonts.medium,
+    fontSize: 15,
+    letterSpacing: 0.5,
   },
-  card: {
-    borderRadius: 10,
-    overflow: 'hidden',
+  list: {
+    gap: 12,
   },
 });

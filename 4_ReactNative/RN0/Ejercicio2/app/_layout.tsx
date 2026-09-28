@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   PlusJakartaSans_400Regular,
   PlusJakartaSans_400Regular_Italic,
@@ -15,7 +15,9 @@ import {
 } from '@expo-google-fonts/plus-jakarta-sans';
 
 import Colors from '@/constants/Colors';
+import ThemeToggleButton from '@/components/ThemeToggleButton';
 import { useColorScheme } from '@/components/useColorScheme';
+import { loadThemePreference } from '@/lib/themePreference';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -25,6 +27,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme === 'dark' ? 'dark' : 'light'];
 
+  const [themeReady, setThemeReady] = useState(false);
   const [loaded, error] = useFonts({
     PlusJakartaSans_400Regular,
     PlusJakartaSans_400Regular_Italic,
@@ -40,12 +43,16 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    loadThemePreference().then(() => setThemeReady(true));
+  }, []);
+
+  useEffect(() => {
+    if (loaded && themeReady) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, themeReady]);
 
-  if (!loaded) {
+  if (!loaded || !themeReady) {
     return null;
   }
 
@@ -62,7 +69,10 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: theme.background },
         }}>
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="componentes/[name]" options={{ title: '' }} />
+        <Stack.Screen
+          name="componentes/[name]"
+          options={{ title: '', headerRight: () => <ThemeToggleButton /> }}
+        />
       </Stack>
     </ThemeProvider>
   );

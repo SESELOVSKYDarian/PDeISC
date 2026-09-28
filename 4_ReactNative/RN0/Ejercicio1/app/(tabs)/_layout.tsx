@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
+import ThemeToggleButton from '@/components/ThemeToggleButton';
 import { StyleSettingsProvider } from '@/context/StyleSettings';
 
 type IconName = React.ComponentProps<typeof Ionicons>['name'];
@@ -34,6 +35,8 @@ export default function TabLayout() {
           tabBarLabelStyle: { fontFamily: 'PlusJakartaSans_600SemiBold', fontSize: 12 },
           headerStyle: { backgroundColor: theme.surface },
           headerTitleStyle: { color: theme.text, fontFamily: 'PlusJakartaSans_700Bold' },
+          headerRight: () => <ThemeToggleButton />,
+          headerRightContainerStyle: { paddingRight: 16 },
         }}>
         <Tabs.Screen
           name="index"

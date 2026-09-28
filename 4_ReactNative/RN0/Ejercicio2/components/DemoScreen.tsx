@@ -14,6 +14,7 @@ type Props = {
 
 export default function DemoScreen({ name, usage, fullHeight, children }: Props) {
   const surface = useThemeColor({}, 'surface');
+  const border = useThemeColor({}, 'border');
   const muted = useThemeColor({}, 'textMuted');
 
   const header = (
@@ -28,7 +29,7 @@ export default function DemoScreen({ name, usage, fullHeight, children }: Props)
     return (
       <View style={styles.fullHeightWrapper}>
         <View style={styles.headerPad}>{header}</View>
-        <View style={[styles.demoBox, styles.demoBoxFull, { backgroundColor: surface }]}>{children}</View>
+        <View style={[styles.demoBox, styles.demoBoxFull, { backgroundColor: surface, borderColor: border }]}>{children}</View>
       </View>
     );
   }
@@ -36,40 +37,41 @@ export default function DemoScreen({ name, usage, fullHeight, children }: Props)
   return (
     <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
       {header}
-      <View style={[styles.demoBox, { backgroundColor: surface }]}>{children}</View>
+      <View style={[styles.demoBox, { backgroundColor: surface, borderColor: border }]}>{children}</View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   content: {
-    padding: 16,
+    padding: 18,
     paddingBottom: 48,
   },
   fullHeightWrapper: {
     flex: 1,
-    padding: 16,
+    padding: 18,
   },
   headerPad: {
-    marginBottom: 4,
+    marginBottom: 8,
   },
   title: {
     ...TextStyles.title1,
   },
   usage: {
     ...TextStyles.subhead,
-    marginTop: 6,
-    marginBottom: 20,
+    marginTop: 8,
+    marginBottom: 28,
   },
   sectionLabel: {
     ...TextStyles.footnote,
-    marginBottom: 6,
+    marginBottom: 10,
     marginLeft: 4,
   },
   demoBox: {
-    borderRadius: 10,
-    padding: 16,
-    minHeight: 140,
+    borderRadius: 22,
+    borderWidth: 1,
+    padding: 22,
+    minHeight: 150,
     justifyContent: 'center',
   },
   demoBoxFull: {

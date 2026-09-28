@@ -1,36 +1,33 @@
-// Paleta "Apple": colores de sistema iOS (systemBlue, systemGray, grouped background).
-// Valores tomados de la Human Interface Guidelines (Color).
-const tintLight = '#0088FF'; // System Blue (light)
-const tintDark = '#0091FF'; // System Blue (dark)
-
+// Paleta "Showcase": navy oscuro + cian, con su versión clara.
 export default {
   light: {
-    text: '#000000', // label
-    textMuted: '#8E8E93', // systemGray / secondaryLabel aprox.
-    background: '#F2F2F7', // systemGroupedBackground
-    surface: '#FFFFFF', // secondarySystemGroupedBackground (tarjetas)
-    border: '#C6C6C8', // separator
-    tint: tintLight,
-    accent: tintLight,
-    tabIconDefault: '#8E8E93',
+    text: '#0B1220',
+    textMuted: '#5C6778',
+    background: '#F3F6FA',
+    surface: '#FFFFFF',
+    surfaceAlt: '#EAF0F7',
+    border: '#DDE5EF',
+    tint: '#0783A0',
+    accent: '#0783A0',
+    glow: '#19D3E0',
+    tabIconDefault: '#5C6778',
   },
   dark: {
-    text: '#FFFFFF',
-    textMuted: '#8E8E93',
-    background: '#000000', // systemGroupedBackground (dark)
-    surface: '#1C1C1E', // secondarySystemGroupedBackground (dark)
-    border: '#38383A',
-    tint: tintDark,
-    accent: tintDark,
-    tabIconDefault: '#8E8E93',
+    text: '#F5F7FA',
+    textMuted: '#8A94A6',
+    background: '#070B12',
+    surface: '#0E1420',
+    surfaceAlt: '#141C2B',
+    border: '#1D2738',
+    tint: '#0A93B0',
+    accent: '#0A93B0',
+    glow: '#19D3E0',
+    tabIconDefault: '#8A94A6',
   },
 };
 
-// Un color de acento por categoría, como los íconos de cuadrado redondeado de Ajustes.
-export const CategoryAccents: Record<string, string> = {
-  layout: '#00C3D0', // teal
-  media: '#6155F5', // indigo
-  inputs: tintLight, // blue
-  touchables: '#FF8D28', // orange
-  'lists-feedback': '#FF2D55', // pink
-};
+// Degradé del hero según el tema.
+export const HeroGradients = {
+  light: ['#D6F3F7', '#F3F6FA'],
+  dark: ['#0B2A33', '#070B12'],
+} as const;

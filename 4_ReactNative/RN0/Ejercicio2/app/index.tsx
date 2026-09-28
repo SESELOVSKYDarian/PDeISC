@@ -2,18 +2,22 @@ import { useRef, useState } from 'react';
 import { ScrollView, StyleSheet, type NativeSyntheticEvent, type NativeScrollEvent } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Text, View } from '@/components/Themed';
-import { TextStyles } from '@/constants/Typography';
+import { View } from '@/components/Themed';
+import CategoryChips from '@/components/home/CategoryChips';
 import CategorySection from '@/components/home/CategorySection';
+import Hero from '@/components/home/Hero';
 import ScrollTopButton from '@/components/home/ScrollTopButton';
-import { CATALOG } from '@/constants/componentsCatalog';
+import { filterCatalog } from '@/constants/componentsCatalog';
 
 const SCROLL_TOP_THRESHOLD = 300;
 
 export default function HomeScreen() {
   const scrollRef = useRef<ScrollView>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [categoryId, setCategoryId] = useState('all');
   const insets = useSafeAreaInsets();
+
+  const categories = filterCatalog(categoryId);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     setShowScrollTop(event.nativeEvent.contentOffset.y > SCROLL_TOP_THRESHOLD);
@@ -23,18 +27,18 @@ export default function HomeScreen() {
     <View style={styles.screen}>
       <ScrollView
         ref={scrollRef}
-        contentContainerStyle={[styles.content, { paddingTop: insets.top + 12, paddingBottom: 48 + insets.bottom }]}
+        contentContainerStyle={{ paddingBottom: 48 + insets.bottom }}
         onScroll={handleScroll}
         scrollEventThrottle={16}
+        keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
-        <Text style={styles.largeTitle}>Componentes nativos</Text>
-        <Text style={styles.intro}>
-          Tocá cualquier componente para ver una demo funcionando y para qué se usa en una app real.
-        </Text>
+        <Hero />
+        <CategoryChips selected={categoryId} onSelect={setCategoryId} />
 
-        {CATALOG.map((category) => (
+        {categories.map((category) => (
           <CategorySection key={category.id} category={category} />
         ))}
+
       </ScrollView>
 
       <ScrollTopButton
@@ -48,17 +52,5 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-  },
-  content: {
-    paddingHorizontal: 16,
-  },
-  largeTitle: {
-    ...TextStyles.largeTitle,
-    marginBottom: 4,
-  },
-  intro: {
-    ...TextStyles.subhead,
-    opacity: 0.7,
-    marginBottom: 20,
   },
 });

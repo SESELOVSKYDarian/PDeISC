@@ -6,6 +6,7 @@ import ScrollViewDemo from './ScrollViewDemo';
 import KeyboardAvoidingViewDemo from './KeyboardAvoidingViewDemo';
 import TextDemo from './TextDemo';
 import ImageDemo from './ImageDemo';
+import ImageBackgroundDemo from './ImageBackgroundDemo';
 import StatusBarDemo from './StatusBarDemo';
 import TextInputDemo from './TextInputDemo';
 import SwitchDemo from './SwitchDemo';
@@ -27,6 +28,7 @@ export const DEMO_REGISTRY: Record<string, ComponentType> = {
   keyboardavoidingview: KeyboardAvoidingViewDemo,
   text: TextDemo,
   image: ImageDemo,
+  imagebackground: ImageBackgroundDemo,
   statusbar: StatusBarDemo,
   textinput: TextInputDemo,
   switch: SwitchDemo,

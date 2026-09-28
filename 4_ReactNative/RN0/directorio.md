@@ -11,77 +11,60 @@ RN0/
 
 ## Ejercicio1 — Hola Mundo + tabs
 
-Expo Router (SDK 52) con 2 tabs.
+Expo Router (SDK 57), 2 tabs y botón claro/oscuro en el header (se guarda con AsyncStorage).
 
 ```text
 Ejercicio1/
 ├── app/
 │   ├── (tabs)/
-│   │   ├── _layout.tsx   navegador de tabs (íconos, colores activos)
-│   │   ├── index.tsx     tab "Inicio": hola mundo limpio y centrado
-│   │   └── two.tsx       tab "Estilos": mismo dato, otra paleta/layout (grilla de tarjetas)
-│   ├── _layout.tsx       stack raíz + tema claro/oscuro
+│   │   ├── _layout.tsx   tabs + provider de estilos + botón de tema
+│   │   ├── index.tsx     "Inicio": hola mundo, usa el estilo elegido
+│   │   └── two.tsx       "Estilos": 4 controles (color, tipografía, layout, forma) que cambian toda la app
+│   ├── _layout.tsx       stack raíz, fuentes, carga del tema guardado
 │   └── +not-found.tsx
-├── components/
-│   ├── Themed.tsx        Text/View que cambian de color según el tema
-│   └── useColorScheme.ts
-└── constants/Colors.ts   paleta semántica (texto, fondo, superficie, borde, tint, accent)
-```
-
-Correr:
-
-```bash
-cd Ejercicio1
-npm run start
+├── components/           Themed, ThemeToggleButton, useColorScheme
+├── context/StyleSettings.tsx   estado compartido de los estilos
+├── constants/            Colors, Fonts, styleOptions
+└── lib/themePreference.ts      guardar/leer tema claro-oscuro
 ```
 
 ## Ejercicio2 — Componentes nativos de React Native
 
-Expo Router (SDK 52). Pantalla principal con las categorías, cada componente abre su propia
-demo funcionando con una explicación de para qué se usa.
+Expo Router (SDK 57). Home con hero, búsqueda, chips de categoría y cards con miniatura;
+cada componente abre su demo funcionando. Botón claro/oscuro en el hero y en el detalle.
 
 ```text
 Ejercicio2/
 ├── app/
-│   ├── index.tsx                 home: categorías + lista + botón "subir arriba"
-│   ├── componentes/[name].tsx    ruta dinámica: busca el componente en el catálogo y
-│   │                             renderiza su demo (ver components/demos/registry.ts)
-│   └── _layout.tsx                stack + tema claro/oscuro
+│   ├── index.tsx                 home: hero + búsqueda + chips + secciones
+│   ├── componentes/[name].tsx    detalle: busca en el catálogo y renderiza la demo
+│   └── _layout.tsx               stack, fuentes, tema guardado
 ├── components/
-│   ├── DemoScreen.tsx            layout común de cada pantalla de demo
-│   ├── Themed.tsx / useColorScheme.ts
+│   ├── DemoScreen.tsx            layout común del detalle
+│   ├── ThemeToggleButton.tsx / Themed.tsx / useColorScheme.ts
 │   ├── home/
-│   │   ├── CategorySection.tsx   una categoría con su tarjeta de items
-│   │   ├── ComponentListItem.tsx fila individual (ícono + nombre + flecha)
-│   │   └── ScrollTopButton.tsx   botón flotante para volver arriba
-│   └── demos/
-│       ├── registry.ts           mapa id → componente de demo
-│       └── *.tsx                 una demo chica por componente nativo (19 en total)
-└── constants/
-    ├── Colors.ts
-    └── componentsCatalog.ts      datos: id, nombre, ícono, categoría, para qué se usa
+│   │   ├── Hero.tsx  SearchBar.tsx  CategoryChips.tsx
+│   │   ├── CategorySection.tsx  ComponentCard.tsx
+│   │   ├── ComponentThumbnail.tsx   miniaturas dibujadas con Views
+│   │   └── ScrollTopButton.tsx
+│   └── demos/                    una demo por componente (20) + registry.ts
+├── constants/                    Colors, Fonts, Typography, gradients, componentsCatalog (datos + filtro)
+└── lib/themePreference.ts
 ```
 
-Componentes cubiertos (19), agrupados por categoría en `componentsCatalog.ts`:
+Componentes cubiertos (20): View, SafeAreaView, ScrollView, KeyboardAvoidingView, Text, Image,
+ImageBackground, StatusBar, TextInput, Switch, Button, Pressable, TouchableOpacity,
+TouchableHighlight, TouchableWithoutFeedback, FlatList, SectionList, Modal, ActivityIndicator,
+RefreshControl.
 
-- **Estructura y layout**: View, SafeAreaView, ScrollView, KeyboardAvoidingView
-- **Texto y contenido**: Text, Image, StatusBar
-- **Entradas**: TextInput, Switch
-- **Táctiles y botones**: Button, Pressable, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback
-- **Listas y feedback**: FlatList, SectionList, Modal, ActivityIndicator, RefreshControl
+Agregar uno nuevo: entrada en `constants/componentsCatalog.ts`, demo en `components/demos/`,
+registro en `registry.ts` y (opcional) dibujo en `ComponentThumbnail.tsx`.
 
-Para agregar un componente nuevo: sumar su entrada en `constants/componentsCatalog.ts`,
-crear `components/demos/NombreDemo.tsx` y registrarlo en `components/demos/registry.ts`.
-
-Correr:
+## Correr
 
 ```bash
-cd Ejercicio2
-npm run start
+cd Ejercicio1   # o Ejercicio2
+npx expo start
 ```
 
-## Notas
-
-- Ambos proyectos usan TypeScript estricto, Expo Router y siguen el mismo patrón de
-  `Themed.tsx` + `constants/Colors.ts` para claro/oscuro automático (según el sistema).
-- `npx tsc --noEmit`, `npx expo lint` y `npx expo-doctor` pasan limpios en los dos.
+`tsc --noEmit`, `expo lint` y `expo-doctor` pasan limpios en los dos.

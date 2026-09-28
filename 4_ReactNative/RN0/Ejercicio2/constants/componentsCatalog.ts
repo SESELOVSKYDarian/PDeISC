@@ -1,11 +1,14 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import type { GradientKey } from './gradients';
+
 export type IconName = React.ComponentProps<typeof Ionicons>['name'];
 
 export type ComponentEntry = {
   id: string;
   name: string;
   icon: IconName;
+  color: GradientKey;
   usage: string;
   /** true cuando la demo necesita su propio alto fijo (listas, pull-to-refresh) en vez de ir dentro del scroll general */
   fullHeight?: boolean;
@@ -14,6 +17,7 @@ export type ComponentEntry = {
 export type Category = {
   id: string;
   title: string;
+  short: string;
   icon: IconName;
   items: ComponentEntry[];
 };
@@ -22,151 +26,182 @@ export const CATALOG: Category[] = [
   {
     id: 'layout',
     title: 'Estructura y layout',
-    icon: 'layers-outline',
+    short: 'Estructura',
+    icon: 'cube-outline',
     items: [
       {
         id: 'view',
         name: 'View',
         icon: 'cube-outline',
-        usage: 'Contenedor básico para agrupar y ordenar otros componentes, como un div en web.',
+        color: 'cyan',
+        usage: 'Contenedor básico para organizar elementos.',
       },
       {
         id: 'safeareaview',
         name: 'SafeAreaView',
         icon: 'phone-portrait-outline',
-        usage: 'Evita que el contenido quede debajo del notch, la cámara o la barra de estado.',
+        color: 'blue',
+        usage: 'Evita que el contenido se superponga con las áreas seguras.',
       },
       {
         id: 'scrollview',
         name: 'ScrollView',
         icon: 'swap-vertical-outline',
-        usage: 'Contenedor con scroll para contenido que no entra en la pantalla.',
+        color: 'green',
+        usage: 'Contenedor con desplazamiento vertical u horizontal.',
       },
       {
         id: 'keyboardavoidingview',
         name: 'KeyboardAvoidingView',
         icon: 'keypad-outline',
-        usage: 'Corre el contenido hacia arriba cuando aparece el teclado, para no tapar inputs.',
+        color: 'purple',
+        usage: 'Ajusta el contenido cuando se muestra el teclado.',
       },
     ],
   },
   {
     id: 'media',
     title: 'Texto y contenido',
-    icon: 'image-outline',
+    short: 'Texto',
+    icon: 'document-text-outline',
     items: [
       {
         id: 'text',
         name: 'Text',
         icon: 'text-outline',
-        usage: 'Muestra texto en pantalla. Todo texto en React Native debe ir dentro de un Text.',
+        color: 'indigo',
+        usage: 'Muestra texto con diferentes estilos.',
       },
       {
         id: 'image',
         name: 'Image',
         icon: 'image-outline',
-        usage: 'Muestra imágenes locales o remotas (URL).',
+        color: 'pink',
+        usage: 'Muestra imágenes desde archivos locales o remotos.',
+      },
+      {
+        id: 'imagebackground',
+        name: 'ImageBackground',
+        icon: 'layers-outline',
+        color: 'orange',
+        usage: 'Contenedor con una imagen de fondo.',
       },
       {
         id: 'statusbar',
         name: 'StatusBar',
         icon: 'time-outline',
-        usage: 'Controla el color e ícono de la barra de estado del sistema (hora, batería).',
+        color: 'blue',
+        usage: 'Controla el color e ícono de la barra de estado del sistema.',
       },
     ],
   },
   {
     id: 'inputs',
     title: 'Entradas',
+    short: 'Entrada',
     icon: 'create-outline',
     items: [
       {
         id: 'textinput',
         name: 'TextInput',
         icon: 'create-outline',
+        color: 'cyan',
         usage: 'Campo de texto editable para que el usuario escriba datos.',
       },
       {
         id: 'switch',
         name: 'Switch',
         icon: 'toggle-outline',
-        usage: 'Interruptor on/off para activar o desactivar una opción booleana.',
+        color: 'green',
+        usage: 'Interruptor on/off para activar o desactivar una opción.',
       },
     ],
   },
   {
     id: 'touchables',
     title: 'Táctiles y botones',
+    short: 'Táctiles',
     icon: 'finger-print-outline',
     items: [
       {
         id: 'button',
         name: 'Button',
         icon: 'apps-outline',
-        usage: 'Botón nativo simple con estilo del sistema operativo, poco personalizable.',
+        color: 'indigo',
+        usage: 'Botón nativo simple con el estilo del sistema operativo.',
       },
       {
         id: 'pressable',
         name: 'Pressable',
         icon: 'finger-print-outline',
-        usage: 'API táctil moderna y flexible; recomendada para crear botones a medida.',
+        color: 'purple',
+        usage: 'API táctil moderna y flexible para crear botones a medida.',
       },
       {
         id: 'touchableopacity',
         name: 'TouchableOpacity',
         icon: 'hand-left-outline',
-        usage: 'Envuelve contenido táctil que baja su opacidad al presionar, como feedback visual.',
+        color: 'orange',
+        usage: 'Baja su opacidad al presionar, como feedback visual.',
       },
       {
         id: 'touchablehighlight',
         name: 'TouchableHighlight',
         icon: 'hand-right-outline',
-        usage: 'Similar a TouchableOpacity pero resalta el fondo al presionar.',
+        color: 'pink',
+        usage: 'Resalta el fondo al presionar el contenido.',
       },
       {
         id: 'touchablewithoutfeedback',
         name: 'TouchableWithoutFeedback',
         icon: 'ban-outline',
-        usage: 'Detecta el toque sin aplicar ningún efecto visual automático.',
+        color: 'blue',
+        usage: 'Detecta el toque sin ningún efecto visual automático.',
       },
     ],
   },
   {
     id: 'lists-feedback',
     title: 'Listas y feedback',
+    short: 'Listas',
     icon: 'list-outline',
     items: [
       {
         id: 'flatlist',
         name: 'FlatList',
         icon: 'list-outline',
-        usage: 'Lista larga y performante: solo renderiza lo visible en pantalla.',
+        color: 'cyan',
+        usage: 'Lista larga y performante: solo renderiza lo visible.',
         fullHeight: true,
       },
       {
         id: 'sectionlist',
         name: 'SectionList',
-        icon: 'layers-outline',
-        usage: 'Como FlatList, pero agrupa los datos en secciones con encabezado.',
+        icon: 'albums-outline',
+        color: 'green',
+        usage: 'Como FlatList, pero agrupa los datos en secciones.',
         fullHeight: true,
       },
       {
         id: 'modal',
         name: 'Modal',
         icon: 'copy-outline',
-        usage: 'Muestra contenido flotante encima de toda la pantalla actual.',
+        color: 'purple',
+        usage: 'Muestra contenido flotante encima de toda la pantalla.',
       },
       {
         id: 'activityindicator',
         name: 'ActivityIndicator',
         icon: 'sync-outline',
-        usage: 'Indicador de carga (spinner) mientras se espera una operación.',
+        color: 'orange',
+        usage: 'Indicador de carga (spinner) mientras se espera algo.',
       },
       {
         id: 'refreshcontrol',
         name: 'RefreshControl',
         icon: 'refresh-outline',
-        usage: 'Agrega el gesto "pull to refresh" para recargar datos en listas.',
+        color: 'pink',
+        usage: 'Agrega el gesto "pull to refresh" para recargar datos.',
         fullHeight: true,
       },
     ],
@@ -179,4 +214,10 @@ export function findComponentEntry(id: string): ComponentEntry | undefined {
     if (found) return found;
   }
   return undefined;
+}
+
+// devuelve todas las categorías o solo la elegida en las etiquetas
+export function filterCatalog(categoryId: string): Category[] {
+  if (categoryId === 'all') return CATALOG;
+  return CATALOG.filter((category) => category.id === categoryId);
 }

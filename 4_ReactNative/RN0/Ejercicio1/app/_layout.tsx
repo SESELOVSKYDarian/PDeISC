@@ -3,7 +3,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router/react-naviga
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import {
   PlusJakartaSans_400Regular,
@@ -15,6 +15,7 @@ import {
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
+import { loadThemePreference } from '@/lib/themePreference';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -29,6 +30,7 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [themeReady, setThemeReady] = useState(false);
   const [loaded, error] = useFonts({
     PlusJakartaSans_400Regular,
     PlusJakartaSans_500Medium,
@@ -44,12 +46,16 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    loadThemePreference().then(() => setThemeReady(true));
+  }, []);
+
+  useEffect(() => {
+    if (loaded && themeReady) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, themeReady]);
 
-  if (!loaded) {
+  if (!loaded || !themeReady) {
     return null;
   }
 
