@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import express from 'express'
@@ -42,7 +43,9 @@ app.use('/api', adminRoutes)
 
 if (isProduction) {
   const here = path.dirname(fileURLToPath(import.meta.url))
-  const clientDist = path.resolve(here, '../../client/dist')
+  // compilado vive en dist/src (Docker: /app/api/dist/src) y con tsx en src: busco el build del cliente en ambos casos
+  const clientDist = ['../../../client/dist', '../../client/dist'].map((rel) => path.resolve(here, rel)).find((dir) => fs.existsSync(path.join(dir, 'index.html')))
+    ?? path.resolve(here, '../../../client/dist')
   app.use(express.static(clientDist, { maxAge: '1d', index: false }))
   app.get('*splat', (req, res) => res.sendFile(path.join(clientDist, 'index.html')))
 } else {
