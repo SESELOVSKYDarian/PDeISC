@@ -11,3 +11,10 @@ export const getMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) return error.response?.data?.message || "No se pudo completar la operación.";
   return "No se pudo completar la operación.";
 };
+
+// si el servidor dice que la cuenta se creó con una red, devuelve el id de esa red
+export const getOAuthProvider = (error: unknown): string | null => {
+  if (!axios.isAxiosError(error)) return null;
+  const provider = error.response?.data?.oauthProvider;
+  return typeof provider === "string" ? provider : null;
+};
