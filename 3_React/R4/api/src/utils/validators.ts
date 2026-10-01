@@ -42,6 +42,27 @@ export const validateContact = (body: Record<string, unknown> = {}): { data: Con
   return { data, errors }
 }
 
+export interface AccountChangeData {
+  currentPassword: string;
+  email: string;
+  newPassword: string;
+}
+
+// correo y contraseña nuevos son opcionales, pero hace falta al menos uno y siempre la contraseña actual
+export const validateAccountChange = (body: Record<string, unknown> = {}): { data: AccountChangeData; errors: Record<string, string> } => {
+  const data: AccountChangeData = {
+    currentPassword: String(body.currentPassword ?? ''),
+    email: cleanText(body.email, 160).toLowerCase(),
+    newPassword: String(body.newPassword ?? '')
+  }
+  const errors: Record<string, string> = {}
+  if (!data.currentPassword) errors.currentPassword = 'Ingresá tu contraseña actual.'
+  if (!data.email && !data.newPassword) errors.email = 'No hay ningún cambio para guardar.'
+  if (data.email && !isEmail(data.email)) errors.email = 'Ingresá un correo válido.'
+  if (data.newPassword && (data.newPassword.length < 8 || data.newPassword.length > 72)) errors.newPassword = 'La nueva contraseña debe tener entre 8 y 72 caracteres.'
+  return { data, errors }
+}
+
 export const validateLogin = (body: Record<string, unknown> = {}): { data: { email: string; password: string }; valid: boolean } => {
   const email = cleanText(body.email, 160).toLowerCase()
   const password = String(body.password ?? '')

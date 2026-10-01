@@ -1,4 +1,5 @@
 import { fileToBase64 } from '../utils/fileToBase64'
+import type { AdminSession } from '../types/admin'
 
 export class ApiError extends Error {
   status?: number;
@@ -27,6 +28,7 @@ export const api = {
   contact: (data: object) => request('/api/contacto/crear', data),
   login: (data: object) => request('/api/auth/login', data),
   session: () => request('/api/auth/sesion'),
+  updateAccount: (data: object) => request<{ message: string; admin: AdminSession }>('/api/auth/cuenta/actualizar', data),
   logout: () => request('/api/auth/logout'),
   list: (resource: string, data: object = {}) => request(`/api/admin/${resource}/listar`, data),
   create: (resource: string, data: object) => request(`/api/admin/${resource}/crear`, data),
