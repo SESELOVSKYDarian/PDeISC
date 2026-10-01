@@ -51,13 +51,15 @@ export default function EstilosScreen() {
   const border = useThemeColor({}, 'border');
   const { color, font, density, shape, cycleColor, cycleFont, cycleDensity, cycleShape } =
     useStyleSettings();
+  // Guardo el color en una variable para no usar ".value" dentro del style
+  const tint = color.value;
 
   return (
     <ScrollView
       style={styles.screen}
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}>
-      <Text style={[styles.eyebrow, { color: color.value }]}>PERSONALIZÁ EN VIVO</Text>
+      <Text style={[styles.eyebrow, { color: tint }]}>PERSONALIZÁ EN VIVO</Text>
       <Text style={styles.title}>Estilos</Text>
       <Text style={[styles.subtitle, { color: muted }]}>
         Tocá cada opción para cambiar cómo se ve toda la app, incluida la pestaña Inicio.
@@ -75,12 +77,12 @@ export default function EstilosScreen() {
           shape.shadow && styles.previewShadow,
         ]}>
         <View
-          style={[styles.previewBadge, { backgroundColor: color.value, borderRadius: shape.radius / 1.6 }]}
+          style={[styles.previewBadge, { backgroundColor: tint, borderRadius: shape.radius / 1.6 }]}
           lightColor="transparent"
           darkColor="transparent">
           <Ionicons name="color-wand-outline" size={32} color="#fff" />
         </View>
-        <Text style={[styles.previewText, { fontFamily: font.family, color: color.value }]}>Hola Mundo</Text>
+        <Text style={[styles.previewText, { fontFamily: font.family, color: tint }]}>Hola Mundo</Text>
       </View>
 
       <View style={styles.controls} lightColor="transparent" darkColor="transparent">

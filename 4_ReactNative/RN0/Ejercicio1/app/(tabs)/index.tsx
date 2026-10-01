@@ -9,18 +9,20 @@ import { useStyleSettings } from '@/context/StyleSettings';
 export default function InicioScreen() {
   const muted = useThemeColor({}, 'textMuted');
   const { color, font, density, shape } = useStyleSettings();
+  // Guardo el color en una variable para no usar ".value" dentro del style
+  const tint = color.value;
 
   return (
     <View style={[styles.container, { padding: density.padding }]}>
-      <Animated.View key={`badge-${color.value}-${shape.name}`} entering={ZoomIn.duration(400)}>
+      <Animated.View key={`badge-${tint}-${shape.name}`} entering={ZoomIn.duration(400)}>
         <LinearGradient
-          colors={[color.value, `${color.value}CC`]}
+          colors={[tint, `${tint}CC`]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={[
             styles.badge,
             { borderRadius: shape.radius },
-            shape.shadow && { shadowColor: color.value, ...styles.badgeShadow },
+            shape.shadow && { shadowColor: tint, ...styles.badgeShadow },
           ]}>
           <Ionicons name="rocket-outline" size={40} color="#fff" />
         </LinearGradient>
