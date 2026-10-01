@@ -48,7 +48,8 @@ export const resourceConfigs: Record<string, ResourceConfig> = {
 }
 
 export const profileFields: Field[] = [
-  field('nombre', 'Nombre'), field('rol', 'Rol profesional'), field('saludo', 'Saludo'), field('presentacion', 'Presentación', 'textarea'),
+  field('nombre', 'Nombre'), field('rol', 'Rol profesional'), field('saludo', 'Saludo (título principal)'), field('hero_cierre', 'Final del título principal'),
+  field('titulo_pestana', 'Título de la pestaña del navegador'), field('presentacion', 'Presentación', 'textarea'),
   field('descripcion', 'Descripción extensa', 'textarea'), field('ubicacion', 'Ubicación'), field('email', 'Correo', 'email'),
   field('disponibilidad', 'Disponibilidad'), field('retrato_url', 'Retrato', 'imagen'), field('cv_url', 'Currículum (PDF)', 'cv'),
   field('favicon_url', 'Ícono de la pestaña (favicon)', 'favicon')

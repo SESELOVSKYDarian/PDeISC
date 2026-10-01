@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS perfil (
   retrato_url VARCHAR(500) NOT NULL,
   cv_url VARCHAR(500) NULL,
   favicon_url VARCHAR(500) NULL,
+  hero_cierre VARCHAR(160) NOT NULL DEFAULT 'creando experiencias.',
+  titulo_pestana VARCHAR(120) NOT NULL DEFAULT 'Darian · Desarrollo Full Stack',
   actualizado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT perfil_unico CHECK (id = 1)
 ) ENGINE=InnoDB;

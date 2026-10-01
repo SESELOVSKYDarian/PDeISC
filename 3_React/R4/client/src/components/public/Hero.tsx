@@ -5,7 +5,7 @@ export function Hero({ profile }: { profile: Profile }) {
   return (
     <section id="inicio" className="hero section-anchor">
       <div className="hero-copy">
-        <h1>{profile.saludo} {profile.nombre}.<br /><span>{profile.rol}</span> creando experiencias.</h1>
+        <h1>{profile.saludo} {profile.nombre}.<br /><span>{profile.rol}</span> {profile.hero_cierre}</h1>
         <p className="hero-summary">{profile.presentacion}</p>
         <p className="location"><MapPin size={17} aria-hidden="true" /> {profile.ubicacion}</p>
         <div className="hero-actions">

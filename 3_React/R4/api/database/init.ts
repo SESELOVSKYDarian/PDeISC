@@ -54,6 +54,16 @@ try {
   const [faviconColumn]: any = await connection.execute(`SELECT COLUMN_NAME FROM information_schema.COLUMNS
     WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'perfil' AND COLUMN_NAME = 'favicon_url'`, [safeName])
   if (!faviconColumn.length) await connection.query('ALTER TABLE perfil ADD COLUMN favicon_url VARCHAR(500) NULL AFTER cv_url')
+  // bases viejas: agrego el cierre del título principal y el título de la pestaña
+  const newColumns: Array<[string, string]> = [
+    ['hero_cierre', "VARCHAR(160) NOT NULL DEFAULT 'creando experiencias.'"],
+    ['titulo_pestana', "VARCHAR(120) NOT NULL DEFAULT 'Darian · Desarrollo Full Stack'"]
+  ]
+  for (const [column, definition] of newColumns) {
+    const [found]: any = await connection.execute(`SELECT COLUMN_NAME FROM information_schema.COLUMNS
+      WHERE TABLE_SCHEMA = ? AND TABLE_NAME = 'perfil' AND COLUMN_NAME = ?`, [safeName, column])
+    if (!found.length) await connection.query(`ALTER TABLE perfil ADD COLUMN \`${column}\` ${definition}`)
+  }
   console.log(`Base ${safeName} inicializada.`)
 } finally {
   await connection.end()
