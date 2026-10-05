@@ -4,7 +4,7 @@ import { cleanText, isEmail, isUrl } from '../../utils/validators.js'
 
 const router = Router()
 
-const fields = ['nombre', 'rol', 'saludo', 'presentacion', 'descripcion', 'ubicacion', 'email', 'disponibilidad', 'retrato_url', 'cv_url', 'favicon_url'] as const
+const fields = ['nombre', 'rol', 'saludo', 'presentacion', 'descripcion', 'ubicacion', 'email', 'disponibilidad', 'retrato_url', 'cv_url', 'favicon_url', 'hero_cierre', 'titulo_pestana'] as const
 
 type ProfileData = Record<(typeof fields)[number], string>
 
@@ -19,12 +19,14 @@ const parseProfile = (body: Record<string, unknown>): ProfileData => ({
   disponibilidad: cleanText(body.disponibilidad, 120),
   retrato_url: cleanText(body.retrato_url, 500),
   cv_url: cleanText(body.cv_url, 500),
-  favicon_url: cleanText(body.favicon_url, 500)
+  favicon_url: cleanText(body.favicon_url, 500),
+  hero_cierre: cleanText(body.hero_cierre, 160),
+  titulo_pestana: cleanText(body.titulo_pestana, 120)
 })
 
 // el retrato es obligatorio; el CV y el favicon son opcionales
 const isValidProfile = (data: ProfileData): boolean => data.nombre.length >= 2 && data.rol.length >= 2 && data.presentacion.length >= 10
-  && isEmail(data.email) && Boolean(data.retrato_url) && isUrl(data.retrato_url) && isUrl(data.cv_url) && isUrl(data.favicon_url)
+  && data.hero_cierre.length >= 2 && data.titulo_pestana.length >= 2 && isEmail(data.email) && Boolean(data.retrato_url) && isUrl(data.retrato_url) && isUrl(data.cv_url) && isUrl(data.favicon_url)
 
 router.post('/admin/perfil/listar', async (req, res, next) => {
   try {

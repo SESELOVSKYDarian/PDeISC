@@ -27,5 +27,11 @@ export function AdminPage() {
     return <AdminLogin onLogin={(admin) => setState({ loading: false, admin })} />
   }
 
-  return <AdminDashboard admin={state.admin} onLogout={() => setState({ loading: false, admin: null })} />
+  return (
+    <AdminDashboard
+      admin={state.admin}
+      onLogout={() => setState({ loading: false, admin: null })}
+      onAccountUpdated={(admin) => setState({ loading: false, admin })}
+    />
+  )
 }

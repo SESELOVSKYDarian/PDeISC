@@ -10,6 +10,7 @@ import { ContactSection } from '../components/public/ContactSection'
 import { usePortfolio } from '../hooks/usePortfolio'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useFavicon } from '../hooks/useFavicon'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { useReveal } from '../hooks/useReveal'
 
 const sectionIds = ['inicio', 'sobre-mi', 'proyectos', 'experiencia', 'contacto']
@@ -19,6 +20,7 @@ export function PortfolioPage() {
   const active = useActiveSection(sectionIds, Boolean(data?.profile))
   useReveal(data)
   useFavicon(data?.profile?.favicon_url)
+  useDocumentTitle(data?.profile?.titulo_pestana)
 
   if (loading) return <main className="state-page"><div className="loader" /><p>Cargando portfolio…</p></main>
   if (error || !data?.profile) {

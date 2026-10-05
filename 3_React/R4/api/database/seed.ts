@@ -3,11 +3,13 @@ import { config } from '../src/config.js'
 import { pool, query } from '../src/services/db.js'
 import { achievements, categories, experiences, profile, projects, skills, socialLinks } from './seedData.js'
 
+// solo crea el administrador si todavía no hay ninguno: así no pisa el correo ni la contraseña cambiados desde el panel
 const seedAdmin = async () => {
+  const [existing] = await query<any[]>('SELECT id FROM administradores LIMIT 1')
+  if (existing) return
   const passwordHash = await bcrypt.hash(config.admin.password, 12)
-  await query(`INSERT INTO administradores (nombre, email, password_hash)
-    VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE nombre = VALUES(nombre), password_hash = VALUES(password_hash)`,
-  [config.admin.name, config.admin.email.toLowerCase(), passwordHash])
+  await query('INSERT INTO administradores (nombre, email, password_hash) VALUES (?, ?, ?)',
+    [config.admin.name, config.admin.email.toLowerCase(), passwordHash])
 }
 
 const seedProfile = () => query(`INSERT INTO perfil

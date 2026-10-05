@@ -11,6 +11,8 @@ export interface Profile {
   retrato_url: string;
   cv_url: string;
   favicon_url: string;
+  hero_cierre: string;
+  titulo_pestana: string;
   [key: string]: unknown;
 }
 
