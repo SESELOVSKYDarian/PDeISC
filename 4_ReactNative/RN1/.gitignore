@@ -1,0 +1,32 @@
+# dependencias
+node_modules/
+
+# entorno
+.env
+.env.*
+!.env.example
+
+# certificados locales
+certs/
+
+# builds
+dist/
+build/
+web-build/
+.expo/
+
+# logs
+*.log
+
+# skills / agentes / ia
+.skills/
+skills/
+.agents/
+.agent/
+.ai/
+.codex/
+.claude/
+.cursor/
+.windsurf/
+AGENTS.md
+CLAUDE.md
