@@ -7,7 +7,7 @@ Login, registro y entrada con Google, Meta y Discord. Estructura de carpetas en 
 
 - Node.js 20 o superior.
 - XAMPP (MySQL/MariaDB).
-- Expo Go en el celular (versión que soporte el SDK 57).
+- Expo Go en el celular (versión que soporte el SDK 58).
 - Para entrar con redes desde el celular: cuenta gratis de [ngrok](https://dashboard.ngrok.com/signup).
 
 ## Primera vez
@@ -119,7 +119,7 @@ También se pueden correr por separado: `npm run dev:api`, `npm run dev:app`, `n
 | La API dice "¿Está encendido XAMPP?" | Arrancar MySQL desde el panel de XAMPP. |
 | Google no vuelve a la app | ngrok apagado, el dominio de `OAUTH_MOVIL_BASE` distinto al de ngrok, o la URL no está en *URIs de redireccionamiento*. Esperar unos minutos tras guardar en Google. |
 | `redirect_uri_mismatch` | La URL registrada no es idéntica a `OAUTH_MOVIL_BASE` + `/auth/<red>/callback`. Copiarla de lo que imprime la API al arrancar. |
-| Error de Expo Go por versión | Actualizar Expo Go: el proyecto usa el SDK 57. |
+| Error de Expo Go por versión | Usar una versión de Expo Go compatible con SDK 58. Si todavía no está disponible en la tienda, usar un development build. |
 
 ## Seguridad
 
